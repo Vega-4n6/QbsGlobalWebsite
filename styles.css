@@ -2272,12 +2272,22 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 1.2rem 1.5rem; }
 
-  /* Hero: single column, particle canvas hidden to save space */
+  /* Hero: single column, particle canvas flows below text */
   .hero {
     grid-template-columns: 1fr;
-    padding: 2.5rem 1.5rem;
+    padding: 2.5rem 1.5rem 0;
   }
-  .particle-wrap { display: none; }
+  .particle-wrap {
+    display: flex;
+    width: 100%;
+    margin: 0 -1.5rem;
+    width: calc(100% + 3rem);
+  }
+  canvas#particles {
+    height: 220px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
 
   /* Section paddings */
   .services  { padding: 4rem 1.5rem; }

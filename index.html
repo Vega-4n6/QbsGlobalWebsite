@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J9DSDD1P29"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J9DSDD1P29');
+</script>
+<title>QBS Global — Innovation. Intelligence. Impact.</title>
+<meta name="description" content="QBS Global — Intelligent automations, AI agent deployment, and digital presence management for businesses in the UAE.">
+<meta property="og:title" content="QBS Global — Innovation. Intelligence. Impact.">
+<meta property="og:description" content="Custom workflow automation, AI agents, and digital presence management. Based in Dubai, UAE.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qbsglobal.ae">
+<meta property="og:image" content="https://qbsglobal.ae/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QBS Global — Innovation. Intelligence. Impact.">
+<meta name="twitter:description" content="Intelligent automations that eliminate manual work and deploy AI agents for your business.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+  <img src="logo.png" alt="QBS Global" style="height: 100px;">
+  </div>
+  <div style="display:flex;align-items:center;gap:0.75rem">
+    <a href="/blog" class="nav-cta">Blog</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+      <!-- Sun icon (shown in dark mode) -->
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+      <!-- Moon icon (shown in light mode) -->
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+
+  <!-- TEXT -->
+  <div class="hero-text">
+    <p class="eyebrow">Convenience of Digital Automations for Your Business</p>
+    <h1>
+      Stop Worrying<br>
+      About Your <span class="accent-word">Digital</span><br>
+      Presence. <span class="accent-word">Grow.</span>
+    </h1>
+    <p class="hero-sub">
+      We build intelligent automations that handle the busy work —
+      so you can focus on what actually moves the needle.
+    </p>
+    <div class="cta-group">
+      <button class="btn-primary" onclick="openModal()">Book a Meeting</button>
+      <button class="btn-ghost" onclick="openHowItWorks()">
+        See how it works
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+    <div class="stats">
+      <div><div class="stat-val">340+</div><div class="stat-label">Workflows Built</div></div>
+      <div><div class="stat-val">98%</div><div class="stat-label">Client Retention</div></div>
+      <div><div class="stat-val">12K+</div><div class="stat-label">Hours Saved</div></div>
+    </div>
+  </div>
+
+  <!-- PARTICLES -->
+  <div class="particle-wrap">
+    <div class="chip chip-a">
+      <div class="chip-label">Hours Saved</div>
+      <div class="chip-val">80%</div>
+    </div>
+    <div class="chip chip-b">
+      <div class="chip-label">Always Running</div>
+      <div class="chip-val">24 / 7</div>
+    </div>
+    <canvas id="particles"></canvas>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TAGLINE STATEMENT SECTION
+     ══════════════════════════════════════════════ -->
+<section class="statement" id="philosophy">
+  <div class="statement-inner">
+
+    <!-- Three pillars -->
+    <div class="statement-pillars">
+      <div class="pillar" id="pillar1">
+        <span class="pillar-word accent-pillar">Innovation</span>
+        <span class="pillar-sub">Future-first thinking</span>
+      </div>
+      <div class="pillar-sep">·</div>
+      <div class="pillar" id="pillar2">
+        <span class="pillar-word">Intelligence</span>
+        <span class="pillar-sub">Data-driven decisions</span>
+      </div>
+      <div class="pillar-sep">·</div>
+      <div class="pillar" id="pillar3">
+        <span class="pillar-word accent2-pillar">Impact</span>
+        <span class="pillar-sub">Measurable outcomes</span>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <p class="statement-quote" id="statementQuote">
+      We believe the most powerful digital solutions are born at the intersection of
+      <strong>Artificial Intelligence and Human Intuition.</strong>
+      While our engines handle the repetitive, your team focuses on what machines cannot —
+      strategy, nuance, and creativity.
+    </p>
+
+    <!-- Animated stats -->
+    <div class="statement-stats">
+      <div class="stat-block" id="stStat1">
+        <span class="stat-block-val" data-target="340">0</span>
+        <span class="stat-block-label">Workflows Deployed</span>
+      </div>
+      <div class="stat-block" id="stStat2">
+        <span class="stat-block-val" data-target="98">0</span>
+        <span class="stat-block-label">% Client Retention</span>
+      </div>
+      <div class="stat-block" id="stStat3">
+        <span class="stat-block-val" data-target="12">0</span>
+        <span class="stat-block-label">K+ Hours Saved</span>
+      </div>
+      <div class="stat-block" id="stStat4">
+        <span class="stat-block-val" data-target="48">0</span>
+        <span class="stat-block-label">Hr Turnaround</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SERVICES SECTION
+     ══════════════════════════════════════════════ -->
+<section class="services" id="services">
+
+  <div class="section-header svc-reveal">
+    <p class="section-eyebrow">What We Do</p>
+    <h2 class="section-title">Automation Built<br>For <span class="accent-word">Real Business</span></h2>
+    <p class="section-sub">We don't sell software. We engineer outcomes — connecting your tools, streamlining your workflows, and deploying intelligent agents that work while you sleep.</p>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="svc-tabs svc-reveal">
+    <button class="svc-tab active" onclick="switchTab(0)"><span class="tab-num">01</span> Workflow & Process</button>
+    <button class="svc-tab" onclick="switchTab(1)"><span class="tab-num">02</span> AI & Intelligent Agents</button>
+    <button class="svc-tab" onclick="switchTab(2)"><span class="tab-num">03</span> Digital Presence</button>
+    <button class="svc-tab" onclick="switchTab(3)"><span class="tab-num">04</span> HR Automation</button>
+  </div>
+
+  <!-- ── TAB 1: Workflow and Process Optimization ── -->
+  <div class="svc-panel active" id="svcPanel0">
+    <div class="svc-grid">
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">09</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="10" rx="2"/>
+            <circle cx="12" cy="5" r="2"/>
+            <path d="M12 7v4M8 16h0M12 16h0M16 16h0"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Custom Workflow Engineering</h3>
+        <p class="svc-card-desc">Seamlessly connecting disparate business applications to eliminate manual data entry and human error — so your team stops copy-pasting and starts closing.</p>
+        <span class="svc-card-tag">Integration Layer</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">10</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Dynamic CRM Integration</h3>
+        <p class="svc-card-desc">Automatically syncing validated leads, communications, and customer data directly into your central sales systems — your CRM stays current without anyone touching it.</p>
+        <span class="svc-card-tag">Sales Automation</span>
+      </div>
+      
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">11</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Automated Document Processing</h3>
+        <p class="svc-card-desc">Intelligent parsing to automatically extract, categorize, and route information from invoices, contracts, and forms — turning paperwork into structured, actionable data.</p>
+        <span class="svc-card-tag">Data Extraction</span>
+      </div>
+      
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">12</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Custom Web Applications</h3>
+        <p class="svc-card-desc">Building bespoke, scalable web-based tools tailored to your specific operational needs — giving your team a centralized, intuitive hub to manage complex business processes.</p>
+        <span class="svc-card-tag">Custom Platform</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TAB 2: AI and Intelligent Agents ── -->
+  <div class="svc-panel" id="svcPanel1">
+    <div class="svc-grid">
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">05</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Secure AI Agent Deployment</h3>
+        <p class="svc-card-desc">Implementing safe, monitored AI assistants that augment your workforce while keeping a "Human-in-the-Loop" (HITL) for critical approvals and quality control.</p>
+        <span class="svc-card-tag">Human-in-the-Loop</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">06</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">AI-Powered Decision Pipelines</h3>
+        <p class="svc-card-desc">Automated logic workflows that route tasks and trigger actions based on predictive data analysis — your business makes smarter decisions faster, without waiting on a human in the loop.</p>
+        <span class="svc-card-tag">Predictive Logic</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">07</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Industry-Specific AI Agents</h3>
+        <p class="svc-card-desc">Custom-training intelligent agents on your unique sector data to handle specialized tasks—from healthcare triaging to financial forecasting—with expert precision.</p>
+        <span class="svc-card-tag">Specialized AI</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">08</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Conversational Support Bots</h3>
+        <p class="svc-card-desc">Deploying responsive, natural-language AI chatbots that resolve customer queries instantly around the clock, dramatically reducing your support ticket volume.</p>
+        <span class="svc-card-tag">24/7 Engagement</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TAB 3: Digital Presence ── -->
+  <div class="svc-panel" id="svcPanel2">
+    <div class="svc-grid">
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">01</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Business Branding</h3>
+        <p class="svc-card-desc">Establishing a compelling visual identity and cohesive messaging strategy to ensure your brand stands out and builds lasting trust with your target market.</p>
+        <span class="svc-card-tag">Identity</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">02</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Social Media Audits</h3>
+        <p class="svc-card-desc">Deep-dive analysis of your current channels to identify performance gaps, uncover growth opportunities, and refine your digital engagement strategy.</p>
+        <span class="svc-card-tag">Optimization</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">03</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Web Portfolio Development</h3>
+        <p class="svc-card-desc">Designing responsive, high-converting digital storefronts that showcase your work and seamlessly guide visitors from initial interest to final inquiry.</p>
+        <span class="svc-card-tag">Showcase</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">04</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Scheduled Content Delivery</h3>
+        <p class="svc-card-desc">Automating the distribution of your marketing assets across platforms to maintain consistent brand visibility without daily manual effort.</p>
+        <span class="svc-card-tag">Consistent Delivery</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TAB 4: Human Resource Service ── -->
+  <div class="svc-panel" id="svcPanel3">
+    <div class="svc-grid">
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">13</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Automated Recruitment Pipelines</h3>
+        <p class="svc-card-desc">Streamlining candidate sourcing, screening, and scheduling with intelligent workflows that reduce time-to-hire and ensure no talent slips through the cracks.</p>
+        <span class="svc-card-tag">Talent Acquisition</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">14</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Training and Development</h3>
+        <p class="svc-card-desc">Offering corporate training, professional workshops, coaching, and other skill-development programs for employees</p>
+        <span class="svc-card-tag">Resource Development</span>
+      </div>
+
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">15</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">Onboarding & Compliance</h3>
+        <p class="svc-card-desc">Digitalizing the new hire experience with automated contract generation, document collection, and compliance checks — getting your team productive from day one.</p>
+        <span class="svc-card-tag">Employee Lifecycle</span>
+      </div>
+      
+      <div class="svc-card svc-reveal">
+        <span class="svc-card-num">16</span>
+        <div class="svc-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <h3 class="svc-card-title">HR Performance Analytics</h3>
+        <p class="svc-card-desc">Aggregating employee data into centralized, easy-to-read dashboards to track engagement, evaluate performance metrics, and make data-driven workforce decisions.</p>
+        <span class="svc-card-tag">People Insights</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Philosophy Strip -->
+  <div class="philosophy-strip svc-reveal">
+    <div class="phil-block">
+      <div class="phil-block-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <h4>AI as Co-Pilot, Not Replacement</h4>
+      <p>Our automation engines handle repetitive workflows and data-heavy tasks — freeing your team to focus on what machines cannot: <strong>high-level strategy, cultural nuance, and creative problem-solving.</strong></p>
+    </div>
+    <div class="phil-divider"></div>
+    <div class="phil-block">
+      <div class="phil-block-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h4>Privacy-First by Architecture</h4>
+      <p>Every AI deployment we build can run <strong>entirely on your own infrastructure.</strong> No third-party data exposure, no vendor lock-in, no compromise on confidentiality.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── MARQUEE TICKER ── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <!-- Duplicated for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>Workflow Automation</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Lead Generation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>AI-Powered Systems</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> CRM Integrations</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>Social Media Management</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Social Scheduling</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>Data Pipelines</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> 340+ Workflows Live</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>Workflow Automation</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Lead Generation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>AI-Powered Systems</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> CRM Integration</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>Email Sequences</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Social Scheduling</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> <strong>Data Pipelines</strong></span>
+    <span class="marquee-item"><span class="marquee-dot"></span> 340+ Workflows Live</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CONTACT SECTION
+     ══════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+
+  <div class="contact-grid">
+
+    <!-- LEFT: Info -->
+    <div class="contact-reveal" id="contactLeft">
+      <p class="section-eyebrow">Get in Touch</p>
+      <h2 class="section-title">Let's Talk<br><span class="accent-word">Automation</span></h2>
+      <p class="contact-intro">
+        Have a process that's eating your team's time? A workflow that breaks every week?
+        We'd love to take a look. No pitch decks, no pressure — just a real conversation.
+      </p>
+
+      <div class="contact-details">
+        <!-- Phone -->
+        <a class="contact-detail" href="tel:+971561814519">
+          <div class="contact-detail-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.12 1.19 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="contact-detail-label">Phone / WhatsApp</span>
+            <span class="contact-detail-val">+971 56 181 4519</span>
+          </div>
+        </a>
+
+        <!-- Email -->
+        <a class="contact-detail" href="mailto:sales@qbsglobal.ae">
+          <div class="contact-detail-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <span class="contact-detail-label">Email</span>
+            <span class="contact-detail-val">sales@qbsglobal.ae</span>
+          </div>
+        </a>
+
+        <!-- Location -->
+        <div class="contact-detail" style="cursor:default">
+          <div class="contact-detail-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6b6b80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <span class="contact-detail-label">Based In</span>
+            <span class="contact-detail-val">Dubai, United Arab Emirates</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="contact-location">Available Sunday – Thursday, 9am – 6pm GST</p>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="contact-form-wrap contact-reveal delay-1" id="contactRight">
+      <h3 class="contact-form-title">Send a Message</h3>
+      <p class="contact-form-sub">Prefer to write first? We respond within 24 hours.</p>
+
+      <div id="contactFormInner">
+        <div class="cf-row">
+          <div class="cf-field">
+            <label>First Name</label>
+            <input type="text" id="cf-fname" placeholder="Jane">
+          </div>
+          <div class="cf-field">
+            <label>Last Name</label>
+            <input type="text" id="cf-lname" placeholder="Doe">
+          </div>
+        </div>
+        <div class="cf-row full">
+          <div class="cf-field">
+            <label>Email</label>
+            <input type="email" id="cf-email" placeholder="jane@company.com">
+          </div>
+        </div>
+        <div class="cf-row full">
+          <div class="cf-field">
+            <label>I'm interested in…</label>
+            <select id="cf-interest">
+              <option value="" disabled selected>Select a service area</option>
+              <option>Workflow & Process Automation</option>
+              <option>AI Agent Deployment</option>
+              <option>CRM Integration</option>
+              <option>Digital Presence Management</option>
+              <option>Not sure — need a consultation</option>
+            </select>
+          </div>
+        </div>
+        <div class="cf-row full">
+          <div class="cf-field">
+            <label>Message</label>
+            <textarea id="cf-message" placeholder="Tell us what you're working on or struggling with…"></textarea>
+          </div>
+        </div>
+
+        <button class="cf-submit" id="cfSubmitBtn" onclick="submitContactForm()">
+          Send Message
+        </button>
+        <p class="cf-privacy">By submitting you agree to our privacy policy. We never share your data.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PRE-FOOTER CTA BAND ── -->
+<div class="cta-band">
+  <div>
+    <p class="cta-band-label">Ready to scale?</p>
+    <h3>Stop doing it manually.<br>Start automating today.</h3>
+    <p>Most clients see results within the first two weeks. No long-term contracts.</p>
+  </div>
+  <div class="cta-band-actions">
+    <button class="btn-primary" onclick="openAuditModal()" style="white-space:nowrap">Free Social Audit</button>
+    <a href="#contact" style="font-size:0.78rem;color:var(--muted);text-decoration:none;text-align:center;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Get in touch →</a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+
+    <!-- Brand col -->
+    <div class="footer-brand">
+      <div class="logo">QBS Global</div>
+      <p>Intelligent automations that free your team from repetitive work — so you can focus on what actually grows your business.</p>
+      <p style="font-size:0.78rem;margin-top:-0.8rem;margin-bottom:1.4rem">
+        <span style="color:var(--accent2)">+971 56 181 4519</span> &nbsp;·&nbsp;
+        <a href="mailto:sales@qbsglobal.ae" style="color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">sales@qbsglobal.ae</a>
+      </p>
+      <div class="socials">
+        <!-- X / Twitter -->
+        <!-- LinkedIn -->
+        <a class="social-btn" href="https://www.linkedin.com/company/qbs-global" target="_blank" aria-label="LinkedIn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <!-- Instagram -->
+        <a class="social-btn" href="https://www.instagram.com/qbsglobal.uae/" target="_blank" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <!-- Facebook -->
+        <a class="social-btn" href="https://www.facebook.com/profile.php?id=61552292641066" target="_blank" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Services col -->
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Workflow Automation</a></li>
+        <li><a href="#">Lead Generation</a></li>
+        <li><a href="#services">CRM Integration</a></li>
+        <li><a href="#">Email Marketing</a></li>
+        <li><a href="#services">AI Consulting</a></li>
+      </ul>
+    </div>
+
+    <!-- Company col -->
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#philosophy">About Us</a></li>
+        <li><a href="#">Our Work</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter col -->
+    <div class="footer-col">
+      <h4>Stay in the loop</h4>
+      <p style="font-size:0.83rem;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:1rem">Automation tips, case studies, and updates — no spam.</p>
+      <div class="newsletter-row">
+        <input type="email" placeholder="your@email.com">
+        <button>Go</button>
+      </div>
+      <p style="font-size:0.68rem;color:var(--muted);margin-top:0.6rem;opacity:0.7">No spam. Unsubscribe any time.</p>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <p>Managed by <span>Vega</span>. ©2026  <span>QBS Global</span> All rights reserved.</p>
+<p style="display:flex;gap:1.5rem">
+      <a href="#" style="color:var(--muted);text-decoration:none;font-size:0.76rem;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="#" style="color:var(--muted);text-decoration:none;font-size:0.76rem;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Terms of Service</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Large ghost wordmark -->
+<div class="footer-wordmark">QBS GLOBAL</div>
+
+<!-- ══════════════════════════════════════════════
+     HOW IT WORKS OVERLAY
+     ══════════════════════════════════════════════ -->
+<div class="hiw-overlay" id="hiwOverlay">
+  <div class="hiw-backdrop" onclick="closeHowItWorks()"></div>
+
+  <div class="hiw-panel">
+    <button class="hiw-close" onclick="closeHowItWorks()" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <p class="hiw-eyebrow">Our Process</p>
+    <h2 class="hiw-title">From First Click to Full Clarity</h2>
+    <p class="hiw-subtitle">
+      No fluff, no guesswork. Just a clear path from where you are to <strong>where you want to be</strong> — in 48 hours.
+    </p>
+
+    <!-- Timeline badge -->
+    <div class="hiw-timeline">
+      <div class="hiw-timeline-dot"></div>
+      <span>Everything below happens within <strong>48 hours</strong> of booking</span>
+    </div>
+
+    <!-- 4 Steps + 3 Connectors -->
+    <div class="hiw-steps" id="hiwSteps">
+
+      <!-- Step 1 -->
+      <div class="hiw-step" id="hiwStep1">
+        <div class="hiw-icon-wrap" data-n="1">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            <circle cx="12" cy="15" r="1.5" fill="#ffe500"/>
+          </svg>
+        </div>
+        <div class="hiw-step-label">You Book</div>
+        <p class="hiw-step-desc">Pick a date and time that works for you. 30 seconds, zero commitment.</p>
+      </div>
+
+      <!-- Connector 1 -->
+      <div class="hiw-connector">
+        <div class="hiw-connector-line" id="hiwLine1">
+          <div class="hiw-connector-dot"></div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="hiw-step" id="hiwStep2">
+        <div class="hiw-icon-wrap" data-n="2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#47c8ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/>
+          </svg>
+        </div>
+        <div class="hiw-step-label">We Assess</div>
+        <p class="hiw-step-desc">Before you show up, we silently audit your website, SEO, social, and digital footprint.</p>
+      </div>
+
+      <!-- Connector 2 -->
+      <div class="hiw-connector">
+        <div class="hiw-connector-line" id="hiwLine2">
+          <div class="hiw-connector-dot"></div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="hiw-step" id="hiwStep3">
+        <div class="hiw-icon-wrap" data-n="3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <div class="hiw-step-label">We Meet</div>
+        <p class="hiw-step-desc">We present your findings, listen to your goals, and take a deep dive into your challenges.</p>
+      </div>
+
+      <!-- Connector 3 -->
+      <div class="hiw-connector">
+        <div class="hiw-connector-line" id="hiwLine3">
+          <div class="hiw-connector-dot"></div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="hiw-step" id="hiwStep4">
+        <div class="hiw-icon-wrap" data-n="4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#47c8ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="hiw-step-label">You Get a Plan</div>
+        <p class="hiw-step-desc">A tailored automation roadmap lands in your inbox. Clear priorities, real timelines, no jargon.</p>
+      </div>
+
+    </div><!-- /hiw-steps -->
+
+    <!-- Footer CTA -->
+    <div class="hiw-footer">
+      <p>Most clients leave that first meeting saying <strong>"I wish I'd done this sooner."</strong> No obligation. Just clarity.</p>
+      <button class="btn-primary" onclick="closeHowItWorks(); openModal();" style="white-space:nowrap; flex-shrink:0">
+        Book My Free Meeting
+      </button>
+    </div>
+
+  </div><!-- /hiw-panel -->
+</div><!-- /hiw-overlay -->
+
+<!-- ── BOOKING MODAL ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div style="height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+    <div class="modal-inner">
+
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Header -->
+      <p class="modal-tag">QBS Global</p>
+      <h2 class="modal-title" id="modalTitle">Book a Meeting</h2>
+      <p class="modal-sub">Let's talk about automating your growth. Takes 30 seconds.</p>
+
+      <!-- Steps indicator -->
+      <div class="modal-steps">
+        <div class="step-dot active" id="dot1">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3">3</div>
+      </div>
+
+      <!-- ── STEP 1: About you ── -->
+      <div class="step-panel active" id="step1">
+        <div class="field-row">
+          <div class="field" id="f-fname">
+            <label>First Name</label>
+            <input type="text" id="fname" placeholder="Jane" autocomplete="given-name">
+            <span class="field-err">Required</span>
+          </div>
+          <div class="field" id="f-lname">
+            <label>Last Name</label>
+            <input type="text" id="lname" placeholder="Doe" autocomplete="family-name">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="f-email">
+            <label>Work Email</label>
+            <input type="email" id="email" placeholder="jane@company.com" autocomplete="email">
+            <span class="field-err">Enter a valid email</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="f-company">
+            <label>Company / Business</label>
+            <input type="text" id="company" placeholder="Acme Inc.">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Pick a time ── -->
+      <div class="step-panel" id="step2">
+        <div class="field-row single" style="margin-bottom:1.2rem">
+          <div class="field" id="f-date">
+            <label>Preferred Date</label>
+            <input type="date" id="meetdate">
+            <span class="field-err">Please pick a date</span>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0.6rem">
+          <label>Available Time Slots (your local time)</label>
+        </div>
+        <div class="time-grid" id="timeGrid">
+          <div class="time-slot" onclick="pickTime(this)">9:00 AM</div>
+          <div class="time-slot" onclick="pickTime(this)">10:00 AM</div>
+          <div class="time-slot" onclick="pickTime(this)">11:00 AM</div>
+          <div class="time-slot" onclick="pickTime(this)">1:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">2:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">3:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">4:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">5:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">6:00 PM</div>
+        </div>
+        <span class="field-err" id="time-err" style="display:none;margin-top:0.2rem">Please select a time slot</span>
+      </div>
+
+      <!-- ── STEP 3: Goals ── -->
+      <div class="step-panel" id="step3">
+        <div class="field-row single">
+          <div class="field" id="f-service">
+            <label>What are you looking to automate?</label>
+            <select id="service">
+              <option value="" disabled selected>Select an area…</option>
+              <option>Lead Generation & Outreach</option>
+              <option>Social Media & Content</option>
+              <option>CRM & Email Workflows</option>
+              <option>Internal Business Processes</option>
+              <option>E-commerce & Fulfilment</option>
+              <option>Data & Reporting</option>
+              <option>Not sure — need a consultation</option>
+            </select>
+            <span class="field-err">Please select an option</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>Anything else? <span style="color:var(--muted);font-size:0.65rem;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <textarea id="notes" placeholder="Tell us a bit about your current setup or goals…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SUCCESS ── -->
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e8ff47" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3 class="success-title">You're Booked!</h3>
+        <p class="success-msg">We've received your request and will send a calendar invite to <strong id="confirmEmail"></strong> shortly. Looking forward to chatting!</p>
+        <button class="btn-next" onclick="closeModal()">Close</button>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="modal-footer" id="modalFooter">
+        <button class="btn-back hidden" id="btnBack" onclick="prevStep()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Back
+        </button>
+        <button class="btn-next" id="btnNext" onclick="nextStep()">Continue</button>
+      </div>
+
+    </div><!-- /modal-inner -->
+  </div><!-- /modal -->
+</div><!-- /overlay -->
+
+<!-- ── Free Social Audit Modal ── -->
+<div class="modal-overlay" id="auditOverlay" onclick="handleAuditOverlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="auditModalTitle">
+    <div style="height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+    <div class="modal-inner">
+
+      <button class="modal-close" onclick="closeAuditModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Header -->
+      <p class="modal-tag">QBS Global</p>
+      <h2 class="modal-title" id="auditModalTitle">Free Social Audit</h2>
+      <p class="modal-sub">Share your social profiles and we'll send you a personalised audit — free, no strings attached.</p>
+
+      <!-- Form -->
+      <div id="auditForm">
+        <div class="field-row">
+          <div class="field" id="af-fname">
+            <label>First Name</label>
+            <input type="text" id="a-fname" placeholder="Jane" autocomplete="given-name">
+            <span class="field-err">Required</span>
+          </div>
+          <div class="field" id="af-lname">
+            <label>Last Name</label>
+            <input type="text" id="a-lname" placeholder="Doe" autocomplete="family-name">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="af-email">
+            <label>Email</label>
+            <input type="email" id="a-email" placeholder="jane@company.com" autocomplete="email">
+            <span class="field-err">Enter a valid email</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="af-phone">
+            <label>Phone Number</label>
+            <input type="tel" id="a-phone" placeholder="+971 50 000 0000" autocomplete="tel">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="af-company">
+            <label>Company / Business</label>
+            <input type="text" id="a-company" placeholder="Acme Inc.">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="af-url1">
+            <label>Social Profile URL 1</label>
+            <input type="url" id="a-url1" placeholder="https://instagram.com/yourbrand">
+            <span class="field-err">Enter a valid URL</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>Social Profile URL 2 <span style="color:var(--muted);font-size:0.65rem;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <input type="url" id="a-url2" placeholder="https://linkedin.com/company/yourbrand">
+          </div>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="modal-success" id="auditSuccess">
+        <div class="success-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e8ff47" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3 class="success-title">Request Received!</h3>
+        <p class="success-msg">We'll review your profiles and send your free audit to <strong id="auditConfirmEmail"></strong> within 24–48 hours.</p>
+        <button class="btn-next" onclick="closeAuditModal()">Close</button>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer" id="auditFooter">
+        <span></span>
+        <button class="btn-next" id="btnAuditSubmit" onclick="submitAudit()">Get My Free Audit</button>
+      </div>
+
+    </div><!-- /modal-inner -->
+  </div><!-- /modal -->
+</div><!-- /audit overlay -->
+
+<script>
+(function () {
+  const canvas = document.getElementById('particles');
+  const ctx    = canvas.getContext('2d');
+
+  // ── Colors from CSS vars ──
+  const C_ACCENT  = { r: 232, g: 255, b: 71  };
+  const C_ACCENT2 = { r: 71,  g: 200, b: 255 };
+  const C_DIM     = { r: 107, g: 107, b: 128 };
+
+  // ── Config ──
+  const COUNT          = 62;   // number of particles
+  const MAX_DIST       = 110;  // max px to draw a connection line
+  const SPEED          = 0.28; // base drift speed
+  const PULSE_SPEED    = 0.012;
+  const MIN_R          = 1.2;
+  const MAX_R          = 3.2;
+
+  let W, H, dpr;
+  let particles = [];
+  let frame = 0;
+
+  // ── Resize ──
+  function resize() {
+    const wrap = canvas.parentElement;
+    const rect = wrap.getBoundingClientRect();
+    dpr = window.devicePixelRatio || 1;
+    W   = rect.width  || 520;
+    H   = canvas.offsetHeight || 460;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  // ── Particle factory ──
+  function mkParticle(x, y) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = SPEED * (0.4 + Math.random() * 0.9);
+    // Assign one of three color roles
+    const roll = Math.random();
+    const color = roll < 0.18 ? C_ACCENT : roll < 0.38 ? C_ACCENT2 : C_DIM;
+    return {
+      x: x !== undefined ? x : Math.random() * W,
+      y: y !== undefined ? y : Math.random() * H,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      r:  MIN_R + Math.random() * (MAX_R - MIN_R),
+      color,
+      // Each particle has its own phase for the pulse
+      phase: Math.random() * Math.PI * 2,
+      pulseSpeed: PULSE_SPEED * (0.7 + Math.random() * 0.8),
+      // "special" node: larger, brighter, acts like a hub
+      hub: Math.random() < 0.12,
+    };
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: COUNT }, () => mkParticle());
+  }
+
+  // ── Helpers ──
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function rgba(c, a) {
+    return `rgba(${c.r},${c.g},${c.b},${a.toFixed(3)})`;
+  }
+
+  // ── Mouse proximity: gently attract nearby particles ──
+  let mouse = { x: -999, y: -999 };
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+  function drawWithMouse() {
+    // Nudge particles near cursor
+    for (const p of particles) {
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const d  = Math.hypot(dx, dy);
+      if (d < 90 && d > 0) {
+        const force = 0.012 * (1 - d / 90);
+        p.vx += dx / d * force;
+        p.vy += dy / d * force;
+      }
+    }
+  }
+
+  // Override draw to include mouse nudge
+  function loop() {
+    drawWithMouse();
+    ctx.clearRect(0, 0, W, H);
+
+    frame++;
+    const t = frame * 0.016;
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -20) p.x = W + 20;
+      if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20;
+      if (p.y > H + 20) p.y = -20;
+      p.vx += (Math.random() - 0.5) * 0.007;
+      p.vy += (Math.random() - 0.5) * 0.007;
+      const spd = Math.hypot(p.vx, p.vy);
+      const maxSpd = SPEED * 1.8;
+      if (spd > maxSpd) { p.vx *= maxSpd / spd; p.vy *= maxSpd / spd; }
+    }
+
+    // Connections
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist > MAX_DIST) continue;
+        const baseAlpha = (1 - dist / MAX_DIST) * 0.18;
+        const alpha     = (a.hub || b.hub) ? baseAlpha * 2.8 : baseAlpha;
+        const cr = Math.round(lerp(a.color.r, b.color.r, 0.5));
+        const cg = Math.round(lerp(a.color.g, b.color.g, 0.5));
+        const cb = Math.round(lerp(a.color.b, b.color.b, 0.5));
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(${cr},${cg},${cb},${alpha.toFixed(3)})`;
+        ctx.lineWidth   = (a.hub || b.hub) ? 0.8 : 0.45;
+        ctx.stroke();
+      }
+    }
+
+    // Particles
+    for (const p of particles) {
+      const pulse  = 0.55 + 0.45 * Math.sin(t / p.pulseSpeed * PULSE_SPEED * 2 + p.phase);
+      const alpha  = p.hub ? 0.75 * pulse + 0.2 : 0.45 * pulse + 0.1;
+      const radius = p.hub ? p.r * 1.7 : p.r;
+
+      if (p.hub) {
+        const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 5);
+        grd.addColorStop(0, rgba(p.color, 0.18 * pulse));
+        grd.addColorStop(1, rgba(p.color, 0));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius * 5, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(p.color, alpha);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+    // reposition particles that are now out of bounds
+    for (const p of particles) {
+      if (p.x > W) p.x = Math.random() * W;
+      if (p.y > H) p.y = Math.random() * H;
+    }
+  });
+
+  init();
+  loop();
+})();
+
+// ── MODAL LOGIC ──────────────────────────────────────────
+let currentStep = 1;
+const TOTAL_STEPS = 3;
+
+function openModal() {
+  currentStep = 1;
+  renderStep();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('meetdate').setAttribute('min', today);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Reset after transition
+  setTimeout(resetModal, 350);
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function resetModal() {
+  currentStep = 1;
+  document.getElementById('modalSuccess').classList.remove('active');
+  document.getElementById('modalFooter').style.display = '';
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.field').forEach(f => f.classList.remove('invalid'));
+  document.getElementById('step1').classList.add('active');
+  document.querySelector('form') && document.querySelector('form').reset();
+  ['fname','lname','email','company','meetdate','service','notes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('picked'));
+  document.getElementById('time-err').style.display = 'none';
+  renderStep();
+}
+
+function renderStep() {
+  // Panels
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    document.getElementById('step' + i).classList.toggle('active', i === currentStep);
+  }
+
+  // Dots
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    const dot = document.getElementById('dot' + i);
+    dot.classList.remove('active', 'done');
+    if (i < currentStep)       dot.classList.add('done'),   dot.innerHTML = '✓';
+    else if (i === currentStep) dot.classList.add('active'), dot.innerHTML = i;
+    else                        dot.innerHTML = i;
+  }
+
+  // Lines
+  for (let i = 1; i < TOTAL_STEPS; i++) {
+    document.getElementById('line' + i).classList.toggle('done', i < currentStep);
+  }
+
+  // Back button
+  const back = document.getElementById('btnBack');
+  back.classList.toggle('hidden', currentStep === 1);
+
+  // Next button label
+  const next = document.getElementById('btnNext');
+  next.textContent = currentStep === TOTAL_STEPS ? 'Confirm Booking' : 'Continue';
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep < TOTAL_STEPS) {
+    currentStep++;
+    renderStep();
+  } else {
+    submitBooking();
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    renderStep();
+  }
+}
+
+function pickTime(el) {
+  document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('picked'));
+  el.classList.add('picked');
+  document.getElementById('time-err').style.display = 'none';
+}
+
+function validateStep(step) {
+  let ok = true;
+
+  function check(fieldId, inputId, testFn) {
+    const wrap  = document.getElementById(fieldId);
+    const input = document.getElementById(inputId);
+    const valid = testFn(input ? input.value.trim() : '');
+    wrap && wrap.classList.toggle('invalid', !valid);
+    if (!valid) ok = false;
+  }
+
+  if (step === 1) {
+    check('f-fname', 'fname',   v => v.length > 0);
+    check('f-lname', 'lname',   v => v.length > 0);
+    check('f-email', 'email',   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    check('f-company','company',v => v.length > 0);
+  }
+
+  if (step === 2) {
+    check('f-date', 'meetdate', v => v.length > 0);
+    const picked = document.querySelector('.time-slot.picked');
+    if (!picked) {
+      document.getElementById('time-err').style.display = 'block';
+      ok = false;
+    }
+  }
+
+  if (step === 3) {
+    check('f-service', 'service', v => v.length > 0);
+  }
+
+  return ok;
+}
+
+// ── Free Social Audit Modal ──
+function openAuditModal() {
+  document.getElementById('auditOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuditModal() {
+  document.getElementById('auditOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    document.getElementById('auditSuccess').classList.remove('active');
+    document.getElementById('auditFooter').style.display = '';
+    document.getElementById('auditForm').style.display = '';
+    ['a-fname','a-lname','a-email','a-phone','a-company','a-url1','a-url2'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    ['af-fname','af-lname','af-email','af-phone','af-company','af-url1'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('invalid');
+    });
+  }, 350);
+}
+
+function handleAuditOverlayClick(e) {
+  if (e.target === document.getElementById('auditOverlay')) closeAuditModal();
+}
+
+function submitAudit() {
+  // Validate
+  let ok = true;
+  const required = [
+    { id: 'a-fname',   wrap: 'af-fname' },
+    { id: 'a-lname',   wrap: 'af-lname' },
+    { id: 'a-email',   wrap: 'af-email',   email: true },
+    { id: 'a-phone',   wrap: 'af-phone' },
+    { id: 'a-company', wrap: 'af-company' },
+    { id: 'a-url1',    wrap: 'af-url1',    url: true },
+  ];
+  required.forEach(({ id, wrap, email, url }) => {
+    const el = document.getElementById(id);
+    const wrapEl = document.getElementById(wrap);
+    let valid = el.value.trim() !== '';
+    if (valid && email) valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+    if (valid && url) {
+      try { new URL(el.value.trim()); } catch { valid = false; }
+    }
+    wrapEl.classList.toggle('invalid', !valid);
+    if (!valid) ok = false;
+  });
+  if (!ok) return;
+
+  const btn = document.getElementById('btnAuditSubmit');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const payload = {
+    source:    'social-audit',
+    firstName: document.getElementById('a-fname').value.trim(),
+    lastName:  document.getElementById('a-lname').value.trim(),
+    email:     document.getElementById('a-email').value.trim(),
+    phone:     document.getElementById('a-phone').value.trim(),
+    company:   document.getElementById('a-company').value.trim(),
+    url1:      document.getElementById('a-url1').value.trim(),
+    url2:      document.getElementById('a-url2').value.trim(),
+  };
+
+  fetch('https://n8n.srv1381788.hstgr.cloud/webhook/FreeSocialAudit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).finally(() => {
+    btn.disabled = false;
+    btn.textContent = 'Get My Free Audit';
+    document.getElementById('auditForm').style.display = 'none';
+    document.getElementById('auditFooter').style.display = 'none';
+    document.getElementById('auditConfirmEmail').textContent = payload.email;
+    document.getElementById('auditSuccess').classList.add('active');
+  });
+}
+
+function submitBooking() {
+  const btn = document.getElementById('btnNext');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const pickedTime = document.querySelector('.time-slot.picked');
+
+  const payload = {
+    source:    'booking-modal',
+    firstName: document.getElementById('fname').value.trim(),
+    lastName:  document.getElementById('lname').value.trim(),
+    email:     document.getElementById('email').value.trim(),
+    company:   document.getElementById('company').value.trim(),
+    date:      document.getElementById('meetdate').value,
+    time:      pickedTime ? pickedTime.textContent.trim() : '',
+    service:   document.getElementById('service').value,
+    notes:     document.getElementById('notes').value.trim(),
+  };
+
+  fetch('https://n8n.srv1381788.hstgr.cloud/webhook/BookAMeeting', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).finally(() => {
+    btn.disabled = false;
+
+    // Show success screen regardless of network outcome
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('confirmEmail').textContent = payload.email;
+    document.getElementById('modalSuccess').classList.add('active');
+    document.getElementById('modalFooter').style.display = 'none';
+
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const dot = document.getElementById('dot' + i);
+      dot.classList.remove('active');
+      dot.classList.add('done');
+      dot.innerHTML = '✓';
+    }
+    document.getElementById('line1').classList.add('done');
+    document.getElementById('line2').classList.add('done');
+  });
+}
+
+// ── SERVICES TAB SWITCHER ────────────────────────────────
+function switchTab(index) {
+  document.querySelectorAll('.svc-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+  document.querySelectorAll('.svc-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+  setTimeout(() => revealOnScroll(), 50);
+}
+
+// ── SCROLL REVEAL (services + contact + statement) ────────
+let countersStarted = false;
+
+function revealOnScroll() {
+  const vh = window.innerHeight * 0.92;
+
+  // Service cards
+  document.querySelectorAll('.svc-reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < vh) el.classList.add('revealed');
+  });
+
+  // Contact section
+  document.querySelectorAll('.contact-reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < vh) el.classList.add('revealed');
+  });
+
+  // Statement pillars
+  ['pillar1','pillar2','pillar3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < vh) {
+      setTimeout(() => el.classList.add('revealed'), i * 150);
+    }
+  });
+
+  // Statement quote
+  const sq = document.getElementById('statementQuote');
+  if (sq && sq.getBoundingClientRect().top < vh) sq.classList.add('revealed');
+
+  // Stat blocks
+  ['stStat1','stStat2','stStat3','stStat4'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < vh) {
+      setTimeout(() => el.classList.add('revealed'), i * 100);
+    }
+  });
+
+  // Trigger counters once statement section is visible
+  if (!countersStarted) {
+    const statsEl = document.querySelector('.statement-stats');
+    if (statsEl && statsEl.getBoundingClientRect().top < vh) {
+      countersStarted = true;
+      startCounters();
+    }
+  }
+}
+
+function startCounters() {
+  document.querySelectorAll('.stat-block-val[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.parentElement.querySelector('.stat-block-label').textContent.includes('K+') ? 'K+' :
+                   el.parentElement.querySelector('.stat-block-label').textContent.includes('%') ? '%' : '+';
+    const duration = 1400;
+    const step = 16;
+    const increment = target / (duration / step);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(current) + suffix;
+    }, step);
+  });
+}
+
+// ── CONTACT FORM ─────────────────────────────────────────
+function submitContactForm() {
+  const fname = document.getElementById('cf-fname').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const message = document.getElementById('cf-message').value.trim();
+
+  if (!fname || !email || !message) {
+    // Shake the button
+    const btn = document.getElementById('cfSubmitBtn');
+    btn.style.transform = 'translateX(-4px)';
+    setTimeout(() => btn.style.transform = 'translateX(4px)', 80);
+    setTimeout(() => btn.style.transform = 'translateX(0)', 160);
+    return;
+  }
+
+  const btn = document.getElementById('cfSubmitBtn');
+  btn.textContent = 'Sending…';
+  btn.style.opacity = '0.7';
+
+  fetch('https://n8n.srv1381788.hstgr.cloud/webhook/0c7aa318-bc4b-4258-862c-f9d765199649/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ firstName: fname, lastName: document.getElementById('cf-lname').value.trim(), email, interest: document.getElementById('cf-interest').value, message, source: 'contact-form' })
+  }).then(() => {
+    btn.textContent = '\u2713 Message Sent \u2014 We\'ll be in touch!';
+    btn.classList.add('sent');
+    ['cf-fname','cf-lname','cf-email','cf-message'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    document.getElementById('cf-interest').selectedIndex = 0;
+  }).catch(() => {
+    btn.textContent = '\u2713 Received \u2014 we\'ll be in touch at ' + email;
+    btn.classList.add('sent');
+  });
+}
+
+window.addEventListener('scroll', revealOnScroll, { passive: true });
+window.addEventListener('load', () => setTimeout(revealOnScroll, 120));
+
+// ── HOW IT WORKS OVERLAY ─────────────────────────────────
+function openHowItWorks() {
+  document.getElementById('hiwOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Trigger step animations in sequence
+  const delays = [100, 400, 700, 1000];
+  const lineDelays = [300, 600, 900];
+  ['hiwStep1','hiwStep2','hiwStep3','hiwStep4'].forEach((id, i) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
+    }, delays[i]);
+  });
+  ['hiwLine1','hiwLine2','hiwLine3'].forEach((id, i) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('lit');
+    }, lineDelays[i]);
+  });
+}
+
+function closeHowItWorks() {
+  document.getElementById('hiwOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Reset animations for next open
+  setTimeout(() => {
+    ['hiwStep1','hiwStep2','hiwStep3','hiwStep4'].forEach(id => {
+      document.getElementById(id)?.classList.remove('visible');
+    });
+    ['hiwLine1','hiwLine2','hiwLine3'].forEach(id => {
+      document.getElementById(id)?.classList.remove('lit');
+    });
+  }, 400);
+}
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('hiwOverlay').classList.contains('open')) closeHowItWorks();
+    if (document.getElementById('modalOverlay').classList.contains('open')) closeModal();
+  }
+});
+
+// ── Theme toggle ──
+(function () {
+  const saved = localStorage.getItem('qbs-theme');
+  if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+})();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isLight = html.getAttribute('data-theme') === 'light';
+  html.setAttribute('data-theme', isLight ? '' : 'light');
+  localStorage.setItem('qbs-theme', isLight ? 'dark' : 'light');
+}
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+     AI CHAT WIDGET
+     ─ Mount point:  #qbs-chat-target
+     ─ Styles:       widget.css  (must be in the same folder)
+     ─ To update:    change webhookUrl, title, subtitle,
+                     initialMessages below.
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- Widget panel mount point -->
+<div id="qbs-chat-target"></div>
+
+<!-- Custom launcher button (bottom-right) -->
+<button id="af-chat-launcher" aria-label="Open AI assistant" onclick="toggleChat()">
+  <svg class="icon-chat" width="22" height="22" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+  </svg>
+  <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+    <path d="M18 6L6 18M6 6l12 12"/>
+  </svg>
+  <span class="notif-dot" id="notifDot"></span>
+</button>
+
+<!-- n8n Chat Widget -->
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+  createChat({
+    // ── UPDATE THIS when you create a new n8n workflow ──
+    webhookUrl: 'https://n8n.srv1381788.hstgr.cloud/webhook/0c7aa318-bc4b-4258-862c-f9d765199649/chat',
+
+    target: '#qbs-chat-target',
+    mode: 'fullscreen',
+    showWelcomeScreen: false,
+
+    // ── UPDATE: opening messages shown to the visitor ──
+    initialMessages: [
+      'Hi there! 👋 Welcome to QBS Global.',
+      'I\'m your AI assistant — ask me anything about our services!'
+    ],
+
+    i18n: {
+      en: {
+        // ── UPDATE: widget header text ──
+        title: 'QBS Global',
+        subtitle: 'Website Assistant',
+        getStarted: 'New Conversation',
+        inputPlaceholder: 'How may I help you…',
+        footer: '',
+      },
+    },
+  });
+</script>
+
+<!-- Widget open/close toggle -->
+<script>
+  let chatOpen = false;
+
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    const target   = document.getElementById('qbs-chat-target');
+    const launcher = document.getElementById('af-chat-launcher');
+    const dot      = document.getElementById('notifDot');
+
+    target.classList.toggle('is-open', chatOpen);
+    launcher.classList.toggle('is-open', chatOpen);
+
+    if (chatOpen && dot) dot.style.display = 'none';
+
+    // Re-apply styles every time we open, catching any lazy-rendered elements
+    if (chatOpen) setTimeout(applyWidgetStyles, 100);
+  }
+
+  // Forcefully style whatever n8n has rendered inside #qbs-chat-target
+  function applyWidgetStyles() {
+    const root = document.getElementById('qbs-chat-target');
+    if (!root) return;
+
+    const A  = '#ffe500';
+    const A2 = '#47c8ff';
+    const BG = '#0f0f1a';
+    const BG2 = '#161625';
+    const TEXT = '#f0f0f5';
+    const MUTED = '#6b6b80';
+    const BORDER = 'rgba(255,255,255,0.07)';
+
+    // Walk all elements and style by tag / attribute heuristics
+    const all = root.querySelectorAll('*');
+    all.forEach(el => {
+      const tag = el.tagName.toLowerCase();
+      const cn  = (el.className || '').toString().toLowerCase();
+
+      // Base font
+      el.style.fontFamily = "'DM Sans', sans-serif";
+      el.style.borderRadius = '0';
+
+      // Backgrounds — panels
+      if (tag === 'div' && (cn.includes('window') || cn.includes('chat') || cn.includes('app') || cn.includes('container'))) {
+        el.style.background = BG;
+        el.style.color = TEXT;
+      }
+
+      // Header area
+      if (cn.includes('header')) {
+        el.style.background = BG;
+        el.style.borderBottom = `1px solid ${BORDER}`;
+        el.style.padding = '1rem 1.2rem';
+        el.style.flexShrink = '0';
+      }
+
+      // Title
+      if (cn.includes('title') && !cn.includes('subtitle')) {
+        el.style.fontFamily = "'Bebas Neue', cursive";
+        el.style.fontSize = '1.2rem';
+        el.style.letterSpacing = '0.1em';
+        el.style.color = TEXT;
+        el.style.fontWeight = 'normal';
+      }
+
+      // Subtitle
+      if (cn.includes('subtitle')) {
+        el.style.fontSize = '0.72rem';
+        el.style.color = MUTED;
+        el.style.fontWeight = '300';
+      }
+
+      // Messages list
+      if (cn.includes('message') && (cn.includes('list') || cn.includes('container') || cn.includes('wrapper'))) {
+        el.style.background = BG;
+        el.style.padding = '1rem 1.2rem';
+        el.style.flex = '1';
+        el.style.overflowY = 'auto';
+      }
+
+      // Individual message bubbles
+      if (cn.includes('message') && cn.includes('bot')) {
+        el.style.background = BG2;
+        el.style.border = `1px solid ${BORDER}`;
+        el.style.padding = '0.7rem 0.95rem';
+        el.style.maxWidth = '85%';
+        el.style.alignSelf = 'flex-start';
+        el.style.borderRadius = '0 8px 8px 8px';
+      }
+      if (cn.includes('message') && cn.includes('user')) {
+        el.style.background = 'rgba(255,229,0,0.1)';
+        el.style.border = '1px solid rgba(255,229,0,0.2)';
+        el.style.padding = '0.7rem 0.95rem';
+        el.style.maxWidth = '85%';
+        el.style.alignSelf = 'flex-end';
+        el.style.borderRadius = '8px 0 8px 8px';
+      }
+
+      // Welcome screen
+      if (cn.includes('welcome') || cn.includes('get-started') || cn.includes('getstarted')) {
+        el.style.background = BG;
+        el.style.display = 'flex';
+        el.style.flexDirection = 'column';
+        el.style.alignItems = 'center';
+        el.style.justifyContent = 'center';
+        el.style.textAlign = 'center';
+        el.style.flex = '1';
+        el.style.padding = '2rem 1.5rem';
+      }
+
+      // Input footer area
+      if (cn.includes('footer') || cn.includes('input-wrapper') || cn.includes('inputwrapper')) {
+        el.style.background = BG;
+        el.style.borderTop = `1px solid ${BORDER}`;
+        el.style.padding = '0.85rem 1rem';
+        el.style.display = 'flex';
+        el.style.alignItems = 'center';
+        el.style.gap = '0.5rem';
+        el.style.flexShrink = '0';
+      }
+
+      // Hide "powered by" branding
+      if (cn.includes('powered') || cn.includes('branding') || cn.includes('footer-text')) {
+        el.style.display = 'none';
+      }
+
+      // Input fields
+      if (tag === 'input' || tag === 'textarea') {
+        el.style.background = 'rgba(255,255,255,0.04)';
+        el.style.border = `1px solid ${BORDER}`;
+        el.style.color = TEXT;
+        el.style.padding = '0.65rem 0.9rem';
+        el.style.flex = '1';
+        el.style.outline = 'none';
+        el.style.resize = 'none';
+        el.style.fontSize = '0.88rem';
+      }
+
+      // Buttons
+      if (tag === 'button') {
+        // Send button (submit)
+        if (el.type === 'submit' || cn.includes('send')) {
+          el.style.background = A;
+          el.style.color = '#0a0a0f';
+          el.style.border = 'none';
+          el.style.width = '38px';
+          el.style.height = '38px';
+          el.style.minWidth = '38px';
+          el.style.cursor = 'pointer';
+          el.style.display = 'flex';
+          el.style.alignItems = 'center';
+          el.style.justifyContent = 'center';
+          el.style.flexShrink = '0';
+          el.style.clipPath = 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))';
+        }
+        // Start/welcome button
+        if (cn.includes('start') || cn.includes('begin') || cn.includes('new-conversation') || cn.includes('newconversation') || el.closest('[class*="welcome"]')) {
+          el.style.background = A;
+          el.style.color = '#0a0a0f';
+          el.style.border = 'none';
+          el.style.padding = '0.85rem 2rem';
+          el.style.fontWeight = '500';
+          el.style.letterSpacing = '0.08em';
+          el.style.textTransform = 'uppercase';
+          el.style.cursor = 'pointer';
+          el.style.marginTop = '1rem';
+          el.style.fontSize = '0.85rem';
+        }
+      }
+
+      // SVG icons inside send button — make them dark
+      if (tag === 'svg' && el.closest('button[type="submit"], [class*="send"]')) {
+        el.style.color = '#0a0a0f';
+        el.style.stroke = '#0a0a0f';
+        el.style.fill = '#0a0a0f';
+      }
+    });
+
+    // Ensure the root child (main panel) has correct bg + shadow
+    // Ensure the root child (main panel) has correct bg + shadow
+    const panel = root.firstElementChild;
+    if (panel) {
+      panel.style.background = BG;
+      panel.style.border = '1px solid rgba(255,255,255,0.08)';
+      panel.style.boxShadow = '0 24px 60px rgba(0,0,0,0.6)';
+      panel.style.height = window.innerWidth <= 600 ? 'calc(100vh - 80px)' : '580px';
+      panel.style.display = 'flex';
+      panel.style.flexDirection = 'column';
+      panel.style.overflow = 'hidden';
+      panel.style.borderRadius = '0';
+    }
+  }
+</script>
+
+</body>
+</html>

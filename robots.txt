@@ -1,0 +1,12 @@
+# robots.txt — QBS Global
+# https://qbsglobal.ae
+
+User-agent: *
+Allow: /
+
+# Block any admin or private paths (add as needed)
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://qbsglobal.ae/sitemap.xml

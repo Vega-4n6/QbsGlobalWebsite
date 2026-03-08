@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VegaMind — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060910;
+      --surface: #0d1117;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(99,220,180,0.35);
+      --accent: #63dcb4;
+      --accent2: #4fa8e8;
+      --text: #e8edf5;
+      --muted: #5a6478;
+      --error: #ff6b6b;
+      --input-bg: rgba(255,255,255,0.04);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient background */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 60%;
+      height: 70%;
+      background: radial-gradient(ellipse, rgba(99,220,180,0.06) 0%, transparent 70%);
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 55%;
+      height: 65%;
+      background: radial-gradient(ellipse, rgba(79,168,232,0.06) 0%, transparent 70%);
+    }
+
+    /* Grid texture */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: #060910;
+      letter-spacing: -1px;
+    }
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+    .logo-name span {
+      color: var(--accent);
+    }
+
+    /* Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,220,180,0.4), transparent);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* Form */
+    .field {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+    input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px 12px 42px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    input::placeholder { color: var(--muted); }
+    input:focus {
+      border-color: var(--border-hover);
+      background: rgba(99,220,180,0.03);
+      box-shadow: 0 0 0 3px rgba(99,220,180,0.08);
+    }
+    input:focus + svg,
+    .input-wrap:focus-within svg { color: var(--accent); }
+
+    /* Password toggle */
+    .eye-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      transition: color 0.2s;
+    }
+    .eye-btn:hover { color: var(--text); }
+
+    /* Error message */
+    .error-msg {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,107,107,0.08);
+      border: 1px solid rgba(255,107,107,0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--error);
+      margin-bottom: 20px;
+      animation: shake 0.4s ease;
+    }
+    .error-msg.show { display: flex; }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    /* Submit button */
+    .btn {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: #060910;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(99,220,180,0.2);
+    }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(6,9,16,0.3);
+      border-top-color: #060910;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto;
+    }
+    .btn.loading .btn-text { display: none; }
+    .btn.loading .spinner { display: block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer link */
+    .card-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .card-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .card-footer a:hover { text-decoration: underline; }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Success state */
+    .success-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: var(--surface);
+      border-radius: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 10;
+      animation: fadeIn 0.4s ease both;
+    }
+    .success-overlay.show { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(99,220,180,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(99,220,180,0.3);
+    }
+    .success-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .success-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Tenant badge */
+    .tenant-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99,220,180,0.08);
+      border: 1px solid rgba(99,220,180,0.2);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 36px;
+    }
+    .tenant-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+
+  <div class="container">
+    <div class="logo">
+      <div class="logo-mark">VM</div>
+      <div class="logo-name">Vega<span>Mind</span></div>
+    </div>
+
+    <div class="tenant-badge">
+      <div class="tenant-dot"></div>
+      Dashboard Portal
+    </div>
+
+    <div class="card">
+      <!-- Success overlay -->
+      <div class="success-overlay" id="successOverlay">
+        <div class="success-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="#63dcb4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <div class="success-text">Welcome back</div>
+        <div class="success-sub">Redirecting to dashboard...</div>
+      </div>
+
+      <div class="card-title">Sign in</div>
+      <div class="card-subtitle">Access your VegaMind tenant dashboard</div>
+
+      <!-- Error message -->
+      <div class="error-msg" id="errorMsg">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke="#ff6b6b" stroke-width="2"/>
+          <path stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" d="M12 8v4M12 16h.01"/>
+        </svg>
+        <span id="errorText">Invalid email or password.</span>
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <div class="input-wrap">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7l8 5 8-5M4 7h16v13H4V7z"/>
+          </svg>
+          <input type="email" id="email" placeholder="you@company.com" autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <div class="input-wrap">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+            <rect x="5" y="11" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M8 11V7a4 4 0 018 0v4"/>
+          </svg>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+          <button class="eye-btn" id="eyeBtn" type="button" title="Toggle password">
+            <svg id="eyeIcon" width="16" height="16" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn" id="loginBtn" onclick="handleLogin()">
+        <span class="btn-text">Sign in</span>
+        <div class="spinner"></div>
+      </button>
+
+      <div class="card-footer">
+        Forgot your password? <a href="#" onclick="handleReset(event)">Reset it</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    // ── Config ──────────────────────────────────────────────────────────────
+    const SUPABASE_URL = 'https://lyiqesxemmisigccslfn.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_vrtqJqLhB7Nw8viAFZPKCw_k2mpMzkS';
+
+    // Role-based destination
+    function getDashboardUrl(session) {
+      try {
+        const payload = JSON.parse(atob(session.access_token.split('.')[1]));
+        const role = payload.user_role || payload.app_metadata?.role || '';
+        return role === 'super_admin' ? 'vegamind-admin.html' : 'VM-clientDashboard.html';
+      } catch(e) {
+        return 'VM-clientDashboard.html';
+      }
+    }
+
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ── Auto-redirect if already logged in ──────────────────────────────────
+    (async () => {
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) window.location.href = getDashboardUrl(session);
+    })();
+
+    // ── Password toggle ──────────────────────────────────────────────────────
+    const eyeBtn = document.getElementById('eyeBtn');
+    const pwInput = document.getElementById('password');
+    eyeBtn.addEventListener('click', () => {
+      const isHidden = pwInput.type === 'password';
+      pwInput.type = isHidden ? 'text' : 'password';
+      eyeBtn.innerHTML = isHidden
+        ? `<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`
+        : `<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>`;
+    });
+
+    // ── Enter key support ───────────────────────────────────────────────────
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleLogin();
+    });
+
+    // ── Show/hide error ─────────────────────────────────────────────────────
+    function showError(msg) {
+      const el = document.getElementById('errorMsg');
+      document.getElementById('errorText').textContent = msg;
+      el.classList.add('show');
+    }
+    function hideError() {
+      document.getElementById('errorMsg').classList.remove('show');
+    }
+
+    // ── Login handler ───────────────────────────────────────────────────────
+    async function handleLogin() {
+      hideError();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+
+      if (!email || !password) {
+        showError('Please enter your email and password.');
+        return;
+      }
+
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        showError(error.message === 'Invalid login credentials'
+          ? 'Invalid email or password.'
+          : error.message);
+        return;
+      }
+
+      // Show success, then redirect
+      document.getElementById('successOverlay').classList.add('show');
+      setTimeout(() => {
+        window.location.href = getDashboardUrl(data.session);
+      }, 1200);
+    }
+
+    // ── Password reset ──────────────────────────────────────────────────────
+    async function handleReset(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if (!email) {
+        showError('Enter your email address first, then click Reset.');
+        return;
+      }
+      const { error } = await sb.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/reset-password.html'
+      });
+      if (error) {
+        showError(error.message);
+      } else {
+        hideError();
+        alert(`Password reset email sent to ${email}`);
+      }
+    }
+  </script>
+</body>
+</html>

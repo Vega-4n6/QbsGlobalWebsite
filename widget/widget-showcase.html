@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VegaMind Widget — Theme Showcase</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#fff;min-height:100vh;}
+
+    .hero{
+      text-align:center;padding:64px 32px 40px;
+      background:linear-gradient(135deg,#0f0f0f 0%,#1a1a2e 100%);
+    }
+    .hero h1{font-size:36px;font-weight:700;margin-bottom:10px;}
+    .hero h1 span{color:#2ECC71;}
+    .hero p{font-size:16px;color:#aaa;max-width:520px;margin:0 auto 32px;}
+
+    .plans{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;max-width:1000px;margin:0 auto;padding:0 24px 64px;
+    }
+
+    .plan-card{
+      background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;
+      padding:28px;transition:border-color .2s,transform .2s;
+    }
+    .plan-card:hover{border-color:#444;transform:translateY(-2px);}
+
+    .plan-badge{
+      display:inline-block;font-size:11px;font-weight:600;
+      padding:3px 10px;border-radius:20px;margin-bottom:14px;
+    }
+    .badge-starter{background:#1B4F72;color:#7EC8E3;}
+    .badge-pro{background:#2d1b69;color:#a78bfa;}
+    .badge-enterprise{background:#1a2e1a;color:#4ade80;}
+
+    .plan-card h2{font-size:20px;font-weight:600;margin-bottom:6px;}
+    .plan-card p{font-size:13.5px;color:#888;line-height:1.6;margin-bottom:20px;}
+
+    .theme-list{margin-bottom:20px;}
+    .theme-list p{font-size:12px;color:#666;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+    .theme-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .theme-tag{
+      font-size:11.5px;padding:4px 10px;border-radius:20px;
+      border:1px solid #333;color:#aaa;cursor:pointer;
+      transition:background .15s,color .15s,border-color .15s;
+    }
+    .theme-tag:hover{background:#2a2a2a;color:#fff;border-color:#555;}
+    .theme-tag.active{border-color:#2ECC71;color:#2ECC71;background:rgba(46,204,113,.08);}
+
+    .demo-btn{
+      width:100%;padding:11px;border-radius:8px;
+      font-size:14px;font-weight:500;cursor:pointer;border:none;
+      transition:filter .15s,transform .1s;
+    }
+    .demo-btn:hover{filter:brightness(1.1);}
+    .demo-btn:active{transform:scale(.98);}
+    .btn-starter{background:#1B4F72;color:#fff;}
+    .btn-pro{background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;}
+    .btn-enterprise{background:linear-gradient(135deg,#10B981,#059669);color:#fff;}
+
+    .features{list-style:none;margin-bottom:20px;}
+    .features li{font-size:13px;color:#999;padding:4px 0;display:flex;align-items:center;gap:8px;}
+    .features li::before{content:'✓';color:#2ECC71;font-weight:700;font-size:12px;}
+    .features li.locked::before{content:'✕';color:#555;}
+    .features li.locked{color:#555;}
+
+    .note{
+      text-align:center;font-size:13px;color:#555;
+      padding:0 24px 48px;max-width:700px;margin:0 auto;
+    }
+    .note code{
+      background:#1a1a1a;border:1px solid #333;
+      padding:2px 6px;border-radius:4px;font-size:12px;color:#aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>VegaMind <span>Widget Themes</span></h1>
+  <p>Click a plan card to load that widget version. Each button swaps the active widget so you can compare themes live.</p>
+</div>
+
+<div class="plans">
+
+  <!-- Starter -->
+  <div class="plan-card">
+    <span class="plan-badge badge-starter">STARTER</span>
+    <h2>loader.js</h2>
+    <p>Clean and minimal. Perfect for getting started. Branding always shown.</p>
+    <div class="theme-list">
+      <p>Theme</p>
+      <div class="theme-tags">
+        <span class="theme-tag active">minimal</span>
+      </div>
+    </div>
+    <ul class="features">
+      <li>Minimal theme</li>
+      <li>Basic color overrides</li>
+      <li>"Powered by VegaMind" shown</li>
+      <li class="locked">Theme selection</li>
+      <li class="locked">Custom branding</li>
+      <li class="locked">Custom avatar</li>
+    </ul>
+    <button class="demo-btn btn-starter" onclick="loadWidget('starter','minimal')">
+      Preview Starter Widget
+    </button>
+  </div>
+
+  <!-- Pro -->
+  <div class="plan-card">
+    <span class="plan-badge badge-pro">PRO</span>
+    <h2>loader-pro.js</h2>
+    <p>Full theme control. Remove branding. Match any client's brand identity.</p>
+    <div class="theme-list">
+      <p>Pick a theme</p>
+      <div class="theme-tags" id="pro-themes">
+        <span class="theme-tag active" onclick="selectProTheme(this,'minimal')">minimal</span>
+        <span class="theme-tag" onclick="selectProTheme(this,'bold')">bold</span>
+        <span class="theme-tag" onclick="selectProTheme(this,'dark')">dark</span>
+        <span class="theme-tag" onclick="selectProTheme(this,'soft')">soft</span>
+        <span class="theme-tag" onclick="selectProTheme(this,'qbs')">qbs</span>
+      </div>
+    </div>
+    <ul class="features">
+      <li>All 5 themes</li>
+      <li>Full color overrides</li>
+      <li>Optional branding</li>
+      <li>Custom font + sizing</li>
+      <li class="locked">Custom avatar image</li>
+      <li class="locked">Raw CSS injection</li>
+    </ul>
+    <button class="demo-btn btn-pro" onclick="loadWidget('pro', currentProTheme)">
+      Preview Pro Widget
+    </button>
+  </div>
+
+  <!-- Enterprise -->
+  <div class="plan-card">
+    <span class="plan-badge badge-enterprise">ENTERPRISE</span>
+    <h2>loader-enterprise.js</h2>
+    <p>Full white-label. Custom avatar, CSS injection, no VegaMind branding.</p>
+    <div class="theme-list">
+      <p>Pick a theme</p>
+      <div class="theme-tags" id="ent-themes">
+        <span class="theme-tag active" onclick="selectEntTheme(this,'qbs')">qbs</span>
+        <span class="theme-tag" onclick="selectEntTheme(this,'bold')">bold</span>
+        <span class="theme-tag" onclick="selectEntTheme(this,'dark')">dark</span>
+        <span class="theme-tag" onclick="selectEntTheme(this,'soft')">soft</span>
+        <span class="theme-tag" onclick="selectEntTheme(this,'minimal')">minimal</span>
+      </div>
+    </div>
+    <ul class="features">
+      <li>All themes + custom</li>
+      <li>Custom avatar image URL</li>
+      <li>Raw CSS injection</li>
+      <li>No VegaMind branding</li>
+      <li>Dedicated support</li>
+      <li>SLA guaranteed</li>
+    </ul>
+    <button class="demo-btn btn-enterprise" onclick="loadWidget('enterprise', currentEntTheme)">
+      Preview Enterprise Widget
+    </button>
+  </div>
+
+</div>
+
+<p class="note">
+  All widgets use the same <code>widget-core.js</code> engine and connect to the same Supabase backend.
+  The only difference is which <code>loader*.js</code> file is embedded on the client's site.
+</p>
+
+<script>
+  const WIDGET_KEY = 'a3009929caf14908bd21c1538883f82891d6a0159e7b0178';
+  const BASE       = 'https://qbsglobal.ae/widget/';
+
+  let currentProTheme = 'minimal';
+  let currentEntTheme = 'qbs';
+
+  function selectProTheme(el, theme) {
+    document.querySelectorAll('#pro-themes .theme-tag').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    currentProTheme = theme;
+  }
+  function selectEntTheme(el, theme) {
+    document.querySelectorAll('#ent-themes .theme-tag').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    currentEntTheme = theme;
+  }
+
+  function loadWidget(plan, theme) {
+    // Remove existing widget
+    const existing = document.getElementById('vm-root');
+    if (existing) existing.remove();
+    const existingStyle = document.querySelectorAll('style[data-vm]');
+    existingStyle.forEach(s => s.remove());
+    window.__VegaMindLoaded = false;
+    window.__VegaMindCore   = null;
+
+    // Remove old scripts
+    document.querySelectorAll('script[data-vm]').forEach(s => s.remove());
+
+    const loaderMap = {
+      starter:    'loader.js',
+      pro:        'loader-pro.js',
+      enterprise: 'loader-enterprise.js',
+    };
+
+    window.VegaMindConfig = {
+      widgetKey:  WIDGET_KEY,
+      theme:      theme,
+      botName:    plan === 'enterprise' ? 'Aria' : 'VegaMind',
+      poweredBy:  plan === 'starter' ? true : false,
+      // Enterprise demo — custom CSS injection example
+      customCSS:  plan === 'enterprise'
+        ? '#vm-header { letter-spacing: 0.5px; } #vm-header-name { font-size: 15px; }'
+        : '',
+    };
+
+    // Load core first
+    const core    = document.createElement('script');
+    core.src      = BASE + 'widget-core.js?t=' + Date.now();
+    core.setAttribute('data-vm', '1');
+    document.head.appendChild(core);
+
+    // Load plan loader after short delay
+    setTimeout(() => {
+      const loader  = document.createElement('script');
+      loader.src    = BASE + loaderMap[plan] + '?t=' + Date.now();
+      loader.setAttribute('data-vm', '1');
+      document.head.appendChild(loader);
+    }, 100);
+  }
+
+  // Load starter by default on page load
+  window.addEventListener('load', () => loadWidget('starter', 'minimal'));
+</script>
+
+</body>
+</html>

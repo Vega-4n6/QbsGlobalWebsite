@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VegaMind Widget Test</title>
+</head>
+<body style="background:#f0f0f0;font-family:sans-serif;padding:40px">
+<h2>VegaMind Widget Debug Page</h2>
+<p>The widget should appear bottom-right. Check console (F12) for errors.</p>
+<div id="log" style="background:#fff;padding:20px;border-radius:8px;margin-top:20px;font-size:13px;font-family:monospace"></div>
+
+<script>
+function log(msg,c){var d=document.createElement('div');d.style.cssText='padding:4px 0;border-bottom:1px solid #eee;color:'+(c||'#333');d.textContent=new Date().toLocaleTimeString()+' - '+msg;document.getElementById('log').appendChild(d);console.log('[VM]',msg)}
+var origFetch=window.fetch;
+window.fetch=function(url,opts){var u=typeof url==='string'?url.split('?')[0]:'Request';log('FETCH: '+u,'#06c');return origFetch.apply(this,arguments).then(function(r){log('RESPONSE: '+r.status+' from '+u,r.ok?'green':'red');return r}).catch(function(e){log('FETCH ERROR: '+e.message,'red');throw e})};
+log('Page loaded');
+</script>
+
+<script>
+  window.VegaMindConfig = {
+    widgetKey: "e8ee00597185b34278fd94188eefa501abeb4a8aaa4ad03f"
+  };
+</script>
+<script src="https://qbsglobal.ae/widget/loader.js" async></script>
+
+<script src="https://qbsglobal.ae/widget/loader.js?v=5"
+  onload="log('loader.js LOADED','green')"
+  onerror="log('loader.js FAILED TO LOAD','red')"></script>
+
+<script>
+setTimeout(function(){
+  var root=document.getElementById('vm-root');
+  if(root){
+    log('vm-root element FOUND','green');
+    log('Has shadowRoot: '+(!!root.shadowRoot),'blue');
+    if(root.shadowRoot){
+      var panel=root.shadowRoot.getElementById('panel');
+      var bbl=root.shadowRoot.getElementById('bbl');
+      log('Shadow panel: '+(panel?'FOUND':'MISSING'),panel?'green':'red');
+      log('Shadow bubble: '+(bbl?'FOUND':'MISSING'),bbl?'green':'red');
+    }
+  } else {
+    log('vm-root NOT FOUND - widget did not render','red');
+    log('__VegaMindLoaded = '+window.__VegaMindLoaded);
+    log('typeof __VegaMindCore = '+typeof window.__VegaMindCore);
+  }
+},3000);
+</script>
+</body>
+</html>

@@ -423,25 +423,25 @@
 
     <!-- Left: text -->
     <div class="vm-intro-text">
-      <span class="eyebrow vm-eyebrow">Built by QBS Global</span>
-      <h2 class="vm-headline">Meet<br><span class="vm-brand-name">VegaMind</span></h2>
-      <p class="vm-sub">Your always-on AI web assistant — trained on your business, deployed on your site, turning visitors into clients while you sleep.</p>
+      <span class="eyebrow vm-eyebrow vm-reveal" data-delay="0">Built by QBS Global</span>
+      <h2 class="vm-headline vm-reveal" data-delay="130">Meet<br><span class="vm-brand-name">VegaMind</span></h2>
+      <p class="vm-sub vm-reveal" data-delay="260">Your always-on AI web assistant — trained on your business, deployed on your site, turning visitors into clients while you sleep.</p>
 
-      <ul class="vm-features">
+      <ul class="vm-features vm-reveal" data-delay="390">
         <li><span class="vm-feat-dot"></span>Instant, accurate answers from your own knowledge base</li>
         <li><span class="vm-feat-dot"></span>Captures leads &amp; books meetings automatically</li>
         <li><span class="vm-feat-dot"></span>Speaks your brand's voice — not a generic chatbot</li>
         <li><span class="vm-feat-dot"></span>Multilingual: Arabic &amp; English out of the box</li>
       </ul>
 
-      <a href="/VegaMind/VM-landing.html" class="vm-cta-btn">
+      <a href="/VegaMind/VM-landing.html" class="vm-cta-btn vm-reveal" data-delay="520">
         Explore VegaMind
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
     <!-- Right: chat mockup -->
-    <div class="vm-intro-visual">
+    <div class="vm-intro-visual vm-reveal vm-reveal-right" data-delay="100">
       <div class="vm-chat-card">
         <div class="vm-chat-header">
           <div class="vm-avatar">
@@ -457,13 +457,7 @@
           </div>
         </div>
 
-        <div class="vm-chat-body">
-          <div class="vm-msg vm-bot">Hi! I'm VegaMind, your AI assistant. How can I help you today?</div>
-          <div class="vm-msg vm-user">What automation services do you offer?</div>
-          <div class="vm-msg vm-bot">We build custom workflow automations, AI integrations, CRM pipelines, and social media systems — all tailored to your business needs.</div>
-          <div class="vm-msg vm-user">Can I book a free consultation?</div>
-          <div class="vm-msg vm-bot vm-bot-cta">Absolutely! <a href="/VegaMind/VM-landing.html" class="vm-inline-link">Click here to get started</a> — I'll connect you with the team right away. <span class="vm-emoji">🚀</span></div>
-        </div>
+        <div class="vm-chat-body" id="vmChatBody"></div>
 
         <div class="vm-chat-input-bar">
           <span class="vm-input-placeholder">Ask me anything…</span>
@@ -486,6 +480,98 @@
 
   </div>
 </section>
+
+<script>
+(function() {
+  /* ── Scroll Reveal ─────────────────────────────────── */
+  var revealEls = document.querySelectorAll('.vm-reveal');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      var delay = parseInt(el.dataset.delay || 0);
+      setTimeout(function() { el.classList.add('vm-revealed'); }, delay);
+      revealObs.unobserve(el);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  revealEls.forEach(function(el) { revealObs.observe(el); });
+
+  /* ── Chat Replay ───────────────────────────────────── */
+  var MSGS = [
+    { role: 'bot',  text: "Hi! I'm VegaMind, your AI assistant. How can I help you today?" },
+    { role: 'user', text: "What automation services do you offer?" },
+    { role: 'bot',  text: "We build custom workflow automations, AI integrations, CRM pipelines, and social media systems — all tailored to your business needs." },
+    { role: 'user', text: "Can I book a free consultation?" },
+    { role: 'bot',  html: 'Absolutely! <a href="/VegaMind/VM-landing.html" class="vm-inline-link">Click here to get started</a> — I\'ll connect you with the team right away. <span class="vm-emoji">🚀</span>', cta: true }
+  ];
+
+  var body = document.getElementById('vmChatBody');
+  if (!body) return;
+
+  var idx = 0, loopTimer = null;
+
+  function scrollBody() {
+    setTimeout(function() { body.scrollTop = body.scrollHeight; }, 20);
+  }
+
+  function showTyping() {
+    var el = document.createElement('div');
+    el.className = 'vm-typing-dots'; el.id = 'vmTyping';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(el);
+    scrollBody();
+  }
+
+  function hideTyping() {
+    var el = document.getElementById('vmTyping');
+    if (el) el.remove();
+  }
+
+  function appendMsg(msg) {
+    var el = document.createElement('div');
+    var cls = 'vm-msg vm-msg-animated ' + (msg.role === 'bot' ? 'vm-bot' : 'vm-user');
+    if (msg.cta) cls += ' vm-bot-cta';
+    el.className = cls;
+    if (msg.html) { el.innerHTML = msg.html; } else { el.textContent = msg.text; }
+    body.appendChild(el);
+    scrollBody();
+  }
+
+  function step() {
+    if (idx >= MSGS.length) {
+      loopTimer = setTimeout(function() { body.innerHTML = ''; idx = 0; step(); }, 3200);
+      return;
+    }
+    var msg = MSGS[idx];
+    if (msg.role === 'bot') {
+      showTyping();
+      var raw = msg.text || (msg.html || '').replace(/<[^>]+>/g, '');
+      var dur = Math.max(850, Math.min(1600, raw.length * 14));
+      loopTimer = setTimeout(function() {
+        hideTyping(); appendMsg(msg); idx++;
+        loopTimer = setTimeout(step, 520);
+      }, dur);
+    } else {
+      loopTimer = setTimeout(function() {
+        appendMsg(msg); idx++;
+        loopTimer = setTimeout(step, 320);
+      }, 650);
+    }
+  }
+
+  /* Start replay when section enters viewport */
+  var section = document.querySelector('.vm-intro-section');
+  var started = false;
+  var startObs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !started) {
+      started = true;
+      startObs.disconnect();
+      step();
+    }
+  }, { threshold: 0.25 });
+  if (section) startObs.observe(section);
+})();
+</script>
 
 <!-- ── MARQUEE TICKER ── -->
 <div class="marquee-wrap">

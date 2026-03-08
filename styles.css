@@ -82,9 +82,10 @@ nav {
   letter-spacing: 0.15em;
   color: var(--accent);
 }
-.logo-light { display: none; }
-[data-theme="light"] .logo-dark  { display: none; }
-[data-theme="light"] .logo-light { display: block; }
+/* Nav logo toggle — scoped to nav to avoid footer conflicts */
+nav .logo-light { display: none; }
+[data-theme="light"] nav .logo-dark  { display: none; }
+[data-theme="light"] nav .logo-light { display: inline-block; }
 
 .nav-cta {
   background: transparent;
@@ -2286,7 +2287,16 @@ footer {
 
 /* ── Tablets & medium phones ── */
 @media (max-width: 768px) {
-  nav { padding: 1.2rem 1.5rem; }
+  nav { padding: 0.9rem 1.2rem; }
+
+  /* Logo: cap width so it doesn't crowd the right-side controls */
+  nav .logo img { max-height: 48px; max-width: 38vw; width: auto; }
+
+  /* Hide Blog CTA on mobile — saves ~90px; blog still reachable by URL */
+  nav .nav-cta { display: none; }
+
+  /* Tighten right-side gap */
+  nav > div:last-child { gap: 0.5rem; }
 
   /* Hero: single column, particle canvas flows below text */
   .hero {
@@ -2354,7 +2364,9 @@ footer {
 
 /* Extra tight on very small phones */
 @media (max-width: 390px) {
-  nav { padding: 1rem; }
+  nav { padding: 0.8rem 1rem; }
+  nav .logo img { max-height: 40px; max-width: 36vw; }
+  .lang-switch { padding: 0.22rem 0.45rem; font-size: 0.7rem; }
   .hero { padding: 1.5rem 1rem; }
   .services, .statement, .contact { padding: 3rem 1rem; }
   footer { padding: 2.5rem 1rem 0; }

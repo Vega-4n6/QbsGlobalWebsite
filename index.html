@@ -415,6 +415,72 @@
 
 </section>
 
+<!-- ── VEGAMIND INTRO ── -->
+<section class="vm-intro-section">
+  <canvas id="vmCanvas" class="vm-canvas"></canvas>
+  <div class="vm-intro-glow"></div>
+  <div class="vm-intro-inner">
+
+    <!-- Left: text -->
+    <div class="vm-intro-text">
+      <span class="eyebrow vm-eyebrow vm-reveal" data-delay="0">Built by QBS Global</span>
+      <h2 class="vm-headline vm-reveal" data-delay="80">Meet<br><span class="vm-brand-name">VegaMind</span></h2>
+      <p class="vm-sub vm-reveal" data-delay="160">Your always-on AI web assistant — trained on your business, deployed on your site, turning visitors into clients while you sleep.</p>
+
+      <ul class="vm-features">
+        <li class="vm-reveal" data-delay="240"><span class="vm-feat-dot"></span>Instant, accurate answers from your own knowledge base</li>
+        <li class="vm-reveal" data-delay="310"><span class="vm-feat-dot"></span>Captures leads &amp; books meetings automatically</li>
+        <li class="vm-reveal" data-delay="380"><span class="vm-feat-dot"></span>Speaks your brand's voice — not a generic chatbot</li>
+        <li class="vm-reveal" data-delay="450"><span class="vm-feat-dot"></span>Multilingual: Arabic &amp; English out of the box</li>
+      </ul>
+
+      <a href="/VegaMind/VM-landing.html" class="vm-cta-btn vm-reveal" data-delay="520">
+        Explore VegaMind
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <!-- Right: chat mockup -->
+    <div class="vm-intro-visual vm-reveal" data-delay="100">
+      <div class="vm-chat-card">
+        <div class="vm-chat-header">
+          <div class="vm-avatar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#7c3aed" opacity=".25"/><path d="M8 12h8M12 8l4 4-4 4" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="vm-chat-identity">
+            <strong>VegaMind</strong>
+            <span class="vm-status"><span class="vm-status-dot"></span>Online</span>
+          </div>
+          <div class="vm-chat-badges">
+            <span class="vm-badge">AI</span>
+            <span class="vm-badge vm-badge-amber">24/7</span>
+          </div>
+        </div>
+
+        <div class="vm-chat-body" id="vmChatBody"></div>
+
+        <div class="vm-chat-input-bar">
+          <span class="vm-input-placeholder">Ask me anything…</span>
+          <button class="vm-send-btn" aria-label="Send">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <!-- Floating stat chips -->
+        <div class="vm-stat-chip vm-chip-tl">
+          <span class="vm-chip-num">98%</span>
+          <span class="vm-chip-label">Accuracy</span>
+        </div>
+        <div class="vm-stat-chip vm-chip-br">
+          <span class="vm-chip-num">2s</span>
+          <span class="vm-chip-label">Avg Response</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── MARQUEE TICKER ── -->
 <div class="marquee-wrap">
   <div class="marquee-track">
@@ -1812,6 +1878,188 @@ function toggleTheme() {
       panel.style.borderRadius = '0';
     }
   }
+</script>
+
+<script>
+/* ══ VegaMind section animations ══ */
+(function () {
+  'use strict';
+
+  /* ── 1. Particle canvas ── */
+  var canvas = document.getElementById('vmCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var section = canvas.parentElement;
+  var rafId;
+
+  function resizeCanvas() {
+    canvas.width  = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  var COLORS = ['#7c3aed', '#a78bfa', '#06b6d4', '#47c8ff', '#f59e0b'];
+  var COUNT  = 55;
+  var pts = Array.from({ length: COUNT }, function () {
+    return {
+      x:  Math.random() * canvas.width,
+      y:  Math.random() * canvas.height,
+      r:  Math.random() * 1.8 + 0.4,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      c:  COLORS[Math.floor(Math.random() * COLORS.length)],
+      op: Math.random() * 0.45 + 0.08
+    };
+  });
+
+  var LINK_DIST = 110;
+
+  function drawFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    /* connections */
+    for (var i = 0; i < pts.length; i++) {
+      for (var j = i + 1; j < pts.length; j++) {
+        var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        var d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < LINK_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = 'rgba(124,58,237,' + (0.12 * (1 - d / LINK_DIST)).toFixed(3) + ')';
+          ctx.lineWidth   = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* dots */
+    pts.forEach(function (p) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle   = p.c;
+      ctx.globalAlpha = p.op;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0)              p.x = canvas.width;
+      if (p.x > canvas.width)   p.x = 0;
+      if (p.y < 0)              p.y = canvas.height;
+      if (p.y > canvas.height)  p.y = 0;
+    });
+
+    rafId = requestAnimationFrame(drawFrame);
+  }
+
+  /* ── 2. Chat replay ── */
+  var MSGS = [
+    { side: 'bot',  text: "Hi! I'm VegaMind — your AI assistant. How can I help you today?" },
+    { side: 'user', text: 'What automation services do you offer?' },
+    { side: 'bot',  text: 'We build workflow automations, AI integrations, CRM pipelines, and social media systems — all tailored to your business.' },
+    { side: 'user', text: 'Can I book a free consultation?' },
+    { side: 'bot',  text: 'Absolutely! ', link: true }
+  ];
+
+  var chatBody = document.getElementById('vmChatBody');
+  var msgIdx   = 0;
+  var chatTimer;
+
+  function makeTyping() {
+    var el = document.createElement('div');
+    el.className = 'vm-msg vm-bot vm-typing-indicator';
+    el.id = 'vmTyping';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    chatBody.appendChild(el);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return el;
+  }
+
+  function appendMsg(msg) {
+    var el = document.createElement('div');
+    el.className = 'vm-msg ' + (msg.side === 'bot' ? 'vm-bot' : 'vm-user') + (msg.link ? ' vm-bot-cta' : '');
+    if (msg.link) {
+      el.innerHTML = 'Absolutely! <a href="/VegaMind/VM-landing.html" class="vm-inline-link">Click here to get started</a> — I\'ll connect you with the team right away. <span class="vm-emoji">🚀</span>';
+    } else {
+      el.textContent = msg.text;
+    }
+    el.style.cssText = 'opacity:0;transform:translateY(10px)';
+    chatBody.appendChild(el);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    requestAnimationFrame(function () {
+      el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      el.style.opacity    = '1';
+      el.style.transform  = 'translateY(0)';
+    });
+  }
+
+  function stepChat() {
+    if (msgIdx >= MSGS.length) {
+      chatTimer = setTimeout(function () { chatBody.innerHTML = ''; msgIdx = 0; stepChat(); }, 3200);
+      return;
+    }
+    var msg = MSGS[msgIdx++];
+    if (msg.side === 'bot') {
+      var dot = makeTyping();
+      var delay = Math.min(msg.text.length * 22 + 500, 2200);
+      chatTimer = setTimeout(function () {
+        var t = document.getElementById('vmTyping'); if (t) t.remove();
+        appendMsg(msg);
+        chatTimer = setTimeout(stepChat, 1100);
+      }, delay);
+    } else {
+      chatTimer = setTimeout(function () {
+        appendMsg(msg);
+        chatTimer = setTimeout(stepChat, 700);
+      }, 420);
+    }
+  }
+
+  /* ── 3. Scroll-reveal on text elements ── */
+  function initReveal() {
+    var els = section.querySelectorAll('.vm-reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('vm-revealed'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el    = entry.target;
+        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+        setTimeout(function () { el.classList.add('vm-revealed'); }, delay);
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function (e) { obs.observe(e); });
+  }
+
+  /* ── 4. Bootstrap everything when section enters viewport ── */
+  var started = false;
+  function startAll() {
+    if (started) return;
+    started = true;
+    drawFrame();
+    stepChat();
+    initReveal();
+  }
+
+  if ('IntersectionObserver' in window) {
+    var bootObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { startAll(); bootObs.disconnect(); }
+    }, { threshold: 0.1 });
+    bootObs.observe(section);
+  } else {
+    startAll();
+  }
+
+  /* Pause particles when tab hidden */
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { cancelAnimationFrame(rafId); clearTimeout(chatTimer); }
+    else if (started)    { drawFrame(); }
+  });
+})();
 </script>
 
 </body>

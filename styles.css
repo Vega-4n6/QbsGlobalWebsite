@@ -1083,8 +1083,8 @@ footer {
   gap: 0.75rem;
 }
 .social-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -1619,6 +1619,11 @@ footer {
   padding: 0.3rem;
   transition: color 0.2s;
   z-index: 3;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .hiw-close:hover { color: var(--text); }
 
@@ -1898,6 +1903,11 @@ footer {
   line-height: 1;
   transition: color 0.2s;
   font-size: 1.2rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .modal-close:hover { color: var(--text); }
 
@@ -1943,8 +1953,8 @@ footer {
   margin-bottom: 2rem;
 }
 .step-dot {
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1.5px solid var(--border-mid);
   display: flex;
@@ -2048,7 +2058,8 @@ footer {
   color: var(--muted);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.8rem;
-  padding: 0.6rem 0;
+  padding: 0.8rem 0;
+  min-height: 44px;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
@@ -2244,6 +2255,77 @@ footer {
   .stat-block:nth-child(odd) { border-right: 1px solid var(--border-soft) !important; }
 }
 
+/* ── Prevent iOS Safari auto-zoom on input focus ── */
+@media (max-width: 768px) {
+  .field input,
+  .field select,
+  .field textarea,
+  .cf-field input,
+  .cf-field select,
+  .cf-field textarea,
+  .newsletter-row input {
+    font-size: 16px !important;
+  }
+}
+
+/* ── Tablets & medium phones ── */
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+
+  /* Hero: single column, particle canvas hidden to save space */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.5rem;
+  }
+  .particle-wrap { display: none; }
+
+  /* Section paddings */
+  .services  { padding: 4rem 1.5rem; }
+  .statement { padding: 4rem 1.5rem; }
+  .contact   { padding: 4rem 1.5rem; }
+  footer     { padding: 3rem 1.5rem 0; }
+  .cta-band  { margin: 3rem 1.5rem 0; padding: 2rem 1.5rem; }
+
+  /* Contact grid gap */
+  .contact-grid { gap: 2.5rem; }
+
+  /* CTA band stacks */
+  .cta-band { grid-template-columns: 1fr; }
+  .cta-band-actions { align-items: flex-start; }
+}
+
+/* ── Small phones ── */
+@media (max-width: 480px) {
+  /* Modal inner padding */
+  .modal-inner { padding: 1.5rem 1.2rem; }
+
+  /* Stat blocks go single column */
+  .statement-stats { grid-template-columns: 1fr; }
+  .stat-block:nth-child(odd) { border-right: none !important; }
+
+  /* HIW panel padding */
+  .hiw-panel { padding: 1.8rem 1rem 1.5rem; }
+
+  /* Newsletter row stacks vertically */
+  .footer-col .newsletter-row { flex-direction: column; }
+  .newsletter-row input { border-right: 1px solid var(--border); }
+  .newsletter-row button { width: 100%; padding: 0.75rem 0.9rem; min-height: 44px; }
+}
+
+/* ── CTA buttons stack on phones ── */
+@media (max-width: 640px) {
+  .cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .btn-primary,
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Extra tight on very small phones */
 @media (max-width: 390px) {
   nav { padding: 1rem; }
@@ -2263,8 +2345,8 @@ footer {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--muted);
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;

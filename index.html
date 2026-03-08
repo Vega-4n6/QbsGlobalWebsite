@@ -29,7 +29,7 @@
 
 <nav>
   <div class="logo">
-  <img src="logo.png" alt="QBS Global" style="height: 100px;">
+  <img src="logo.png" alt="QBS Global" style="height: clamp(50px, 12vw, 100px); width: auto;">
   </div>
   <div style="display:flex;align-items:center;gap:0.75rem">
     <a href="/blog" class="nav-cta">Blog</a>
@@ -980,7 +980,7 @@
   const C_DIM     = { r: 107, g: 107, b: 128 };
 
   // ── Config ──
-  const COUNT          = 62;   // number of particles
+  const COUNT          = window.innerWidth < 768 ? 28 : 62;   // number of particles
   const MAX_DIST       = 110;  // max px to draw a connection line
   const SPEED          = 0.28; // base drift speed
   const PULSE_SPEED    = 0.012;

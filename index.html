@@ -24,6 +24,7 @@
 <meta name="twitter:description" content="Intelligent automations that eliminate manual work and deploy AI agents for your business.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="widget.css">
 </head>
 <body>
 
@@ -417,31 +418,30 @@
 
 <!-- ── VEGAMIND INTRO ── -->
 <section class="vm-intro-section">
-  <canvas id="vmCanvas" class="vm-canvas"></canvas>
   <div class="vm-intro-glow"></div>
   <div class="vm-intro-inner">
 
     <!-- Left: text -->
     <div class="vm-intro-text">
-      <span class="eyebrow vm-eyebrow vm-reveal" data-delay="0">Built by QBS Global</span>
-      <h2 class="vm-headline vm-reveal" data-delay="80">Meet<br><span class="vm-brand-name">VegaMind</span></h2>
-      <p class="vm-sub vm-reveal" data-delay="160">Your always-on AI web assistant — trained on your business, deployed on your site, turning visitors into clients while you sleep.</p>
+      <span class="eyebrow vm-eyebrow">Built by QBS Global</span>
+      <h2 class="vm-headline">Meet<br><span class="vm-brand-name">VegaMind</span></h2>
+      <p class="vm-sub">Your always-on AI web assistant — trained on your business, deployed on your site, turning visitors into clients while you sleep.</p>
 
       <ul class="vm-features">
-        <li class="vm-reveal" data-delay="240"><span class="vm-feat-dot"></span>Instant, accurate answers from your own knowledge base</li>
-        <li class="vm-reveal" data-delay="310"><span class="vm-feat-dot"></span>Captures leads &amp; books meetings automatically</li>
-        <li class="vm-reveal" data-delay="380"><span class="vm-feat-dot"></span>Speaks your brand's voice — not a generic chatbot</li>
-        <li class="vm-reveal" data-delay="450"><span class="vm-feat-dot"></span>Multilingual: Arabic &amp; English out of the box</li>
+        <li><span class="vm-feat-dot"></span>Instant, accurate answers from your own knowledge base</li>
+        <li><span class="vm-feat-dot"></span>Captures leads &amp; books meetings automatically</li>
+        <li><span class="vm-feat-dot"></span>Speaks your brand's voice — not a generic chatbot</li>
+        <li><span class="vm-feat-dot"></span>Multilingual: Arabic &amp; English out of the box</li>
       </ul>
 
-      <a href="/VegaMind/VM-landing.html" class="vm-cta-btn vm-reveal" data-delay="520">
+      <a href="/VegaMind/VM-landing.html" class="vm-cta-btn">
         Explore VegaMind
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
     <!-- Right: chat mockup -->
-    <div class="vm-intro-visual vm-reveal" data-delay="100">
+    <div class="vm-intro-visual">
       <div class="vm-chat-card">
         <div class="vm-chat-header">
           <div class="vm-avatar">
@@ -457,7 +457,13 @@
           </div>
         </div>
 
-        <div class="vm-chat-body" id="vmChatBody"></div>
+        <div class="vm-chat-body">
+          <div class="vm-msg vm-bot">Hi! I'm VegaMind, your AI assistant. How can I help you today?</div>
+          <div class="vm-msg vm-user">What automation services do you offer?</div>
+          <div class="vm-msg vm-bot">We build custom workflow automations, AI integrations, CRM pipelines, and social media systems — all tailored to your business needs.</div>
+          <div class="vm-msg vm-user">Can I book a free consultation?</div>
+          <div class="vm-msg vm-bot vm-bot-cta">Absolutely! <a href="/VegaMind/VM-landing.html" class="vm-inline-link">Click here to get started</a> — I'll connect you with the team right away. <span class="vm-emoji">🚀</span></div>
+        </div>
 
         <div class="vm-chat-input-bar">
           <span class="vm-input-placeholder">Ask me anything…</span>
@@ -1632,435 +1638,95 @@ function toggleTheme() {
 </script>
 
 <!-- ════════════════════════════════════════════════════════════
-     AI CHAT WIDGET
-     ─ Mount point:  #qbs-chat-target
-     ─ Styles:       widget.css  (must be in the same folder)
-     ─ To update:    change webhookUrl, title, subtitle,
-                     initialMessages below.
+     AI CHAT WIDGET — FULLY CUSTOM UI
+     No n8n renderer — direct webhook, total design control
+     Styles: widget.css  |  Logic: widget.js
      ════════════════════════════════════════════════════════════ -->
 
-<!-- Widget panel mount point -->
-<div id="qbs-chat-target"></div>
+<!-- Teaser card (appears on launcher hover) -->
+<div id="ai-teaser">
+  <div class="teaser-inner">
+    <div class="teaser-label">
+      <div class="teaser-label-left">
+        <span class="teaser-status-dot"></span>
+        <span class="teaser-label-text"><strong>QBS AI</strong> &nbsp;&middot;&nbsp; Online now</span>
+      </div>
+      <button class="teaser-dismiss" onclick="dismissTeaser(true)" aria-label="Dismiss">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="teaser-demo">
+      <div class="teaser-msg-row" id="tRow1">
+        <div class="teaser-avatar"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div>
+        <div class="teaser-bubble bot-bubble" id="tMsg1"></div>
+      </div>
+      <div class="teaser-msg-row user-row" id="tRow2" style="opacity:0;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease">
+        <div class="teaser-bubble user-bubble" id="tMsg2"></div>
+      </div>
+      <div class="teaser-msg-row" id="tRow3" style="opacity:0;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease">
+        <div class="teaser-avatar"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div>
+        <div class="teaser-bubble bot-bubble" id="tMsg3"></div>
+      </div>
+    </div>
+  </div>
+  <div class="teaser-chips">
+    <button class="teaser-chip" onclick="openWithQ('What can you automate for my business?')">What can you automate?</button>
+    <button class="teaser-chip" onclick="openWithQ('How fast is deployment?')">How fast?</button>
+    <button class="teaser-chip" onclick="openWithQ('What does your service cost?')">Pricing?</button>
+    <button class="teaser-chip" onclick="openWithQ('Can you integrate with my CRM?')">CRM?</button>
+  </div>
+  <button class="teaser-cta" onclick="openChat()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    Talk to our AI
+    <span class="teaser-cta-badge">Live</span>
+  </button>
+</div>
 
-<!-- Custom launcher button (bottom-right) -->
+<!-- Custom chat panel -->
+<div id="qbs-chat-panel">
+  <div class="qcp-bar"></div>
+  <div class="qcp-header">
+    <div class="qcp-header-left">
+      <div class="qcp-hd-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffe500" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+      </div>
+      <div>
+        <div class="qcp-title">QBS Global AI</div>
+        <div class="qcp-subtitle">
+          <span class="qcp-online-dot"></span>
+          Always online &middot; Instant answers
+        </div>
+      </div>
+    </div>
+    <button class="qcp-close" onclick="toggleChat()" aria-label="Close">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="qcp-messages" id="qcpMessages"></div>
+  <div class="qcp-suggestions" id="qcpSuggs">
+    <button class="qcp-sugg" onclick="sendSugg(this)">What can you automate?</button>
+    <button class="qcp-sugg" onclick="sendSugg(this)">How fast is deployment?</button>
+    <button class="qcp-sugg" onclick="sendSugg(this)">Tell me about pricing</button>
+    <button class="qcp-sugg" onclick="sendSugg(this)">CRM integration?</button>
+  </div>
+  <div class="qcp-input-area">
+    <textarea class="qcp-input" id="qcpInput" placeholder="Ask me anything…" rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
+    <button class="qcp-send" id="qcpSend" onclick="sendMessage()" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Launcher button -->
 <button id="af-chat-launcher" aria-label="Open AI assistant" onclick="toggleChat()">
-  <svg class="icon-chat" width="22" height="22" viewBox="0 0 24 24" fill="none"
-       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-  </svg>
-  <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none"
-       stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-    <path d="M18 6L6 18M6 6l12 12"/>
-  </svg>
+  <svg class="icon-chat" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
   <span class="notif-dot" id="notifDot"></span>
 </button>
 
-<!-- n8n Chat Widget -->
-<script type="module">
-  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-  createChat({
-    // ── UPDATE THIS when you create a new n8n workflow ──
-    webhookUrl: 'https://n8n.srv1381788.hstgr.cloud/webhook/0c7aa318-bc4b-4258-862c-f9d765199649/chat',
-
-    target: '#qbs-chat-target',
-    mode: 'fullscreen',
-    showWelcomeScreen: false,
-
-    // ── UPDATE: opening messages shown to the visitor ──
-    initialMessages: [
-      'Hi there! 👋 Welcome to QBS Global.',
-      'I\'m your AI assistant — ask me anything about our services!'
-    ],
-
-    i18n: {
-      en: {
-        // ── UPDATE: widget header text ──
-        title: 'QBS Global',
-        subtitle: 'Website Assistant',
-        getStarted: 'New Conversation',
-        inputPlaceholder: 'How may I help you…',
-        footer: '',
-      },
-    },
-  });
-</script>
-
-<!-- Widget open/close toggle -->
-<script>
-  let chatOpen = false;
-
-  function toggleChat() {
-    chatOpen = !chatOpen;
-    const target   = document.getElementById('qbs-chat-target');
-    const launcher = document.getElementById('af-chat-launcher');
-    const dot      = document.getElementById('notifDot');
-
-    target.classList.toggle('is-open', chatOpen);
-    launcher.classList.toggle('is-open', chatOpen);
-
-    if (chatOpen && dot) dot.style.display = 'none';
-
-    // Re-apply styles every time we open, catching any lazy-rendered elements
-    if (chatOpen) setTimeout(applyWidgetStyles, 100);
-  }
-
-  // Forcefully style whatever n8n has rendered inside #qbs-chat-target
-  function applyWidgetStyles() {
-    const root = document.getElementById('qbs-chat-target');
-    if (!root) return;
-
-    const A  = '#ffe500';
-    const A2 = '#47c8ff';
-    const BG = '#0f0f1a';
-    const BG2 = '#161625';
-    const TEXT = '#f0f0f5';
-    const MUTED = '#6b6b80';
-    const BORDER = 'rgba(255,255,255,0.07)';
-
-    // Walk all elements and style by tag / attribute heuristics
-    const all = root.querySelectorAll('*');
-    all.forEach(el => {
-      const tag = el.tagName.toLowerCase();
-      const cn  = (el.className || '').toString().toLowerCase();
-
-      // Base font
-      el.style.fontFamily = "'DM Sans', sans-serif";
-      el.style.borderRadius = '0';
-
-      // Backgrounds — panels
-      if (tag === 'div' && (cn.includes('window') || cn.includes('chat') || cn.includes('app') || cn.includes('container'))) {
-        el.style.background = BG;
-        el.style.color = TEXT;
-      }
-
-      // Header area
-      if (cn.includes('header')) {
-        el.style.background = BG;
-        el.style.borderBottom = `1px solid ${BORDER}`;
-        el.style.padding = '1rem 1.2rem';
-        el.style.flexShrink = '0';
-      }
-
-      // Title
-      if (cn.includes('title') && !cn.includes('subtitle')) {
-        el.style.fontFamily = "'Bebas Neue', cursive";
-        el.style.fontSize = '1.2rem';
-        el.style.letterSpacing = '0.1em';
-        el.style.color = TEXT;
-        el.style.fontWeight = 'normal';
-      }
-
-      // Subtitle
-      if (cn.includes('subtitle')) {
-        el.style.fontSize = '0.72rem';
-        el.style.color = MUTED;
-        el.style.fontWeight = '300';
-      }
-
-      // Messages list
-      if (cn.includes('message') && (cn.includes('list') || cn.includes('container') || cn.includes('wrapper'))) {
-        el.style.background = BG;
-        el.style.padding = '1rem 1.2rem';
-        el.style.flex = '1';
-        el.style.overflowY = 'auto';
-      }
-
-      // Individual message bubbles
-      if (cn.includes('message') && cn.includes('bot')) {
-        el.style.background = BG2;
-        el.style.border = `1px solid ${BORDER}`;
-        el.style.padding = '0.7rem 0.95rem';
-        el.style.maxWidth = '85%';
-        el.style.alignSelf = 'flex-start';
-        el.style.borderRadius = '0 8px 8px 8px';
-      }
-      if (cn.includes('message') && cn.includes('user')) {
-        el.style.background = 'rgba(255,229,0,0.1)';
-        el.style.border = '1px solid rgba(255,229,0,0.2)';
-        el.style.padding = '0.7rem 0.95rem';
-        el.style.maxWidth = '85%';
-        el.style.alignSelf = 'flex-end';
-        el.style.borderRadius = '8px 0 8px 8px';
-      }
-
-      // Welcome screen
-      if (cn.includes('welcome') || cn.includes('get-started') || cn.includes('getstarted')) {
-        el.style.background = BG;
-        el.style.display = 'flex';
-        el.style.flexDirection = 'column';
-        el.style.alignItems = 'center';
-        el.style.justifyContent = 'center';
-        el.style.textAlign = 'center';
-        el.style.flex = '1';
-        el.style.padding = '2rem 1.5rem';
-      }
-
-      // Input footer area
-      if (cn.includes('footer') || cn.includes('input-wrapper') || cn.includes('inputwrapper')) {
-        el.style.background = BG;
-        el.style.borderTop = `1px solid ${BORDER}`;
-        el.style.padding = '0.85rem 1rem';
-        el.style.display = 'flex';
-        el.style.alignItems = 'center';
-        el.style.gap = '0.5rem';
-        el.style.flexShrink = '0';
-      }
-
-      // Hide "powered by" branding
-      if (cn.includes('powered') || cn.includes('branding') || cn.includes('footer-text')) {
-        el.style.display = 'none';
-      }
-
-      // Input fields
-      if (tag === 'input' || tag === 'textarea') {
-        el.style.background = 'rgba(255,255,255,0.04)';
-        el.style.border = `1px solid ${BORDER}`;
-        el.style.color = TEXT;
-        el.style.padding = '0.65rem 0.9rem';
-        el.style.flex = '1';
-        el.style.outline = 'none';
-        el.style.resize = 'none';
-        el.style.fontSize = '0.88rem';
-      }
-
-      // Buttons
-      if (tag === 'button') {
-        // Send button (submit)
-        if (el.type === 'submit' || cn.includes('send')) {
-          el.style.background = A;
-          el.style.color = '#0a0a0f';
-          el.style.border = 'none';
-          el.style.width = '38px';
-          el.style.height = '38px';
-          el.style.minWidth = '38px';
-          el.style.cursor = 'pointer';
-          el.style.display = 'flex';
-          el.style.alignItems = 'center';
-          el.style.justifyContent = 'center';
-          el.style.flexShrink = '0';
-          el.style.clipPath = 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))';
-        }
-        // Start/welcome button
-        if (cn.includes('start') || cn.includes('begin') || cn.includes('new-conversation') || cn.includes('newconversation') || el.closest('[class*="welcome"]')) {
-          el.style.background = A;
-          el.style.color = '#0a0a0f';
-          el.style.border = 'none';
-          el.style.padding = '0.85rem 2rem';
-          el.style.fontWeight = '500';
-          el.style.letterSpacing = '0.08em';
-          el.style.textTransform = 'uppercase';
-          el.style.cursor = 'pointer';
-          el.style.marginTop = '1rem';
-          el.style.fontSize = '0.85rem';
-        }
-      }
-
-      // SVG icons inside send button — make them dark
-      if (tag === 'svg' && el.closest('button[type="submit"], [class*="send"]')) {
-        el.style.color = '#0a0a0f';
-        el.style.stroke = '#0a0a0f';
-        el.style.fill = '#0a0a0f';
-      }
-    });
-
-    // Ensure the root child (main panel) has correct bg + shadow
-    // Ensure the root child (main panel) has correct bg + shadow
-    const panel = root.firstElementChild;
-    if (panel) {
-      panel.style.background = BG;
-      panel.style.border = '1px solid rgba(255,255,255,0.08)';
-      panel.style.boxShadow = '0 24px 60px rgba(0,0,0,0.6)';
-      panel.style.height = window.innerWidth <= 600 ? 'calc(100vh - 80px)' : '580px';
-      panel.style.display = 'flex';
-      panel.style.flexDirection = 'column';
-      panel.style.overflow = 'hidden';
-      panel.style.borderRadius = '0';
-    }
-  }
-</script>
-
-<script>
-/* ══ VegaMind section animations ══ */
-(function () {
-  'use strict';
-
-  /* ── 1. Particle canvas ── */
-  var canvas = document.getElementById('vmCanvas');
-  if (!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var section = canvas.parentElement;
-  var rafId;
-
-  function resizeCanvas() {
-    canvas.width  = section.offsetWidth;
-    canvas.height = section.offsetHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  var COLORS = ['#7c3aed', '#a78bfa', '#06b6d4', '#47c8ff', '#f59e0b'];
-  var COUNT  = 55;
-  var pts = Array.from({ length: COUNT }, function () {
-    return {
-      x:  Math.random() * canvas.width,
-      y:  Math.random() * canvas.height,
-      r:  Math.random() * 1.8 + 0.4,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      c:  COLORS[Math.floor(Math.random() * COLORS.length)],
-      op: Math.random() * 0.45 + 0.08
-    };
-  });
-
-  var LINK_DIST = 110;
-
-  function drawFrame() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    /* connections */
-    for (var i = 0; i < pts.length; i++) {
-      for (var j = i + 1; j < pts.length; j++) {
-        var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-        var d  = Math.sqrt(dx * dx + dy * dy);
-        if (d < LINK_DIST) {
-          ctx.beginPath();
-          ctx.moveTo(pts[i].x, pts[i].y);
-          ctx.lineTo(pts[j].x, pts[j].y);
-          ctx.strokeStyle = 'rgba(124,58,237,' + (0.12 * (1 - d / LINK_DIST)).toFixed(3) + ')';
-          ctx.lineWidth   = 0.6;
-          ctx.stroke();
-        }
-      }
-    }
-
-    /* dots */
-    pts.forEach(function (p) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle   = p.c;
-      ctx.globalAlpha = p.op;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0)              p.x = canvas.width;
-      if (p.x > canvas.width)   p.x = 0;
-      if (p.y < 0)              p.y = canvas.height;
-      if (p.y > canvas.height)  p.y = 0;
-    });
-
-    rafId = requestAnimationFrame(drawFrame);
-  }
-
-  /* ── 2. Chat replay ── */
-  var MSGS = [
-    { side: 'bot',  text: "Hi! I'm VegaMind — your AI assistant. How can I help you today?" },
-    { side: 'user', text: 'What automation services do you offer?' },
-    { side: 'bot',  text: 'We build workflow automations, AI integrations, CRM pipelines, and social media systems — all tailored to your business.' },
-    { side: 'user', text: 'Can I book a free consultation?' },
-    { side: 'bot',  text: 'Absolutely! ', link: true }
-  ];
-
-  var chatBody = document.getElementById('vmChatBody');
-  var msgIdx   = 0;
-  var chatTimer;
-
-  function makeTyping() {
-    var el = document.createElement('div');
-    el.className = 'vm-msg vm-bot vm-typing-indicator';
-    el.id = 'vmTyping';
-    el.innerHTML = '<span></span><span></span><span></span>';
-    chatBody.appendChild(el);
-    chatBody.scrollTop = chatBody.scrollHeight;
-    return el;
-  }
-
-  function appendMsg(msg) {
-    var el = document.createElement('div');
-    el.className = 'vm-msg ' + (msg.side === 'bot' ? 'vm-bot' : 'vm-user') + (msg.link ? ' vm-bot-cta' : '');
-    if (msg.link) {
-      el.innerHTML = 'Absolutely! <a href="/VegaMind/VM-landing.html" class="vm-inline-link">Click here to get started</a> — I\'ll connect you with the team right away. <span class="vm-emoji">🚀</span>';
-    } else {
-      el.textContent = msg.text;
-    }
-    el.style.cssText = 'opacity:0;transform:translateY(10px)';
-    chatBody.appendChild(el);
-    chatBody.scrollTop = chatBody.scrollHeight;
-    requestAnimationFrame(function () {
-      el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-      el.style.opacity    = '1';
-      el.style.transform  = 'translateY(0)';
-    });
-  }
-
-  function stepChat() {
-    if (msgIdx >= MSGS.length) {
-      chatTimer = setTimeout(function () { chatBody.innerHTML = ''; msgIdx = 0; stepChat(); }, 3200);
-      return;
-    }
-    var msg = MSGS[msgIdx++];
-    if (msg.side === 'bot') {
-      var dot = makeTyping();
-      var delay = Math.min(msg.text.length * 22 + 500, 2200);
-      chatTimer = setTimeout(function () {
-        var t = document.getElementById('vmTyping'); if (t) t.remove();
-        appendMsg(msg);
-        chatTimer = setTimeout(stepChat, 1100);
-      }, delay);
-    } else {
-      chatTimer = setTimeout(function () {
-        appendMsg(msg);
-        chatTimer = setTimeout(stepChat, 700);
-      }, 420);
-    }
-  }
-
-  /* ── 3. Scroll-reveal on text elements ── */
-  function initReveal() {
-    var els = section.querySelectorAll('.vm-reveal');
-    if (!('IntersectionObserver' in window)) {
-      els.forEach(function (e) { e.classList.add('vm-revealed'); });
-      return;
-    }
-    var obs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el    = entry.target;
-        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-        setTimeout(function () { el.classList.add('vm-revealed'); }, delay);
-        obs.unobserve(el);
-      });
-    }, { threshold: 0.15 });
-    els.forEach(function (e) { obs.observe(e); });
-  }
-
-  /* ── 4. Bootstrap everything when section enters viewport ── */
-  var started = false;
-  function startAll() {
-    if (started) return;
-    started = true;
-    drawFrame();
-    stepChat();
-    initReveal();
-  }
-
-  if ('IntersectionObserver' in window) {
-    var bootObs = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) { startAll(); bootObs.disconnect(); }
-    }, { threshold: 0.1 });
-    bootObs.observe(section);
-  } else {
-    startAll();
-  }
-
-  /* Pause particles when tab hidden */
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { cancelAnimationFrame(rafId); clearTimeout(chatTimer); }
-    else if (started)    { drawFrame(); }
-  });
-})();
-</script>
+<script src="widget.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,96 @@
+/* ══════════════════════════════════════════════
+   QBS Global — Arabic / RTL Overrides
+   Loaded only on /ar/ pages
+   ══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+/* ── Font stack ────────────────────────────────── */
+body,
+p, span, li, a, label,
+input, select, textarea, button,
+.eyebrow, .section-eyebrow,
+.pillar-sub, .svc-card-desc,
+.contact-intro, .contact-detail-label, .contact-detail-val,
+.contact-location, .cf-privacy,
+.cta-band p, .footer-brand p,
+.hiw-subtitle, .hiw-step-desc,
+.modal-sub, .success-msg,
+.newsletter-row input {
+  font-family: 'Cairo', sans-serif;
+}
+
+h1, h2, h3, h4, h5,
+.pillar-word,
+.svc-card-title,
+.chip-label, .chip-val,
+.hiw-title, .hiw-step-label,
+.modal-title, .cta-band h3,
+.contact-form-title {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+/* ── Remove letter-spacing everywhere (Arabic ignores it) ── */
+.eyebrow, .section-eyebrow,
+.modal-tag, .hiw-eyebrow,
+.svc-card-num, .tab-num,
+.pillar-word, .svc-card-tag {
+  letter-spacing: 0;
+}
+
+/* ── Hero h1 — Cairo needs proper line-height (Bebas Neue uses 0.96 which crushes Arabic) ── */
+.hero-text h1 {
+  line-height: 1.2;
+  font-size: clamp(2.2rem, 4.2vw, 4rem);
+  margin-bottom: 1.2rem;
+}
+.hero-text h1 br { display: none; }
+
+/* ── Eyebrow — tighten bottom gap for Arabic ── */
+.eyebrow { margin-bottom: 1rem; }
+
+/* ── Hero sub — restore normal weight and spacing ── */
+.hero-sub {
+  margin-top: 0;
+  line-height: 1.7;
+}
+
+/* ── Flip directional arrow icons ── */
+.btn-ghost svg,
+#btnBack svg { transform: scaleX(-1); }
+
+/* ── Stat block borders — RTL mirror ── */
+@media (max-width: 480px) {
+  .stat-block { border-right: none; border-left: 1px solid var(--border); }
+  .stat-block:nth-child(odd) { border-left: none !important; border-right: none !important; }
+}
+
+/* ── Language switcher — keep EN label LTR regardless of page direction ── */
+.lang-switch { direction: ltr; unicode-bidi: embed; }
+
+/* ── Tab numbers stay LTR (01, 02…) ── */
+.tab-num {
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: embed;
+}
+
+/* ── Service tab layout — ensure text aligns correctly ── */
+.svc-tab { text-align: right; }
+
+/* ── Philosophy strip ── */
+.phil-block h4 { letter-spacing: 0; }
+
+/* ── Footer columns align right ── */
+.footer-col ul { text-align: right; }
+.footer-col h4 { text-align: right; }
+
+/* ── Contact detail — icon always flush start ── */
+.contact-detail { gap: 0.85rem; }
+
+/* ── Number stats — always LTR (340+, 98%, etc.) ── */
+.stat-val, .stat-block-val, .chip-val { direction: ltr; unicode-bidi: embed; }
+
+/* ── Marquee runs RTL naturally, no extra override needed ── */

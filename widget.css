@@ -188,6 +188,91 @@
 .qcp-send:hover { box-shadow:0 4px 18px rgba(255,229,0,0.38); filter:brightness(1.06); }
 .qcp-send:disabled { opacity:0.35; cursor:not-allowed; filter:none; box-shadow:none; }
 
+/* ══ LIGHT THEME OVERRIDES ══════════════════════════ */
+[data-theme="light"] #ai-teaser {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.09);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,229,0,0.1);
+}
+[data-theme="light"] .teaser-label-text { color: #888899; }
+[data-theme="light"] .teaser-dismiss { color: #888899; }
+[data-theme="light"] .teaser-dismiss:hover { color: #0a0a0f; }
+[data-theme="light"] .teaser-bubble { color: #0a0a0f; }
+[data-theme="light"] .teaser-bubble.bot-bubble {
+  background: #f1f1f8;
+  border-color: rgba(0,0,0,0.08);
+}
+[data-theme="light"] .teaser-bubble.user-bubble {
+  background: rgba(255,229,0,0.12);
+  border-color: rgba(255,229,0,0.3);
+}
+[data-theme="light"] .teaser-chip {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.1);
+  color: #555570;
+}
+[data-theme="light"] .teaser-chip:hover {
+  border-color: rgba(255,229,0,0.5);
+  color: #0a0a0f;
+  background: rgba(255,229,0,0.07);
+}
+[data-theme="light"] #qbs-chat-panel {
+  box-shadow: 0 32px 80px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.07);
+}
+[data-theme="light"] .qcp-header {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.09);
+}
+[data-theme="light"] .qcp-title { color: #0a0a0f; }
+[data-theme="light"] .qcp-close {
+  border-color: rgba(0,0,0,0.1);
+  color: #888899;
+}
+[data-theme="light"] .qcp-close:hover { color: #0a0a0f; border-color: rgba(255,229,0,0.5); }
+[data-theme="light"] .qcp-messages {
+  background: #f8f8fc;
+  border-color: rgba(0,0,0,0.09);
+}
+[data-theme="light"] .qcp-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); }
+[data-theme="light"] .qcp-bubble { color: #0a0a0f; }
+[data-theme="light"] .qcp-msg.bot .qcp-bubble {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.09);
+}
+[data-theme="light"] .qcp-msg.user .qcp-bubble {
+  background: rgba(255,229,0,0.13);
+  border-color: rgba(255,229,0,0.3);
+}
+[data-theme="light"] .qcp-suggestions {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.09);
+}
+[data-theme="light"] .qcp-sugg {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.1);
+  color: #555570;
+}
+[data-theme="light"] .qcp-sugg:hover {
+  border-color: rgba(255,229,0,0.5);
+  color: #0a0a0f;
+  background: rgba(255,229,0,0.07);
+}
+[data-theme="light"] .qcp-input-area {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.09);
+}
+[data-theme="light"] .qcp-input {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.1);
+  color: #0a0a0f;
+}
+[data-theme="light"] .qcp-input:focus {
+  border-color: rgba(255,229,0,0.5);
+  background: rgba(255,229,0,0.03);
+}
+[data-theme="light"] .qcp-input::placeholder { color: rgba(0,0,0,0.3); }
+[data-theme="light"] #af-chat-launcher .notif-dot { border-color: #ffffff; }
+
 /* ── Mobile ── */
 @media (max-width:600px) {
   #af-chat-launcher { bottom:16px; right:16px; width:54px; height:54px; z-index:10002 !important; }

@@ -44,14 +44,18 @@ body:hover #cursor{opacity:1}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(124,58,237,.4);border-radius:2px}
 
-/* ── CANVAS ── */
+/* ── NEURAL CONSTELLATION ── */
 #starfield{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* ── NOISE ── */
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
-  opacity:.5;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.018) 1px,transparent 1px),
+    radial-gradient(circle,rgba(255,255,255,.012) 1px,transparent 1px);
+  background-size:4px 4px,7px 7px;
+  background-position:0 0,3px 3px;
+  will-change:transform;
 }
 
 /* ── NAV ── */
@@ -59,8 +63,8 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
   padding:1.2rem 4rem;
-  background:rgba(4,4,13,.7);
-  backdrop-filter:blur(20px);
+  background:rgba(4,4,13,.88);
+  backdrop-filter:blur(6px);
   border-bottom:1px solid var(--border2);
   animation:navIn .6s ease both;
 }
@@ -562,7 +566,7 @@ footer{
    LIGHT THEME
    ══════════════════════════════════════════════ */
 [data-theme="light"]{
-  --void:#f5f3ff;
+  --void:#f4f2d5f7;
   --deep:#ffffff;
   --mid:#eeeeff;
   --lift:#e4e0ff;
@@ -581,10 +585,8 @@ footer{
 /* Body & noise */
 [data-theme="light"] body{background:var(--void)}
 [data-theme="light"] body::before{opacity:.15}
-/* Starfield — invert white dots to dark dots */
-[data-theme="light"] #starfield{filter:invert(1);opacity:.2}
 /* Nav */
-[data-theme="light"] nav{background:rgba(240,237,255,.88);border-bottom-color:rgba(0,0,0,.07)}
+[data-theme="light"] nav{background:#f4f2d5f7;border-bottom-color:rgba(0,0,0,.07)}
 [data-theme="light"] .logo-wordmark{color:var(--text)}
 [data-theme="light"] .nav-link{color:var(--muted2)}
 [data-theme="light"] .nav-link:hover{color:var(--text)}
@@ -1007,37 +1009,29 @@ footer{
 
     <div class="pricing-grid reveal">
 
-      <!-- Starter -->
+      <!-- Free -->
       <div class="price-card">
-        <div class="price-tier">Starter</div>
+        <div class="price-tier">Free</div>
         <div class="price-name">SPARK</div>
-        <div class="price-tagline">Get your first bot live today. Perfect for small businesses testing the waters.</div>
+        <div class="price-tagline">Try VegaMind at zero cost. No card required, no commitments.</div>
         <div class="price-amount">
-          <div class="price-dollar" id="price-spark">$49</div>
+          <div class="price-dollar" id="price-spark">$0</div>
           <div class="price-period">/month</div>
         </div>
-        <div class="price-billing" id="billing-spark">Billed monthly · cancel anytime</div>
+        <div class="price-billing" id="billing-spark">Forever free · no credit card needed</div>
         <div class="price-divider"></div>
         <div class="price-features">
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>1 AI bot on your website</span>
+            <span>20 chats / month</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>500 conversations / month</span>
+            <span>2 pre-built widget designs</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>All 4 bot personalities</span>
-          </div>
-          <div class="pf-item included">
-            <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Lead capture + dashboard</span>
-          </div>
-          <div class="pf-item included">
-            <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Sales bot type only</span>
+            <span>Basic dashboard</span>
           </div>
           <div class="pf-item neutral">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1045,10 +1039,14 @@ footer{
           </div>
           <div class="pf-item excluded">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            <span>Multi-bot support</span>
+            <span>UI customization</span>
+          </div>
+          <div class="pf-item excluded">
+            <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>Bot personalities</span>
           </div>
         </div>
-        <button class="price-btn price-btn-ghost" onclick="window.location.href='vegamind-onboarding.html'">Get Started</button>
+        <button class="price-btn price-btn-ghost" onclick="window.location.href='vegamind-onboarding.html'">Get Started Free</button>
       </div>
 
       <!-- Pro (popular) -->
@@ -1056,9 +1054,9 @@ footer{
         <div class="popular-badge">Most Popular</div>
         <div class="price-tier">Pro</div>
         <div class="price-name">ORBIT</div>
-        <div class="price-tagline">For growing teams who want the full power of AI across their business.</div>
+        <div class="price-tagline">Everything you need to convert visitors into customers.</div>
         <div class="price-amount">
-          <div class="price-dollar" id="price-orbit" style="background:linear-gradient(90deg,var(--violet2),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$149</div>
+          <div class="price-dollar" id="price-orbit" style="background:linear-gradient(90deg,var(--violet2),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$24</div>
           <div class="price-period">/month</div>
         </div>
         <div class="price-billing" id="billing-orbit">Billed monthly · cancel anytime</div>
@@ -1066,19 +1064,19 @@ footer{
         <div class="price-features">
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Up to 5 bots</span>
+            <span>200 chats / month</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>2,500 conversations / month</span>
+            <span>7 uniquely designed UI widgets</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>All 4 bot personalities</span>
+            <span>4 bot personalities</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>All 4 bot types (Sales, Support, Booking, E-com)</span>
+            <span>Lead capture + dashboard</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1088,10 +1086,6 @@ footer{
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             <span>Advanced analytics + CSV export</span>
           </div>
-          <div class="pf-item excluded">
-            <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            <span>Custom AI training</span>
-          </div>
         </div>
         <button class="price-btn price-btn-primary" onclick="window.location.href='vegamind-onboarding.html'">Get Orbit</button>
       </div>
@@ -1100,33 +1094,28 @@ footer{
       <div class="price-card">
         <div class="price-tier">Enterprise</div>
         <div class="price-name">NOVA</div>
-        <div class="price-tagline">For agencies and large businesses that need total control and unlimited scale.</div>
+        <div class="price-tagline">A fully custom-built AI widget designed around your brand identity and business goals.</div>
         <div class="price-amount">
-          <div class="price-dollar" id="price-nova">$399</div>
-          <div class="price-period">/month</div>
+          <div class="price-dollar" id="price-nova" style="font-size:2rem;letter-spacing:-.01em">Contact Sales</div>
         </div>
-        <div class="price-billing" id="billing-nova">Billed monthly · cancel anytime</div>
+        <div class="price-billing" id="billing-nova">Custom pricing · tailored to your needs</div>
         <div class="price-divider"></div>
         <div class="price-features">
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Unlimited bots</span>
+            <span>Custom concept & design language</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Unlimited conversations</span>
+            <span>Bespoke widget built from scratch</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Full white-label (no VegaMind branding)</span>
+            <span>Full data privacy & compliance</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Custom AI training on your content</span>
-          </div>
-          <div class="pf-item included">
-            <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Resell to your own clients</span>
+            <span>Private AI deployment</span>
           </div>
           <div class="pf-item included">
             <svg class="pf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1140,7 +1129,7 @@ footer{
         <button class="price-btn price-btn-outline">Talk to Sales</button>
       </div>
     </div>
-    <div class="price-note reveal">All prices in USD · VAT may apply · 14-day free trial on Spark and Orbit plans</div>
+    <div class="price-note reveal">All prices in USD · VAT may apply · Free plan available with no card required</div>
   </div>
 </section>
 
@@ -1158,11 +1147,11 @@ footer{
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">What happens when I hit my conversation limit?<div class="faq-toggle">+</div></div>
-        <div class="faq-a">You'll get an email warning at 80% usage. When the limit is reached, the bot pauses until your billing cycle resets. You can also upgrade your plan at any time to get more conversations immediately.</div>
+        <div class="faq-a">You'll get an email warning at 80% usage. When the limit is reached, the bot pauses until your billing cycle resets. Free plan users get 20 chats/month — upgrade to Orbit for 200 chats at just $24/month.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">Can I put it on multiple websites?<div class="faq-toggle">+</div></div>
-        <div class="faq-a">Yes! You can create separate bots for each website, each with its own name, color, personality, and welcome message. The Orbit plan supports 5 bots, and Nova is unlimited.</div>
+        <div class="faq-a">Yes! You can deploy your bot across your website with its own name, color, personality, and welcome message. Orbit gives you full customization across 7 unique widget designs. For multi-site or enterprise deployments, reach out via the Nova plan.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">Will it clash with my website's design?<div class="faq-toggle">+</div></div>
@@ -1239,35 +1228,174 @@ document.querySelectorAll('a,button,.pers-card,.feat-card,.faq-item,.price-card,
   });
 });
 
-// ── STARFIELD ──
+
+// ── NEURAL CONSTELLATION ──
 (function(){
-  var c=document.getElementById('starfield');
-  var ctx=c.getContext('2d');
-  var stars=[];
-  function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+  var cvs = document.getElementById('starfield');
+  var ctx = cvs.getContext('2d');
+  var W, H, nodes, mouse = {x:-9999,y:-9999};
+  var rafId = null, running = false;
+  var NODE_COUNT = 88;
+  var CONN_DIST  = 155;  // node-node line threshold
+  var MOUSE_DIST = 210;  // cursor connection threshold
+  var REPEL_R    = 110;  // cursor repel radius
+
+  function resize(){
+    W = cvs.width  = window.innerWidth;
+    H = cvs.height = window.innerHeight;
+  }
+
+  function mkNode(){
+    // ~15% are bright "hub" nodes
+    var hub = Math.random() < .15;
+    return {
+      x  : Math.random()*W,
+      y  : Math.random()*H,
+      vx : (Math.random()-.5)*.38,
+      vy : (Math.random()-.5)*.38,
+      r  : hub ? Math.random()*1.4+1.6 : Math.random()*.8+.7,
+      hub: hub,
+      // pulse phase offset so hubs don't all pulse in sync
+      phase: Math.random()*Math.PI*2
+    };
+  }
+
   function init(){
-    stars=[];
-    for(var i=0;i<180;i++){
-      stars.push({
-        x:Math.random()*c.width,y:Math.random()*c.height,
-        r:Math.random()*1.2+.2,
-        a:Math.random(),da:Math.random()*.004+.001,
-        speed:Math.random()*.15+.03
-      });
-    }
+    nodes = [];
+    for(var i=0;i<NODE_COUNT;i++) nodes.push(mkNode());
   }
+
+  function palette(){
+    var light = document.documentElement.getAttribute('data-theme')==='light';
+    return light ? {
+      node : [99,102,241],   // indigo
+      hub  : [6,182,212],    // cyan
+      line : [99,102,241],
+      cursor:[245,158,11]
+    } : {
+      node : [160,160,230],  // soft blue-white
+      hub  : [6,182,212],    // neon cyan
+      line : [124,92,237],   // violet
+      cursor:[245,158,11]    // amber
+    };
+  }
+
+  function rgba(rgb, a){ return 'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+a+')'; }
+
   function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    stars.forEach(function(s){
-      s.a+=s.da;if(s.a>1||s.a<0)s.da*=-1;
-      s.y+=s.speed;if(s.y>c.height)s.y=0;
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,255,255,'+s.a*.7+')';ctx.fill();
-    });
-    requestAnimationFrame(draw);
+    if(!running) return;
+    ctx.clearRect(0,0,W,H);
+    var p   = palette();
+    var now = performance.now()/1000;
+
+    // ── update positions ──
+    for(var i=0;i<nodes.length;i++){
+      var n = nodes[i];
+      var dx = n.x - mouse.x, dy = n.y - mouse.y;
+      var d2 = dx*dx + dy*dy;
+      if(d2 < REPEL_R*REPEL_R && d2 > 0){
+        var d    = Math.sqrt(d2);
+        var f    = (REPEL_R - d)/REPEL_R * .5;
+        n.vx    += (dx/d)*f;
+        n.vy    += (dy/d)*f;
+      }
+      n.vx *= .975; n.vy *= .975;
+      // keep nodes from going fully still
+      var spd = Math.sqrt(n.vx*n.vx+n.vy*n.vy);
+      if(spd < .08){ n.vx += (Math.random()-.5)*.06; n.vy += (Math.random()-.5)*.06; }
+      n.x += n.vx; n.y += n.vy;
+      // soft wrap
+      if(n.x < -20)  n.x = W+20;
+      if(n.x > W+20) n.x = -20;
+      if(n.y < -20)  n.y = H+20;
+      if(n.y > H+20) n.y = -20;
+    }
+
+    // ── draw node→node connections ──
+    ctx.lineWidth = .6;
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var dx = nodes[i].x-nodes[j].x, dy = nodes[i].y-nodes[j].y;
+        var d  = Math.sqrt(dx*dx+dy*dy);
+        if(d < CONN_DIST){
+          // boost alpha if either node is a hub
+          var boost = (nodes[i].hub||nodes[j].hub) ? 1.6 : 1;
+          var a = (1-d/CONN_DIST)*.45*boost;
+          ctx.strokeStyle = rgba(p.line, Math.min(a,.7));
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // ── cursor connections (drawn thicker, amber) ──
+    if(mouse.x > -1000){
+      ctx.lineWidth = .8;
+      for(var i=0;i<nodes.length;i++){
+        var dx = nodes[i].x-mouse.x, dy = nodes[i].y-mouse.y;
+        var d  = Math.sqrt(dx*dx+dy*dy);
+        if(d < MOUSE_DIST){
+          var a = (1-d/MOUSE_DIST)*.75;
+          ctx.strokeStyle = rgba(p.cursor, a);
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+      // cursor dot
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 3.5, 0, Math.PI*2);
+      ctx.fillStyle = rgba(p.cursor, .85);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 14, 0, Math.PI*2);
+      ctx.fillStyle = rgba(p.cursor, .07);
+      ctx.fill();
+    }
+
+    // ── draw nodes ──
+    for(var i=0;i<nodes.length;i++){
+      var n = nodes[i];
+      var pulse = n.hub ? .75 + Math.sin(now*1.4+n.phase)*.25 : 1;
+      var r = n.r * pulse;
+      if(n.hub){
+        // glow ring
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r*4.5, 0, Math.PI*2);
+        ctx.fillStyle = rgba(p.hub, .06*pulse);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r*2, 0, Math.PI*2);
+        ctx.fillStyle = rgba(p.hub, .18*pulse);
+        ctx.fill();
+        // core
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, Math.PI*2);
+        ctx.fillStyle = rgba(p.hub, .95);
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, Math.PI*2);
+        ctx.fillStyle = rgba(p.node, .65);
+        ctx.fill();
+      }
+    }
+
+    rafId = requestAnimationFrame(draw);
   }
-  resize();init();draw();
-  window.addEventListener('resize',function(){resize();init()});
+
+  function start(){ if(running)return; running=true; draw(); }
+  function stop(){ running=false; if(rafId){cancelAnimationFrame(rafId);rafId=null;} }
+
+  resize(); init();
+  if(!document.hidden) start();
+  document.addEventListener('visibilitychange', function(){ document.hidden?stop():start(); });
+  window.addEventListener('resize', function(){ resize(); init(); });
+  document.addEventListener('mousemove', function(e){ mouse.x=e.clientX; mouse.y=e.clientY; });
+  document.addEventListener('mouseleave', function(){ mouse.x=-9999; mouse.y=-9999; });
 })();
 
 // ── SCROLL REVEAL ──
@@ -1278,7 +1406,7 @@ document.querySelectorAll('.reveal').forEach(function(el){revealObserver.observe
 
 // ── HERO CHAT ──
 var heroReplies=[
-  "Great question! We've got plans starting at $49/month. No contracts, no fuss. 😄",
+  "Great question! Spark is free forever — no card needed. Orbit is just $24/month. No contracts, no fuss. 😄",
   "Oh, you can be up and running in literally 5 minutes. Copy one line of code, paste it, done!",
   "Yep, 14-day free trial, no card needed. We're confident you'll love it.",
   "We currently support Sales, Support, Booking, and E-commerce bot types. Pick your fighter!",
@@ -1306,7 +1434,7 @@ var persData={
     colors:['var(--amber)','var(--violet)'],
     welcome:"Hey! Caught you exploring VegaMind, huh? Smart move 😄 What do you want to know?",
     replies:{
-      'What does this cost?':"Money talk! Spark plan is $49/mo — cheaper than your daily coffee run ☕. And yes, there's a free trial so you can take it for a spin guilt-free!",
+      'What does this cost?':"Money talk! Spark is FREE, and Orbit is just $24/mo — cheaper than your daily coffee run ☕. And yes, there's a free tier so you can try it guilt-free!",
       'How do I install it?':"Oh this is my favourite part 🎉 You copy ONE line of code and paste it. That's it. Seriously. I've seen it done in 47 seconds (we timed it).",
       'Can I try it free?':"14 days, completely free, no card needed. It's basically a test drive but for AI. Buckle up! 🚗💨",
       default:"Haha great question! The short answer: yes. The long answer: also yes, but with more features! Want me to explain? 😄"
@@ -1317,7 +1445,7 @@ var persData={
     colors:['var(--green)','var(--cyan)'],
     welcome:"Hey hey hey! 👋 You've just unlocked the best chat on the internet. What's your quest today?",
     replies:{
-      'What does this cost?':"🎮 PRICE UNLOCKED! Spark = $49/mo, Orbit = $149/mo, Nova = $399/mo. Each one levels up your business. Which level are you playing at?",
+      'What does this cost?':"🎮 PRICE UNLOCKED! Spark = FREE (20 chats), Orbit = $24/mo (200 chats + 7 widget designs), Nova = Contact Sales (custom everything). Which level are you playing at?",
       'How do I install it?':"Achievement unlocked: Setup Mode 🏆 Step 1: Copy code. Step 2: Paste code. Step 3: ??? Step 4: PROFIT. Literally that easy!",
       'Can I try it free?':"FREE TRIAL ACTIVATED ⭐ 14 days, zero cards, infinite possibilities. You literally have nothing to lose and everything to gain!",
       default:"Ooh that's a power move question! Yes, VegaMind can totally do that. Want the full breakdown? 🎮"
@@ -1328,7 +1456,7 @@ var persData={
     colors:['var(--cyan)','var(--violet2)'],
     welcome:"Hello. I'm VegaMind — a context-aware AI assistant. What technical or business question can I resolve for you today?",
     replies:{
-      'What does this cost?':"Pricing tiers: Spark ($49/mo, 500 conv), Orbit ($149/mo, 2,500 conv), Nova ($399/mo, unlimited). All include real-time webhooks, conversation logging, and API access. Billing is monthly with no lock-in.",
+      'What does this cost?':"Pricing tiers: Spark ($0/mo, 20 chats, 2 widget designs), Orbit ($24/mo, 200 chats, 7 widget designs, 4 personalities), Nova (custom — bespoke design, private AI deployment, full data privacy). No lock-in on Orbit.",
       'How do I install it?':"Implementation is a single script tag injection — approximately 40 bytes. The loader fetches your config via GET /v1/config/:key, injects the widget CSS and JS, and initialises asynchronously. Zero impact on your page's critical render path.",
       'Can I try it free?':"Yes. 14-day trial, no payment method required. Full feature access on the Orbit tier during the trial period. Conversion to paid is one click from your dashboard.",
       default:"Understood. VegaMind's architecture supports custom webhook endpoints, session persistence, and structured output parsing for multiple n8n response shapes. Want the technical documentation?"
@@ -1339,7 +1467,7 @@ var persData={
     colors:['var(--violet2)','var(--amber)'],
     welcome:"Hi! I'm here to help you find exactly what you need — whether that's pricing, a demo, or just a quick question. What can I help with?",
     replies:{
-      'What does this cost?':"Our plans start at $49/month for Spark, $149/month for Orbit (our most popular), and $399/month for Nova which includes unlimited bots and white-label options. All plans come with a 14-day free trial.",
+      'What does this cost?':"Spark is completely free — 20 chats/month, no card needed. Orbit is $24/month with 200 chats and 7 unique widget designs. Need something fully custom? Nova is built to order — contact our sales team.",
       'How do I install it?':"It's a one-line installation — you copy a small script tag from your dashboard and paste it into your website's footer. No developer needed. Most of our customers are live in under 5 minutes.",
       'Can I try it free?':"Absolutely — every plan comes with a 14-day free trial, no credit card required. You get full access to all features so you can evaluate it properly before committing.",
       default:"That's a great question. In short: yes, VegaMind handles that well. Would you like me to walk you through how it works in more detail?"
@@ -1389,9 +1517,8 @@ function toggleFaq(el){
 // ── BILLING TOGGLE ──
 var isYearly = false;
 var prices = {
-  spark:  { monthly: 49,  yearly: 39  },
-  orbit:  { monthly: 149, yearly: 119 },
-  nova:   { monthly: 399, yearly: 319 }
+  spark:  { monthly: 0,  yearly: 0  },
+  orbit:  { monthly: 24, yearly: 19 }
 };
 function toggleBilling() {
   isYearly = !isYearly;
@@ -1407,13 +1534,14 @@ function toggleBilling() {
   var billingText = isYearly
     ? 'Billed annually · cancel anytime'
     : 'Billed monthly · cancel anytime';
-  ['spark','orbit','nova'].forEach(function(plan) {
+  ['spark','orbit'].forEach(function(plan) {
     var el = document.getElementById('price-' + plan);
     el.classList.remove('flip');
     void el.offsetWidth; // reflow to restart animation
     el.classList.add('flip');
     el.textContent = '$' + prices[plan][period];
-    document.getElementById('billing-' + plan).textContent = billingText;
+    document.getElementById('billing-' + plan).textContent =
+      plan === 'spark' ? 'Forever free · no credit card needed' : billingText;
   });
 }
 
@@ -1449,7 +1577,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileM
 function updateNavBg(){
   var light=document.documentElement.getAttribute('data-theme')==='light';
   document.querySelector('nav').style.background=light
-    ?(window.scrollY>60?'rgba(240,237,255,.97)':'rgba(240,237,255,.88)')
+    ?(window.scrollY>60?'#f4f2d5':'#f4f2d5f7')
     :(window.scrollY>60?'rgba(4,4,13,.95)':'rgba(4,4,13,.7)');
 }
 function toggleTheme(){

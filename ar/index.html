@@ -92,6 +92,176 @@
 
 </section>
 
+<!-- ── POST-HERO CTA BAND ── -->
+<div class="cta-band">
+  <div>
+    <p class="cta-band-label">هل أنت مستعد للتوسع؟</p>
+    <h3>توقف عن العمل اليدوي.<br>ابدأ الأتمتة اليوم.</h3>
+    <p>معظم العملاء يرون نتائج خلال الأسبوعين الأولين. بدون عقود طويلة الأجل.</p>
+  </div>
+  <div class="cta-band-actions">
+    <button class="btn-primary" onclick="openAuditModal()" style="white-space:nowrap">تدقيق مجاني لحساباتك</button>
+    <a href="#contact" style="font-size:0.78rem;color:var(--muted);text-decoration:none;text-align:center;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">تواصل معنا ←</a>
+  </div>
+</div>
+
+<!-- ── VEGAMIND INTRO ── -->
+<section class="vm-intro-section">
+  <div class="vm-intro-glow"></div>
+  <div class="vm-intro-inner">
+
+    <!-- Right (RTL start): text -->
+    <div class="vm-intro-text">
+      <span class="eyebrow vm-eyebrow vm-reveal" data-delay="0">من تطوير QBS Global</span>
+      <h2 class="vm-headline vm-reveal" data-delay="130">تعرّف على<br><span class="vm-brand-name">VegaMind</span></h2>
+      <p class="vm-sub vm-reveal" data-delay="260">مساعدك الذكي دائم الاتصال — مُدرَّب على أعمالك، مُنشر على موقعك، يحوّل الزوار إلى عملاء وأنت نائم.</p>
+
+      <ul class="vm-features vm-reveal" data-delay="390">
+        <li><span class="vm-feat-dot"></span>إجابات فورية ودقيقة من قاعدة معرفتك الخاصة</li>
+        <li><span class="vm-feat-dot"></span>يلتقط العملاء المحتملين ويحجز الاجتماعات تلقائيًا</li>
+        <li><span class="vm-feat-dot"></span>يتحدث بصوت علامتك التجارية — لا كروبوت عادي</li>
+        <li><span class="vm-feat-dot"></span>متعدد اللغات: عربي وإنجليزي بشكل افتراضي</li>
+      </ul>
+
+      <a href="/VegaMind/VM-landing.html" class="vm-cta-btn vm-reveal" data-delay="520">
+        اكتشف VegaMind
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <!-- Left (RTL end): chat mockup -->
+    <div class="vm-intro-visual vm-reveal vm-reveal-right" data-delay="100">
+      <div class="vm-chat-card">
+        <div class="vm-chat-header">
+          <div class="vm-avatar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#7c3aed" opacity=".25"/><path d="M8 12h8M12 8l4 4-4 4" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="vm-chat-identity">
+            <strong>VegaMind</strong>
+            <span class="vm-status"><span class="vm-status-dot"></span>متصل</span>
+          </div>
+          <div class="vm-chat-badges">
+            <span class="vm-badge">AI</span>
+            <span class="vm-badge vm-badge-amber">24/7</span>
+          </div>
+        </div>
+
+        <div class="vm-chat-body" id="vmChatBody"></div>
+
+        <div class="vm-chat-input-bar">
+          <span class="vm-input-placeholder">اسألني أي شيء…</span>
+          <button class="vm-send-btn" aria-label="إرسال">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <!-- Floating stat chips -->
+        <div class="vm-stat-chip vm-chip-tl">
+          <span class="vm-chip-num">98%</span>
+          <span class="vm-chip-label">الدقة</span>
+        </div>
+        <div class="vm-stat-chip vm-chip-br">
+          <span class="vm-chip-num">2s</span>
+          <span class="vm-chip-label">متوسط الرد</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  /* ── Scroll Reveal ─────────────────────────────────── */
+  var revealEls = document.querySelectorAll('.vm-reveal');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      var delay = parseInt(el.dataset.delay || 0);
+      setTimeout(function() { el.classList.add('vm-revealed'); }, delay);
+      revealObs.unobserve(el);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  revealEls.forEach(function(el) { revealObs.observe(el); });
+
+  /* ── Chat Replay ───────────────────────────────────── */
+  var MSGS = [
+    { role: 'bot',  text: 'مرحبًا! أنا VegaMind، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟' },
+    { role: 'user', text: 'ما هي خدمات الأتمتة التي تقدمونها؟' },
+    { role: 'bot',  text: 'نبني أتمتة سير العمل المخصصة، وتكاملات الذكاء الاصطناعي، وخطوط CRM، وأنظمة التواصل الاجتماعي — كل ذلك مصمم لاحتياجات عملك.' },
+    { role: 'user', text: 'هل يمكنني حجز استشارة مجانية؟' },
+    { role: 'bot',  html: 'بالتأكيد! <a href="/VegaMind/VM-landing.html" class="vm-inline-link">اضغط هنا للبدء</a> — سأوصلك بالفريق على الفور. <span class="vm-emoji">🚀</span>', cta: true }
+  ];
+
+  var body = document.getElementById('vmChatBody');
+  if (!body) return;
+
+  var idx = 0, loopTimer = null;
+
+  function scrollBody() {
+    setTimeout(function() { body.scrollTop = body.scrollHeight; }, 20);
+  }
+
+  function showTyping() {
+    var el = document.createElement('div');
+    el.className = 'vm-typing-dots'; el.id = 'vmTyping';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(el);
+    scrollBody();
+  }
+
+  function hideTyping() {
+    var el = document.getElementById('vmTyping');
+    if (el) el.remove();
+  }
+
+  function appendMsg(msg) {
+    var el = document.createElement('div');
+    var cls = 'vm-msg vm-msg-animated ' + (msg.role === 'bot' ? 'vm-bot' : 'vm-user');
+    if (msg.cta) cls += ' vm-bot-cta';
+    el.className = cls;
+    if (msg.html) { el.innerHTML = msg.html; } else { el.textContent = msg.text; }
+    body.appendChild(el);
+    scrollBody();
+  }
+
+  function step() {
+    if (idx >= MSGS.length) {
+      loopTimer = setTimeout(function() { body.innerHTML = ''; idx = 0; step(); }, 3200);
+      return;
+    }
+    var msg = MSGS[idx];
+    if (msg.role === 'bot') {
+      showTyping();
+      var raw = msg.text || (msg.html || '').replace(/<[^>]+>/g, '');
+      var dur = Math.max(850, Math.min(1600, raw.length * 14));
+      loopTimer = setTimeout(function() {
+        hideTyping(); appendMsg(msg); idx++;
+        loopTimer = setTimeout(step, 520);
+      }, dur);
+    } else {
+      loopTimer = setTimeout(function() {
+        appendMsg(msg); idx++;
+        loopTimer = setTimeout(step, 320);
+      }, 650);
+    }
+  }
+
+  /* Start replay when section enters viewport */
+  var section = document.querySelector('.vm-intro-section');
+  var started = false;
+  var startObs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !started) {
+      started = true;
+      startObs.disconnect();
+      step();
+    }
+  }, { threshold: 0.25 });
+  if (section) startObs.observe(section);
+})();
+</script>
+
 <!-- ══════════════════════════════════════════════
      STATEMENT SECTION
      ══════════════════════════════════════════════ -->
@@ -536,19 +706,6 @@
 
   </div>
 </section>
-
-<!-- ── PRE-FOOTER CTA BAND ── -->
-<div class="cta-band">
-  <div>
-    <p class="cta-band-label">هل أنت مستعد للتوسع؟</p>
-    <h3>توقف عن العمل اليدوي.<br>ابدأ الأتمتة اليوم.</h3>
-    <p>معظم العملاء يرون نتائج خلال الأسبوعين الأولين. بدون عقود طويلة الأجل.</p>
-  </div>
-  <div class="cta-band-actions">
-    <button class="btn-primary" onclick="openAuditModal()" style="white-space:nowrap">تدقيق مجاني لحساباتك</button>
-    <a href="#contact" style="font-size:0.78rem;color:var(--muted);text-decoration:none;text-align:center;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">تواصل معنا ←</a>
-  </div>
-</div>
 
 <!-- ── FOOTER ── -->
 <footer>

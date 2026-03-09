@@ -3,7 +3,7 @@
    Loaded only on /ar/ pages
    ══════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700;900&display=swap');
 
 /* ── Font stack ────────────────────────────────── */
 body,
@@ -17,7 +17,7 @@ input, select, textarea, button,
 .hiw-subtitle, .hiw-step-desc,
 .modal-sub, .success-msg,
 .newsletter-row input {
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Noto Kufi Arabic', sans-serif;
 }
 
 h1, h2, h3, h4, h5,
@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5,
 .hiw-title, .hiw-step-label,
 .modal-title, .cta-band h3,
 .contact-form-title {
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Noto Kufi Arabic', sans-serif;
   font-weight: 900;
   letter-spacing: 0;
 }
@@ -92,5 +92,11 @@ h1, h2, h3, h4, h5,
 
 /* ── Number stats — always LTR (340+, 98%, etc.) ── */
 .stat-val, .stat-block-val, .chip-val { direction: ltr; unicode-bidi: embed; }
+
+/* ── Service card number — move to left corner (RTL: away from text start) ── */
+.svc-card-num {
+  right: auto;
+  left: 1.6rem;
+}
 
 /* ── Marquee runs RTL naturally, no extra override needed ── */

@@ -370,7 +370,7 @@ td.hi{color:var(--text);font-weight:500}
         <div><div class="stitle">CONVERSATIONS</div><div class="ssub">Recent sessions</div></div>
         <button class="btn btn-g" style="font-size:.68rem;padding:.3rem .7rem"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> Export CSV</button>
       </div>
-      <div class="tw"><table><thead><tr><th>Session</th><th>Bot</th><th>Messages</th><th>Date</th><th>Time</th></tr></thead><tbody id="ctbody"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--muted)">Loading…</td></tr></tbody></table></div>
+      <div class="tw"><table><thead><tr><th>Session</th><th>Visitor</th><th>Messages</th><th>Date</th></tr></thead><tbody id="ctbody"><tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--muted)">Loading…</td></tr></tbody></table></div>
     </div>
 
     <!-- EMBED CODE -->
@@ -620,55 +620,27 @@ function renderBGrid(bots) {
   if (!g) return;
   g.innerHTML = '';
   const cols = ['#ffe500','#47c8ff','#a78bfa','#34d399','#f59e0b'];
-  // Fetch message counts per bot in one query
-  const botIds = bots.map(function(b){ return b.id; }).join(',');
-  var countMap = {};
-  var sessionMap = {};
-  var countPromise = bots.length
-    ? sbf('/rest/v1/messages?tenant_id=eq.'+tid()+'&select=session_id,sessions!inner(bot_id)')
-        .then(function(r){ return r.json(); })
-        .then(function(msgs){
-          if(Array.isArray(msgs)) msgs.forEach(function(m){
-            var bid = m.sessions && m.sessions.bot_id;
-            if(bid){ countMap[bid]=(countMap[bid]||0)+1; }
-          });
-        }).catch(function(){})
-    : Promise.resolve();
-  var sessionPromise = bots.length
-    ? sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&select=bot_id')
-        .then(function(r){ return r.json(); })
-        .then(function(sess){
-          if(Array.isArray(sess)) sess.forEach(function(s){
-            if(s.bot_id){ sessionMap[s.bot_id]=(sessionMap[s.bot_id]||0)+1; }
-          });
-        }).catch(function(){})
-    : Promise.resolve();
-  Promise.all([countPromise, sessionPromise]).then(function(){
-    g.innerHTML = '';
-    bots.forEach(function(bot, i){
-      const c = cols[i%cols.length];
-      const r=parseInt(c.slice(1,3),16),gv=parseInt(c.slice(3,5),16),bv=parseInt(c.slice(5,7),16);
-      const d = document.createElement('div');
-      d.className = 'bc';
-      d.style.setProperty('--bc', c);
-      const msgs = countMap[bot.id]||0;
-      const sess = sessionMap[bot.id]||0;
-      d.innerHTML=
-        '<div class="bc-top">'+
-          '<div class="bav" style="background:rgba('+r+','+gv+','+bv+',.1);border:1px solid rgba('+r+','+gv+','+bv+',.22);color:'+c+'">'+esc(bot.name.slice(0,2).toUpperCase())+'</div>'+
-          '<div class="bliv"><div class="bdot '+(bot.is_active?'on':'off')+'"></div><span class="'+(bot.is_active?'bst live':'bst off')+'" style="border:none;background:none;padding:0">'+( bot.is_active?'Live':'Paused')+'</span></div>'+
-        '</div>'+
-        '<div class="bname">'+esc(bot.name)+'</div>'+
-        '<div><span class="bc-url">'+(bot.settings&&bot.settings.website_url?esc(bot.settings.website_url):'')+'</span></div>'+
-        '<div class="bmeta"><div><div class="bmv">'+(msgs||'—')+'</div><div class="bmk">Messages</div></div><div><div class="bmv">'+(sess||'—')+'</div><div class="bmk">Sessions</div></div><div><div class="bmv">GPT-4o</div><div class="bmk">Model</div></div></div>'+
-        '<div class="bact"><button class="btn btn-g" onclick="nav(\'embed\')">Embed Code</button><button class="btn btn-g" onclick="nav(\'botconfig\')">Edit Config</button></div>';
-      g.appendChild(d);
-    });
-    const add = document.createElement('div');
-    add.className='addbot'; add.onclick=openModal;
-    add.innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><div class="addbot-lbl">Add new bot</div>';
-    g.appendChild(add);
+  bots.forEach(function(bot, i){
+    const c = cols[i%cols.length];
+    const r=parseInt(c.slice(1,3),16),gv=parseInt(c.slice(3,5),16),bv=parseInt(c.slice(5,7),16);
+    const d = document.createElement('div');
+    d.className = 'bc';
+    d.style.setProperty('--bc', c);
+    d.innerHTML=
+      '<div class="bc-top">'+
+        '<div class="bav" style="background:rgba('+r+','+gv+','+bv+',.1);border:1px solid rgba('+r+','+gv+','+bv+',.22);color:'+c+'">'+esc(bot.name.slice(0,2).toUpperCase())+'</div>'+
+        '<div class="bliv"><div class="bdot '+(bot.is_active?'on':'off')+'"></div><span class="'+(bot.is_active?'bst live':'bst off')+'" style="border:none;background:none;padding:0">'+( bot.is_active?'Live':'Paused')+'</span></div>'+
+      '</div>'+
+      '<div class="bname">'+esc(bot.name)+'</div>'+
+      '<div><span class="bc-url">'+(bot.settings&&bot.settings.website_url?esc(bot.settings.website_url):'')+'</span></div>'+
+      '<div class="bmeta"><div><div class="bmv">—</div><div class="bmk">Convos</div></div><div><div class="bmv">—</div><div class="bmk">Sessions</div></div><div><div class="bmv">GPT-4o</div><div class="bmk">Model</div></div></div>'+
+      '<div class="bact"><button class="btn btn-g" onclick="nav(\'embed\')">Embed Code</button><button class="btn btn-g" onclick="nav(\'botconfig\')">Edit Config</button></div>';
+    g.appendChild(d);
   });
+  const add = document.createElement('div');
+  add.className='addbot'; add.onclick=openModal;
+  add.innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><div class="addbot-lbl">Add new bot</div>';
+  g.appendChild(add);
 }
 
 // ── CONVERSATIONS ─────────────────────────────────────────────────────────────
@@ -676,27 +648,18 @@ let convDone = false;
 function loadConvs() {
   if (convDone) return; convDone = true;
   const tb = document.getElementById('ctbody');
-  tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.72rem">Loading…</td></tr>';
-  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&select=id,started_at,bot_id,bots(name),messages(id)&order=started_at.desc&limit=50')
-    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&select=id,created_at,visitor_id&order=created_at.desc&limit=30')
+    .then(function(r){ return r.json(); })
     .then(function(rows){
-      if (!Array.isArray(rows)||!rows.length) { tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--muted)">No conversations yet</td></tr>'; return; }
+      if (!rows.length) { tb.innerHTML='<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--muted)">No conversations yet</td></tr>'; return; }
       tb.innerHTML='';
       rows.forEach(function(s){
         const tr=document.createElement('tr');
-        const d=new Date(s.started_at);
-        const botName=(s.bots&&s.bots.name)?esc(s.bots.name):'<span style="color:var(--muted)">—</span>';
-        const msgCount=Array.isArray(s.messages)?s.messages.length:0;
-        const msgLabel=msgCount?msgCount+' msg'+(msgCount===1?'':'s'):'<span style="color:var(--muted)">—</span>';
-        tr.innerHTML=
-          '<td class="hi" style="font-family:var(--fm);font-size:.7rem">#'+s.id.slice(0,8)+'</td>'+
-          '<td>'+botName+'</td>'+
-          '<td>'+msgLabel+'</td>'+
-          '<td style="color:var(--muted2);font-size:.72rem">'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+'</td>'+
-          '<td style="color:var(--muted);font-size:.7rem;font-family:var(--fm)">'+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</td>';
+        const d=new Date(s.created_at);
+        tr.innerHTML='<td class="hi" style="font-family:var(--fm);font-size:.7rem">#'+s.id.slice(0,6)+'</td><td>'+esc(s.visitor_id||'—').slice(0,10)+'</td><td>—</td><td>'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</td>';
         tb.appendChild(tr);
       });
-    }).catch(function(e){ tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--danger);font-size:.72rem">'+esc(e.message)+'</td></tr>'; });
+    }).catch(function(){ tb.innerHTML='<tr><td colspan="4" style="text-align:center;padding:1.5rem;color:var(--muted)">Could not load</td></tr>'; });
 }
 
 // ── EMBED CODE ────────────────────────────────────────────────────────────────
@@ -810,7 +773,7 @@ function buildChart(){
   if(!w) return;
   w.innerHTML='';
   const since=new Date(); since.setDate(since.getDate()-13); since.setHours(0,0,0,0);
-  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&started_at=gte.'+since.toISOString()+'&select=started_at&order=started_at.asc')
+  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&created_at=gte.'+since.toISOString()+'&select=created_at&order=created_at.asc')
     .then(function(r){ return r.json(); })
     .then(function(rows){
       const buckets={}, lbls=[], data=[];
@@ -819,7 +782,7 @@ function buildChart(){
         const key=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
         buckets[key]=0; lbls.push(String(d.getDate()));
       }
-      if(Array.isArray(rows)) rows.forEach(function(s){ const k=s.started_at.slice(0,10); if(k in buckets) buckets[k]++; });
+      if(Array.isArray(rows)) rows.forEach(function(s){ const k=s.created_at.slice(0,10); if(k in buckets) buckets[k]++; });
       Object.keys(buckets).sort().forEach(function(k){ data.push(buckets[k]); });
       const mx=Math.max.apply(null,data)||1;
       data.forEach(function(v,i){
@@ -836,7 +799,7 @@ function pad(n){ return n<10?'0'+n:String(n); }
 function loadActivity(){
   const el=document.getElementById('activity-feed');
   if(!el) return;
-  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&select=id,started_at,bot_id,bots(name)&order=started_at.desc&limit=6')
+  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&select=id,created_at,bot_id,bots(name)&order=created_at.desc&limit=6')
     .then(function(r){ return r.json(); })
     .then(function(rows){
       if(!Array.isArray(rows)||!rows.length){ el.innerHTML='<div class="ai"><div style="color:var(--muted);font-size:.73rem;padding:.3rem 0">No activity yet</div></div>'; return; }
@@ -844,7 +807,7 @@ function loadActivity(){
       rows.forEach(function(s){
         const nm=(s.bots&&s.bots.name)?esc(s.bots.name):'Bot';
         const ai=document.createElement('div'); ai.className='ai';
-        ai.innerHTML='<div class="aico y"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="amsg"><strong>'+nm+'</strong> received a new session</div><div class="atime">'+relTime(new Date(s.started_at))+'</div></div>';
+        ai.innerHTML='<div class="aico y"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="amsg"><strong>'+nm+'</strong> received a new session</div><div class="atime">'+relTime(new Date(s.created_at))+'</div></div>';
         el.appendChild(ai);
       });
     }).catch(function(){ el.innerHTML='<div class="ai"><div style="color:var(--muted);font-size:.73rem">Could not load</div></div>'; });
@@ -861,43 +824,7 @@ function relTime(d){
 let mStepN=1;
 function openModal(){ mStepN=1; updModal(); document.getElementById('mbg').classList.add('open'); }
 function closeModal(){ document.getElementById('mbg').classList.remove('open'); }
-function mNext(){
-  if(mStepN<3){ mStep(mStepN+1); return; }
-  // Step 3 → CREATE BOT
-  var name=(document.getElementById('nb-name')||{}).value||'';
-  var welcome=(document.getElementById('nb-welcome')||{}).value||'Hi! How can I help you today?';
-  var website=(document.getElementById('nb-website')||{}).value||'';
-  var personality=(document.getElementById('nb-personality')||{}).value||'balanced';
-  if(!name.trim()){ toast('Bot name is required','error'); mStep(1); return; }
-  var btn=document.getElementById('mb-next');
-  btn.disabled=true; btn.textContent='Creating…';
-  var newBotId=crypto.randomUUID();
-  var newKeyId=crypto.randomUUID();
-  var newKey='vm_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,10);
-  var botPayload={
-    id:newBotId,
-    tenant_id:tid(),
-    name:name.trim(),
-    welcome_message:welcome.trim(),
-    is_active:true,
-    settings:{website_url:website.trim(),personality:personality}
-  };
-  sbf('/rest/v1/bots',{method:'POST',prefer:'return=representation',body:JSON.stringify(botPayload)})
-    .then(function(r){ if(!r.ok) return r.json().then(function(e){ throw new Error(e.message||'Bot create failed'); }); return r.json(); })
-    .then(function(){
-      var keyPayload={id:newKeyId,bot_id:newBotId,tenant_id:tid(),key:newKey,is_active:true};
-      return sbf('/rest/v1/widget_keys',{method:'POST',prefer:'return=representation',body:JSON.stringify(keyPayload)});
-    })
-    .then(function(r){ if(!r.ok) return r.json().then(function(e){ throw new Error(e.message||'Key create failed'); }); return r.json(); })
-    .then(function(){
-      closeModal();
-      toast('Bot created! Grab the embed code from Embed Code tab','success');
-      convDone=false; etDone=false; cfgBid=null;
-      loadData();
-    })
-    .catch(function(e){ toast(e.message||'Create failed','error'); })
-    .finally(function(){ btn.disabled=false; btn.textContent='✓ Create Bot'; });
-}
+function mNext(){ if(mStepN<3){ mStep(mStepN+1); }else{ closeModal(); toast('Bot created — grab the embed code','success'); } }
 function mStep(n){ mStepN=n; updModal(); }
 function updModal(){
   for(var i=1;i<=3;i++){

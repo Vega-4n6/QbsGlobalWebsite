@@ -501,7 +501,7 @@ td.hi{color:var(--text);font-weight:500}
     </div>
     <div class="del-body">
       You're about to permanently delete <strong id="del-botname">this bot</strong>.<br><br>
-      This will remove the bot, its widget keys, and its sessions. <strong>Messages are kept</strong> for audit purposes.<br><br>
+      This will remove the bot record and all its widget keys. <strong>Conversations and messages are kept</strong> for audit purposes.<br><br>
       <span style="color:#ef4444;font-size:.7rem">This action cannot be undone.</span>
     </div>
     <div class="del-foot">
@@ -748,8 +748,7 @@ function buildEmbedTabs() {
   if (etDone) return; etDone = true;
   sbf('/rest/v1/widget_keys?tenant_id=eq.'+tid()+'&is_active=eq.true&select=id,key,bot_id,bots(name)')
     .then(function(r){ return r.json(); })
-    .then(function(keys){
-      const c = document.getElementById('etabs');
+    .then(function(keys){\n      const c = document.getElementById('etabs');
       c.innerHTML='';
       if (!keys.length) { c.innerHTML='<span style="font-size:.72rem;color:var(--muted)">No active widget keys found</span>'; return; }
       keys.forEach(function(k,i){
@@ -773,8 +772,8 @@ function setEmbed(key,keyId,botId,name){
   currentRegenBotId = botId;
   var dispEl = document.getElementById('regen-key-display');
   if (dispEl) dispEl.textContent = key;
-  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
-  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
 }
 function cpEmbed(bid){
   var el=document.getElementById(bid);
@@ -1020,47 +1019,30 @@ function deleteBot() {
   var btn = document.getElementById('del-confirm-btn');
   var lbl = document.getElementById('del-confirm-lbl');
   btn.disabled = true; lbl.textContent = 'Deleting…';
-
-  function checkResp(label, r) {
-    if (r.ok || r.status === 204) return Promise.resolve();
-    return r.text().then(function(body) {
-      var msg = body;
-      try { var j = JSON.parse(body); msg = j.message || j.details || j.hint || body; } catch(e) {}
-      throw new Error(label + ' failed (' + r.status + '): ' + msg);
-    });
-  }
-
-  // 1) Delete sessions for this bot (messages are kept, sessions are expendable)
-  sbf('/rest/v1/sessions?bot_id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'})
-  .then(function(r){ return checkResp('Delete sessions', r); })
-
-  // 2) Delete widget_keys
-  .then(function(){
-    return sbf('/rest/v1/widget_keys?bot_id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'});
-  })
-  .then(function(r){ return checkResp('Delete widget_keys', r); })
-
-  // 3) Delete the bot
-  .then(function(){
-    return sbf('/rest/v1/bots?id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'});
-  })
-  .then(function(r){ return checkResp('Delete bot', r); })
-
-  .then(function(){
-    closeDelModal();
-    toast('Bot deleted','success');
-    cfgBid = null; convDone = false; etDone = false;
-    loadData();
-    var chips = document.getElementById('cfg-chips');
-    while (chips.children.length > 1) chips.removeChild(chips.lastChild);
-    cfgInit();
-    ['cfg-name','cfg-welcome','cfg-website'].forEach(function(id){
-      var e = document.getElementById(id); if (e) e.value = '';
-    });
-    set('cfg-id','—');
-  })
-  .catch(function(e){ toast(e.message || 'Delete failed', 'error'); console.error('deleteBot:', e); })
-  .finally(function(){ btn.disabled = false; lbl.textContent = 'Delete Bot'; });
+  // Delete widget_keys first (FK constraint), then bot
+  sbf('/rest/v1/widget_keys?bot_id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'})
+    .then(function(){
+      return sbf('/rest/v1/bots?id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'});
+    })
+    .then(function(r){
+      if (!r.ok) throw new Error('Delete failed (HTTP '+r.status+')');
+      closeDelModal();
+      toast('Bot deleted','success');
+      // Reset state and reload
+      cfgBid = null; convDone = false; etDone = false;
+      loadData();
+      // Reload cfg chips
+      var chips = document.getElementById('cfg-chips');
+      while (chips.children.length > 1) chips.removeChild(chips.lastChild);
+      cfgInit();
+      // Clear form
+      ['cfg-name','cfg-welcome','cfg-website'].forEach(function(id){
+        var e = document.getElementById(id); if (e) e.value = '';
+      });
+      set('cfg-id','—');
+    })
+    .catch(function(e){ toast(e.message||'Delete failed','error'); })
+    .finally(function(){ btn.disabled = false; lbl.textContent = 'Delete Bot'; });
 }
 
 // ── REGEN WIDGET KEY ──────────────────────────────────────────────────────────

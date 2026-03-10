@@ -206,21 +206,8 @@ td.hi{color:var(--text);font-weight:500}
 .sd{width:6px;height:6px;background:var(--border);border-radius:50%;transition:all .2s}
 .sd.on{background:var(--acc);width:16px;border-radius:1px}
 .sd.done{background:var(--acc);opacity:.4}
-/* DELETE CONFIRM MODAL */
-#del-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-#del-modal.open{display:flex}
-.del-box{background:var(--bg2);border:1px solid rgba(239,68,68,.25);width:380px;max-width:92vw;animation:min .2s cubic-bezier(.16,1,.3,1)}
-.del-hdr{padding:.9rem 1.1rem;border-bottom:1px solid rgba(239,68,68,.12);display:flex;align-items:center;gap:.6rem}
-.del-icon{width:28px;height:28px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);display:flex;align-items:center;justify-content:center;color:#ef4444;flex-shrink:0}
-.del-title{font-family:var(--fd);font-size:1rem;letter-spacing:.08em;color:#ef4444}
-.del-body{padding:1rem 1.1rem;font-size:.76rem;color:var(--muted2);line-height:1.6}
-.del-body strong{color:var(--text)}
-.del-foot{padding:.75rem 1.1rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:.5rem}
-/* REGEN KEY */
-.regen-row{display:flex;align-items:center;justify-content:space-between;padding:.55rem .8rem;background:rgba(255,255,255,.02);border:1px solid var(--border);margin-top:.55rem}
-.regen-key{font-family:var(--fm);font-size:.7rem;color:var(--acc2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* TOASTER */
-#toaster{position:fixed;bottom:1.3rem;right:1.3rem;z-index:300;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+#toaster{position:fixed;bottom:1.3rem;right:1.3rem;z-index:200;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
 .toast{background:var(--bg3);border:1px solid var(--border);padding:.6rem .9rem;display:flex;align-items:center;gap:.5rem;font-size:.76rem;min-width:220px;pointer-events:all;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));animation:tin .22s ease}
 @keyframes tin{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
 .toast.out{animation:tout .22s ease forwards}
@@ -401,13 +388,6 @@ td.hi{color:var(--text);font-weight:500}
       <div class="ep" style="background:rgba(var(--acc-rgb),.02);border-color:rgba(var(--acc-rgb),.1)">
         <div style="display:flex;gap:.6rem"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div style="font-size:.7rem;color:var(--muted2);line-height:1.6">Your widget key is validated server-side by the Edge Function before any request reaches n8n.</div></div>
       </div>
-      <div class="ep" style="margin-top:.5rem">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem">
-          <div><div class="stitle" style="font-size:.85rem">WIDGET KEY</div><div style="font-size:.65rem;color:var(--muted);margin-top:.1rem">Regenerate if your key is compromised</div></div>
-          <button class="btn btn-d" id="regen-btn" onclick="regenKey()" style="font-size:.68rem;padding:.35rem .7rem"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Regenerate Key</button>
-        </div>
-        <div class="regen-row"><span class="regen-key" id="regen-key-display">Select a bot tab above to see its key</span></div>
-      </div>
     </div>
 
     <!-- BOT CONFIG -->
@@ -449,8 +429,6 @@ td.hi{color:var(--text);font-weight:500}
       <div style="display:flex;align-items:center;gap:.6rem;margin-top:1rem">
         <button class="btn btn-p" id="cfg-savebtn" onclick="cfgSave()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span id="cfg-savelbl">Save Changes</span></button>
         <button class="btn btn-g" onclick="cfgLoad()">Discard</button>
-        <div style="flex:1"></div>
-        <button class="btn btn-d" id="cfg-delbtn" onclick="openDelModal()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete Bot</button>
       </div>
     </div>
 
@@ -492,30 +470,11 @@ td.hi{color:var(--text);font-weight:500}
   </div>
 </div>
 
-<!-- DELETE BOT MODAL -->
-<div id="del-modal" onclick="if(event.target===this)closeDelModal()">
-  <div class="del-box">
-    <div class="del-hdr">
-      <div class="del-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-      <div class="del-title">DELETE BOT</div>
-    </div>
-    <div class="del-body">
-      You're about to permanently delete <strong id="del-botname">this bot</strong>.<br><br>
-      This will remove the bot, its widget keys, and its sessions. <strong>Messages are kept</strong> for audit purposes.<br><br>
-      <span style="color:#ef4444;font-size:.7rem">This action cannot be undone.</span>
-    </div>
-    <div class="del-foot">
-      <button class="btn btn-g" onclick="closeDelModal()">Cancel</button>
-      <button class="btn btn-d" id="del-confirm-btn" onclick="deleteBot()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg><span id="del-confirm-lbl">Delete Bot</span></button>
-    </div>
-  </div>
-</div>
-
 <div id="toaster"></div>
 
 <script>
 const SBURL        = 'https://lyiqesxemmisigccslfn.supabase.co';
-const SBANON       = 'sb_publishable_vrtqJqLhB7Nw8viAFZPKCw_k2mpMzkS';
+const SBANON       = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5aXFlc3hlbW1pc2lnY2NzbGZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTQwNzgsImV4cCI6MjA4ODIzMDA3OH0.QIdGOfuIm4om3nrWBnBb02slLrZLSbN9fuNiKkDgJ9s';
 const LOGIN        = 'vegamind-login.html';
 const FALLBACK_TID = 'fd5635eb-9142-48da-a917-eab29bc2ae49';
 const sb           = supabase.createClient(SBURL, SBANON);
@@ -626,18 +585,24 @@ function loadData() {
     .then(function(r){
       const cr = r.headers.get('content-range');
       const n = cr ? cr.split('/')[1] : '0';
-      set('ov-convos', n); set('an-m', n); set('an-s', n);
-    }).catch(function(){ set('ov-convos','0'); set('an-m','0'); set('an-s','0'); });
+      set('ov-convos', n); set('an-s', n);
+    }).catch(function(){ set('ov-convos','0'); set('an-s','0'); });
+  // Monthly Sessions
+  var mStart = new Date(); mStart.setDate(1); mStart.setHours(0,0,0,0);
+  sbf('/rest/v1/sessions?tenant_id=eq.'+tid()+'&started_at=gte.'+mStart.toISOString()+'&select=id',{headers:{'Prefer':'count=exact'}})
+    .then(function(r){
+      const cr = r.headers.get('content-range');
+      set('an-m', cr ? cr.split('/')[1] : '0');
+    }).catch(function(){ set('an-m','0'); });
   // Keys
   sbf('/rest/v1/widget_keys?tenant_id=eq.'+tid()+'&is_active=eq.true&select=id',{headers:{'Prefer':'count=exact'}})
     .then(function(r){
       const cr = r.headers.get('content-range');
       set('ov-keys', cr ? cr.split('/')[1] : '0');
     }).catch(function(){ set('ov-keys','0'); });
-  // Plan limits
-  loadPlanUsage();
   // Activity
   loadActivity();
+  loadPlanUsage();
 }
 
 function renderOvBots(bots) {
@@ -648,7 +613,7 @@ function renderOvBots(bots) {
   bots.slice(0,3).forEach(function(bot){
     const d = document.createElement('div');
     d.className='ov-brow';
-    d.onclick=function(){nav('botconfig')};
+    d.onclick=function(){cfgBid=bot.id; nav('botconfig')};
     const live=bot.is_active;
     d.innerHTML=
       '<div class="ov-bav">'+esc(bot.name.charAt(0).toUpperCase())+'</div>'+
@@ -704,7 +669,7 @@ function renderBGrid(bots) {
         '<div class="bname">'+esc(bot.name)+'</div>'+
         '<div><span class="bc-url">'+(bot.settings&&bot.settings.website_url?esc(bot.settings.website_url):'')+'</span></div>'+
         '<div class="bmeta"><div><div class="bmv">'+(msgs||'—')+'</div><div class="bmk">Messages</div></div><div><div class="bmv">'+(sess||'—')+'</div><div class="bmk">Sessions</div></div><div><div class="bmv">GPT-4o</div><div class="bmk">Model</div></div></div>'+
-        '<div class="bact"><button class="btn btn-g" onclick="nav(\'embed\')">Embed Code</button><button class="btn btn-g" onclick="nav(\'botconfig\')">Edit Config</button></div>';
+        '<div class="bact"><button class="btn btn-g" onclick="nav(\'embed\')">Embed Code</button><button class="btn btn-g" onclick="cfgBid=\''+bot.id+'\';nav(\'botconfig\')">Edit Config</button></div>';
       g.appendChild(d);
     });
     const add = document.createElement('div');
@@ -746,7 +711,7 @@ function loadConvs() {
 let etDone = false;
 function buildEmbedTabs() {
   if (etDone) return; etDone = true;
-  sbf('/rest/v1/widget_keys?tenant_id=eq.'+tid()+'&is_active=eq.true&select=id,key,bot_id,bots(name)')
+  sbf('/rest/v1/widget_keys?tenant_id=eq.'+tid()+'&is_active=eq.true&select=key,bot_id,bots(name)')
     .then(function(r){ return r.json(); })
     .then(function(keys){
       const c = document.getElementById('etabs');
@@ -757,24 +722,20 @@ function buildEmbedTabs() {
         const btn=document.createElement('button');
         btn.className='btn '+(i===0?'btn-p':'btn-g');
         btn.textContent=nm;
-        btn.onclick=(function(key,keyId,botId,el,name){
+        btn.onclick=(function(key,el,name){
           return function(){
             document.querySelectorAll('#etabs .btn').forEach(function(b){b.className='btn btn-g'});
-            el.className='btn btn-p'; setEmbed(key,keyId,botId,name);
+            el.className='btn btn-p'; setEmbed(key,name);
           };
-        })(k.key,k.id,k.bot_id,btn,nm);
+        })(k.key,btn,nm);
         c.appendChild(btn);
       });
-      const f=keys[0]; setEmbed(f.key,f.id,f.bot_id,(f.bots&&f.bots.name)?f.bots.name:'Bot');
+      const f=keys[0]; setEmbed(f.key,(f.bots&&f.bots.name)?f.bots.name:'Bot');
     }).catch(function(){ document.getElementById('etabs').innerHTML='<span style="font-size:.72rem;color:var(--muted)">Could not load keys</span>'; });
 }
-function setEmbed(key,keyId,botId,name){
-  currentRegenKeyId = keyId;
-  currentRegenBotId = botId;
-  var dispEl = document.getElementById('regen-key-display');
-  if (dispEl) dispEl.textContent = key;
-  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
-  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+function setEmbed(key,name){
+  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
 }
 function cpEmbed(bid){
   var el=document.getElementById(bid);
@@ -809,7 +770,7 @@ function cfgInit(){
         })(bot.id,chip);
         c.appendChild(chip);
       });
-      cfgBid=bots[0].id; cfgLoad();
+      if(!cfgBid) cfgBid=bots[0].id; cfgLoad();
     }).catch(function(){ cfgBid='b7e8e121-16a4-49b6-8537-ffa2debf0fd9'; cfgLoad(); });
 }
 function cfgLoad(){
@@ -956,134 +917,6 @@ function updModal(){
   if(next) next.textContent=mStepN===3?'✓ Create Bot':'Next →';
   const pr=document.getElementById('nb-prev'),nm=document.getElementById('nb-name');
   if(pr&&nm) pr.textContent='Bot: '+(nm.value||'—');
-}
-
-// ── PLAN USAGE ────────────────────────────────────────────────────────────────
-function loadPlanUsage() {
-  // Fetch tenant → plan_id, then plan details, then msg count this month
-  sbf('/rest/v1/tenants?id=eq.'+tid()+'&select=plan_id,name&limit=1')
-    .then(function(r){ return r.json(); })
-    .then(function(rows){
-      if (!rows || !rows[0]) throw new Error('No tenant');
-      var planId = rows[0].plan_id;
-      return sbf('/rest/v1/plans?id=eq.'+planId+'&select=name,msg_limit_month&limit=1')
-        .then(function(r){ return r.json(); })
-        .then(function(plans){
-          if (!plans || !plans[0]) throw new Error('No plan');
-          var plan = plans[0];
-          var limit = plan.msg_limit_month || 0;
-          // Count messages this month
-          var monthStart = new Date(); monthStart.setDate(1); monthStart.setHours(0,0,0,0);
-          return sbf('/rest/v1/messages?tenant_id=eq.'+tid()+'&created_at=gte.'+monthStart.toISOString()+'&select=id',
-            {headers:{'Prefer':'count=exact'}})
-            .then(function(r){
-              var cr = r.headers.get('content-range');
-              var used = cr ? parseInt(cr.split('/')[1],10)||0 : 0;
-              renderPlanBar(plan.name, used, limit);
-            });
-        });
-    })
-    .catch(function(){ renderPlanBar('—', 0, 0); });
-}
-function renderPlanBar(planName, used, limit) {
-  var pct = limit > 0 ? Math.min(Math.round((used/limit)*100),100) : 0;
-  var planEl = document.querySelector('.splan-name');
-  if (planEl) planEl.textContent = planName + ' Plan';
-  var detEl = document.getElementById('plan-det');
-  if (detEl) detEl.textContent = used.toLocaleString() + ' / ' + (limit?limit.toLocaleString():'∞') + ' messages';
-  var fillEl = document.getElementById('plan-fill');
-  if (fillEl) {
-    fillEl.style.width = pct + '%';
-    fillEl.style.background = pct >= 90
-      ? 'linear-gradient(90deg,#ef4444,#f87171)'
-      : pct >= 70
-        ? 'linear-gradient(90deg,#f59e0b,var(--acc))'
-        : 'linear-gradient(90deg,var(--acc),var(--acc2))';
-  }
-  var pctEl = document.getElementById('plan-pct');
-  if (pctEl) pctEl.textContent = pct + '% used';
-}
-
-// ── DELETE BOT ────────────────────────────────────────────────────────────────
-function openDelModal() {
-  if (!cfgBid) { toast('No bot selected','info'); return; }
-  var nameEl = document.getElementById('cfg-name');
-  var name = nameEl ? nameEl.value || 'this bot' : 'this bot';
-  set('del-botname', '"' + name + '"');
-  document.getElementById('del-modal').classList.add('open');
-}
-function closeDelModal() {
-  document.getElementById('del-modal').classList.remove('open');
-}
-function deleteBot() {
-  if (!cfgBid) return;
-  var btn = document.getElementById('del-confirm-btn');
-  var lbl = document.getElementById('del-confirm-lbl');
-  btn.disabled = true; lbl.textContent = 'Deleting…';
-
-  function checkResp(label, r) {
-    if (r.ok || r.status === 204) return Promise.resolve();
-    return r.text().then(function(body) {
-      var msg = body;
-      try { var j = JSON.parse(body); msg = j.message || j.details || j.hint || body; } catch(e) {}
-      throw new Error(label + ' failed (' + r.status + '): ' + msg);
-    });
-  }
-
-  // 1) Delete sessions for this bot (messages are kept, sessions are expendable)
-  sbf('/rest/v1/sessions?bot_id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'})
-  .then(function(r){ return checkResp('Delete sessions', r); })
-
-  // 2) Delete widget_keys
-  .then(function(){
-    return sbf('/rest/v1/widget_keys?bot_id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'});
-  })
-  .then(function(r){ return checkResp('Delete widget_keys', r); })
-
-  // 3) Delete the bot
-  .then(function(){
-    return sbf('/rest/v1/bots?id=eq.'+cfgBid, {method:'DELETE', prefer:'return=minimal'});
-  })
-  .then(function(r){ return checkResp('Delete bot', r); })
-
-  .then(function(){
-    closeDelModal();
-    toast('Bot deleted','success');
-    cfgBid = null; convDone = false; etDone = false;
-    loadData();
-    var chips = document.getElementById('cfg-chips');
-    while (chips.children.length > 1) chips.removeChild(chips.lastChild);
-    cfgInit();
-    ['cfg-name','cfg-welcome','cfg-website'].forEach(function(id){
-      var e = document.getElementById(id); if (e) e.value = '';
-    });
-    set('cfg-id','—');
-  })
-  .catch(function(e){ toast(e.message || 'Delete failed', 'error'); console.error('deleteBot:', e); })
-  .finally(function(){ btn.disabled = false; lbl.textContent = 'Delete Bot'; });
-}
-
-// ── REGEN WIDGET KEY ──────────────────────────────────────────────────────────
-var currentRegenKeyId = null;  // stores the widget_keys.id for active embed tab
-var currentRegenBotId = null;
-
-function regenKey() {
-  if (!currentRegenKeyId || !currentRegenBotId) { toast('Select a bot tab first','info'); return; }
-  var btn = document.getElementById('regen-btn');
-  btn.disabled = true;
-  var newKey = 'vm_' + Math.random().toString(36).slice(2,10) + Math.random().toString(36).slice(2,10);
-  sbf('/rest/v1/widget_keys?id=eq.'+currentRegenKeyId, {
-    method:'PATCH', prefer:'return=representation',
-    body: JSON.stringify({key: newKey})
-  })
-  .then(function(r){ if (!r.ok) throw new Error('Regen failed'); return r.json(); })
-  .then(function(){
-    toast('Widget key regenerated — update your embed snippet!','success');
-    // Force reload of embed tabs to show new key
-    etDone = false; buildEmbedTabs();
-  })
-  .catch(function(e){ toast(e.message||'Regen failed','error'); })
-  .finally(function(){ btn.disabled = false; });
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────────

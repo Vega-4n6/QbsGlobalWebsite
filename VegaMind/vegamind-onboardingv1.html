@@ -478,8 +478,8 @@ function tlItem(state, title, desc) {
 
 function renderPlanCards() {
   var plans = [
-    { id:'spark', name:'Spark', price:'Free', desc:'1 bot · 20 messages/month' },
-    { id:'orbit', name:'Orbit', price:'$24/mo', desc:'Unlimited bots · 200 messages/month', badge:'POPULAR' },
+    { id:'spark', name:'Spark', price:'$24/mo', desc:'1 bot · 200 messages/month' },
+    { id:'orbit', name:'Orbit', price:'$79/mo', desc:'5 bots · 2,000 messages/month', badge:'POPULAR' },
   ];
   return plans.map(function(p) {
     var badge = p.badge ? '<span class="plan-badge">' + p.badge + '</span>' : '';

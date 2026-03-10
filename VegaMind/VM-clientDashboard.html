@@ -775,6 +775,8 @@ function setEmbed(key,keyId,botId,name){
   if (dispEl) dispEl.textContent = key;
   document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
   document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
 }
 function cpEmbed(bid){
   var el=document.getElementById(bid);

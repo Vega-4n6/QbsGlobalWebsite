@@ -573,6 +573,285 @@
     footer { flex-direction: column; gap: 12px; text-align: center; }
     .cta-section { padding: 80px 32px; }
   }
+
+  /* ══════════════════════════════════════════
+     BOOKING MODAL
+  ══════════════════════════════════════════ */
+
+  /* Overlay */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(13,13,13,0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  /* Modal box */
+  .modal {
+    background: var(--paper);
+    width: 100%; max-width: 540px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.35);
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    border: 1px solid var(--border);
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+  .modal-inner { padding: 40px 44px 36px; }
+
+  /* Close button */
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); background: rgba(200,64,26,0.05); }
+
+  /* Header */
+  .modal-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .modal-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .modal-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* Step indicators */
+  .modal-steps {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 32px;
+  }
+  .step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .step-dot.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+  }
+  .step-dot.done {
+    border-color: var(--accent);
+    background: transparent;
+    color: var(--accent);
+  }
+  .step-line {
+    flex: 1; height: 1px;
+    background: var(--border);
+    transition: background 0.4s ease;
+  }
+  .step-line.lit { background: var(--accent); }
+
+  /* Step panels */
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+
+  /* Fields */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .field-row.single { grid-template-columns: 1fr; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field input[type="date"] { cursor: pointer; }
+  .field textarea {
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.6;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: var(--accent); }
+  .field.error input,
+  .field.error select { border-color: #c0392b; }
+  .field-err {
+    font-size: 11px;
+    color: #c0392b;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    display: none;
+  }
+  .field.error .field-err { display: block; }
+
+  /* Time grid */
+  .time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .time-slot {
+    border: 1px solid var(--border);
+    padding: 10px 8px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    user-select: none;
+  }
+  .time-slot:hover { border-color: var(--accent); color: var(--accent); }
+  .time-slot.selected {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+  }
+  #time-err {
+    font-size: 11px;
+    color: #c0392b;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+  }
+
+  /* Modal footer nav */
+  .modal-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    gap: 12px;
+  }
+  .btn-next {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-left: auto;
+  }
+  .btn-next:hover { background: #a8341a; transform: translateY(-1px); }
+  .btn-back {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-back.hidden { visibility: hidden; pointer-events: none; }
+
+  /* Success state */
+  .modal-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0 8px;
+  }
+  .modal-success.visible { display: block; }
+  .success-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .success-msg {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 340px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+  }
+  .success-msg strong { color: var(--ink); }
+
+  /* Submitting spinner on button */
+  .btn-next.loading { opacity: 0.7; pointer-events: none; }
+
+  /* Modal responsive */
+  @media (max-width: 600px) {
+    .modal-inner { padding: 28px 20px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .time-grid { grid-template-columns: repeat(3, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -852,7 +1131,7 @@
 <section class="cta-section">
   <h2>Ready to Stop Being <em>Invisible?</em></h2>
   <p>Let's talk about where your business is today — and build the digital infrastructure that takes it where it deserves to be.</p>
-  <a class="cta-btn" href="#">Start the Conversation</a>
+  <button class="cta-btn" onclick="openModal()">Start the Conversation</button>
 </section>
 
 <!-- FOOTER -->
@@ -861,16 +1140,151 @@
   <span class="footer-note">AI Automation &amp; Business Workflow Optimisation</span>
 </footer>
 
+<!-- ══════════════════════════════════════════
+     BOOKING MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <!-- Accent top bar -->
+    <div style="height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+
+    <div class="modal-inner">
+
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Header -->
+      <p class="modal-tag">QBS Global</p>
+      <h2 class="modal-title" id="modalTitle">Book a Meeting</h2>
+      <p class="modal-sub">Let's talk about automating your growth. Takes 30 seconds.</p>
+
+      <!-- Step indicators -->
+      <div class="modal-steps">
+        <div class="step-dot active" id="dot1">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3">3</div>
+      </div>
+
+      <!-- ── STEP 1: About you ── -->
+      <div class="step-panel active" id="step1">
+        <div class="field-row">
+          <div class="field" id="f-fname">
+            <label>First Name</label>
+            <input type="text" id="fname" placeholder="Jane" autocomplete="given-name">
+            <span class="field-err">Required</span>
+          </div>
+          <div class="field" id="f-lname">
+            <label>Last Name</label>
+            <input type="text" id="lname" placeholder="Doe" autocomplete="family-name">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="f-email">
+            <label>Work Email</label>
+            <input type="email" id="email" placeholder="jane@company.com" autocomplete="email">
+            <span class="field-err">Enter a valid email</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field" id="f-company">
+            <label>Company / Business</label>
+            <input type="text" id="company" placeholder="Acme Inc.">
+            <span class="field-err">Required</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Pick a time ── -->
+      <div class="step-panel" id="step2">
+        <div class="field-row single" style="margin-bottom:1.2rem">
+          <div class="field" id="f-date">
+            <label>Preferred Date</label>
+            <input type="date" id="meetdate">
+            <span class="field-err">Please pick a date</span>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0.6rem">
+          <label>Available Time Slots (your local time)</label>
+        </div>
+        <div class="time-grid" id="timeGrid">
+          <div class="time-slot" onclick="pickTime(this)">9:00 AM</div>
+          <div class="time-slot" onclick="pickTime(this)">10:00 AM</div>
+          <div class="time-slot" onclick="pickTime(this)">11:00 AM</div>
+          <div class="time-slot" onclick="pickTime(this)">1:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">2:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">3:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">4:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">5:00 PM</div>
+          <div class="time-slot" onclick="pickTime(this)">6:00 PM</div>
+        </div>
+        <span class="field-err" id="time-err" style="display:none;margin-top:0.2rem">Please select a time slot</span>
+      </div>
+
+      <!-- ── STEP 3: Goals ── -->
+      <div class="step-panel" id="step3">
+        <div class="field-row single">
+          <div class="field" id="f-service">
+            <label>What are you looking to automate?</label>
+            <select id="service">
+              <option value="" disabled selected>Select an area…</option>
+              <option>Lead Generation &amp; Outreach</option>
+              <option>Social Media &amp; Content</option>
+              <option>CRM &amp; Email Workflows</option>
+              <option>Internal Business Processes</option>
+              <option>E-commerce &amp; Fulfilment</option>
+              <option>Data &amp; Reporting</option>
+              <option>Not sure — need a consultation</option>
+            </select>
+            <span class="field-err">Please select an option</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>Anything else? <span style="color:var(--muted);font-size:0.65rem;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <textarea id="notes" placeholder="Tell us a bit about your current setup or goals…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SUCCESS ── -->
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3 class="success-title">You're Booked!</h3>
+        <p class="success-msg">We've received your request and will send a calendar invite to <strong id="confirmEmail"></strong> shortly. Looking forward to chatting!</p>
+        <button class="btn-next" onclick="closeModal()" style="margin:0 auto;display:block">Close</button>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="modal-footer" id="modalFooter">
+        <button class="btn-back hidden" id="btnBack" onclick="prevStep()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Back
+        </button>
+        <button class="btn-next" id="btnNext" onclick="nextStep()">Continue</button>
+      </div>
+
+    </div><!-- /modal-inner -->
+  </div><!-- /modal -->
+</div><!-- /overlay -->
+
 <script>
-  // Reading progress bar
+  // ── Reading progress bar ──
   const bar = document.getElementById('progress');
   window.addEventListener('scroll', () => {
     const total = document.body.scrollHeight - window.innerHeight;
-    const pct = (window.scrollY / total) * 100;
-    bar.style.width = pct + '%';
+    bar.style.width = (window.scrollY / total * 100) + '%';
   });
 
-  // Subtle fade-in on scroll for case studies and sections
+  // ── Scroll fade-in ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -879,13 +1293,204 @@
       }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.case-study, .highlight-box, .principles, .pull-quote, h2').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
   });
+
+  // ══════════════════════════════════════════
+  //  BOOKING MODAL
+  // ══════════════════════════════════════════
+
+  let currentStep = 1;
+  const TOTAL_STEPS = 3;
+
+  // ── Open / close ──
+  function openModal() {
+    resetModal();
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('meetdate').min = today;
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ── Reset to step 1 ──
+  function resetModal() {
+    currentStep = 1;
+    showStep(1);
+    // Clear all fields
+    ['fname','lname','email','company','meetdate','notes'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('service').selectedIndex = 0;
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    document.querySelectorAll('.field').forEach(f => f.classList.remove('error'));
+    document.getElementById('time-err').style.display = 'none';
+    // Hide success, show footer
+    document.getElementById('modalSuccess').classList.remove('visible');
+    document.getElementById('modalFooter').style.display = '';
+    // Reset step dots
+    ['dot1','dot2','dot3'].forEach((id,i) => {
+      const d = document.getElementById(id);
+      d.classList.remove('active','done');
+    });
+    ['line1','line2'].forEach(id => document.getElementById(id).classList.remove('lit'));
+    document.getElementById('dot1').classList.add('active');
+  }
+
+  // ── Show a specific step ──
+  function showStep(n) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+
+    // Update dots
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const dot = document.getElementById('dot' + i);
+      dot.classList.remove('active', 'done');
+      if (i < n)  dot.classList.add('done');
+      if (i === n) dot.classList.add('active');
+    }
+    // Update lines
+    for (let i = 1; i < TOTAL_STEPS; i++) {
+      const line = document.getElementById('line' + i);
+      line.classList.toggle('lit', i < n);
+    }
+
+    // Back button
+    const btnBack = document.getElementById('btnBack');
+    btnBack.classList.toggle('hidden', n === 1);
+
+    // Next button label
+    const btnNext = document.getElementById('btnNext');
+    btnNext.textContent = n === TOTAL_STEPS ? 'Book Meeting' : 'Continue';
+  }
+
+  // ── Validate step ──
+  function validateStep(n) {
+    let valid = true;
+
+    if (n === 1) {
+      [
+        { id: 'f-fname', input: 'fname',   check: v => v.trim() !== '' },
+        { id: 'f-lname', input: 'lname',   check: v => v.trim() !== '' },
+        { id: 'f-email', input: 'email',   check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+        { id: 'f-company', input: 'company', check: v => v.trim() !== '' },
+      ].forEach(({ id, input, check }) => {
+        const field = document.getElementById(id);
+        const val   = document.getElementById(input).value;
+        if (!check(val)) { field.classList.add('error'); valid = false; }
+        else             { field.classList.remove('error'); }
+      });
+    }
+
+    if (n === 2) {
+      const dateVal = document.getElementById('meetdate').value;
+      const dateField = document.getElementById('f-date');
+      if (!dateVal) { dateField.classList.add('error'); valid = false; }
+      else          { dateField.classList.remove('error'); }
+
+      const selected = document.querySelector('.time-slot.selected');
+      const timeErr  = document.getElementById('time-err');
+      if (!selected) { timeErr.style.display = 'block'; valid = false; }
+      else           { timeErr.style.display = 'none'; }
+    }
+
+    if (n === 3) {
+      const svc = document.getElementById('service').value;
+      const svcField = document.getElementById('f-service');
+      if (!svc) { svcField.classList.add('error'); valid = false; }
+      else      { svcField.classList.remove('error'); }
+    }
+
+    return valid;
+  }
+
+  // ── Next / prev ──
+  function nextStep() {
+    if (!validateStep(currentStep)) return;
+    if (currentStep < TOTAL_STEPS) {
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      submitBooking();
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  }
+
+  // ── Time slot picker ──
+  function pickTime(el) {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('time-err').style.display = 'none';
+  }
+
+  // ── Submit to n8n webhook ──
+  async function submitBooking() {
+    const btn = document.getElementById('btnNext');
+    btn.textContent = 'Sending…';
+    btn.classList.add('loading');
+
+    const payload = {
+      firstName:   document.getElementById('fname').value.trim(),
+      lastName:    document.getElementById('lname').value.trim(),
+      email:       document.getElementById('email').value.trim(),
+      company:     document.getElementById('company').value.trim(),
+      date:        document.getElementById('meetdate').value,
+      time:        document.querySelector('.time-slot.selected')?.textContent || '',
+      service:     document.getElementById('service').value,
+      notes:       document.getElementById('notes').value.trim(),
+      source:      'blog-b1'
+    };
+
+    try {
+      await fetch('https://n8n.srv1381788.hstgr.cloud/webhook/qbsblogpage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      // Fail silently — still show success to user
+      console.error('Webhook error:', err);
+    }
+
+    // Show success
+    document.getElementById('confirmEmail').textContent = payload.email;
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('modalSuccess').classList.add('visible');
+    document.getElementById('modalFooter').style.display = 'none';
+
+    // Mark all dots done
+    ['dot1','dot2','dot3'].forEach(id => {
+      const d = document.getElementById(id);
+      d.classList.remove('active');
+      d.classList.add('done');
+    });
+    ['line1','line2'].forEach(id => document.getElementById(id).classList.add('lit'));
+  }
 </script>
 </body>
 </html>

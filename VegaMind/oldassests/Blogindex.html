@@ -466,103 +466,6 @@ nav {
 }
 .footer-home:hover { color: var(--accent); }
 
-/* ── LIVE POST CARD ── */
-.live-card {
-  display: block;
-  width: 100%;
-  max-width: 860px;
-  border: 1px solid rgba(255,229,0,0.25);
-  position: relative;
-  overflow: hidden;
-  background: var(--surface);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.live-card:hover {
-  border-color: rgba(255,229,0,0.55);
-  box-shadow: 0 0 40px rgba(255,229,0,0.07);
-}
-.live-card::before {
-  content: '';
-  position: absolute;
-  top: -1px; right: -1px;
-  width: 70px; height: 70px;
-  border-top: 1px solid var(--accent);
-  border-right: 1px solid var(--accent);
-  opacity: 0.6;
-  pointer-events: none;
-}
-.live-card-bar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-.live-card-inner { padding: 3.5rem 4rem; }
-.live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  border: 1px solid rgba(255,229,0,0.3);
-  background: rgba(255,229,0,0.06);
-  padding: 0.45rem 0.9rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 2.5rem;
-}
-.live-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-  animation: pulse 2s ease-in-out infinite;
-}
-.live-card-grid {
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  gap: 0;
-}
-.live-card-col { padding: 0 2.5rem; }
-.live-card-col:first-child { padding-left: 0; }
-.live-card-col:last-child  { padding-right: 0; }
-.live-card-col .col-title em { font-style: italic; color: var(--accent); }
-.live-takeaways {
-  list-style: none;
-  padding: 0; margin: 0 0 1.5rem;
-  display: flex; flex-direction: column; gap: 0.65rem;
-}
-.live-takeaways li {
-  font-size: 0.86rem;
-  color: var(--muted);
-  font-weight: 300;
-  line-height: 1.55;
-  padding-left: 1.1rem;
-  position: relative;
-}
-.live-takeaways li::before {
-  content: '→';
-  position: absolute; left: 0;
-  color: var(--accent); font-size: 0.75rem;
-}
-.live-read-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 0.5rem;
-  transition: gap 0.25s;
-}
-.live-card:hover .live-read-cta { gap: 0.8rem; }
-
-@media (max-width: 768px) {
-  .live-card-inner { padding: 2rem 1.5rem; }
-  .live-card-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .live-card-grid .panel-divider { display: none; }
-  .live-card-col { padding: 0; }
-}
-
 /* ── ANIMATIONS ── */
 .fade-up {
   opacity: 0;
@@ -620,68 +523,26 @@ nav {
   <p>Deep dives into AI automation, workflow engineering, and what it actually takes to build intelligent systems that work in the real world.</p>
 </section>
 
-<!-- POSTS SECTION -->
+<!-- COMING SOON PANEL -->
 <div class="coming-soon-wrap">
 
-  <!-- LIVE POST CARD -->
-  <a href="B1-YourBusinessIsInvisible_.html" class="live-card fade-up" aria-label="Read: Why Your SME Is Invisible (And How to Fix It)">
-    <div class="live-card-bar"></div>
-    <div class="live-card-inner">
-      <div class="live-badge">
-        <div class="live-dot"></div>
-        New Post
-      </div>
-      <div class="live-card-grid">
-        <div class="live-card-col">
-          <p class="col-label">B1 — Visibility</p>
-          <h2 class="col-title">Why Your SME Is<br><em>Invisible</em> — And<br>How to Fix It</h2>
-          <p class="col-body">
-            Most small businesses are invisible online — not because they lack quality,
-            but because they lack infrastructure. In this first post, we break down
-            <strong>why that gap is widening</strong> and the practical steps to close it,
-            backed by real SME case studies from Gymshark, Motel Rocks, and more.
-          </p>
-          <div class="topic-list" style="margin-top:1.4rem;">
-            <span class="topic-pill accent">Digital Presence</span>
-            <span class="topic-pill accent2">AI Automation</span>
-            <span class="topic-pill">SME Strategy</span>
-            <span class="topic-pill">Case Studies</span>
-          </div>
-        </div>
-        <div class="panel-divider"></div>
-        <div class="live-card-col">
-          <p class="col-label">What you'll take away</p>
-          <ul class="live-takeaways">
-            <li>Why being "good at your job" is no longer enough to be found</li>
-            <li>How Gymshark went from a bedroom to a £1B brand using digital infrastructure</li>
-            <li>What AI workflow automation actually looks like for a 7-person team</li>
-            <li>The framework QBS Global uses to measure automation ROI</li>
-          </ul>
-          <div class="live-read-cta">
-            Read Article
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <!-- MORE COMING PANEL -->
-  <div class="coming-soon-panel fade-up d1" style="margin-top:2rem;">
+  <div class="coming-soon-panel fade-up">
     <div class="panel-bar"></div>
     <div class="panel-inner">
+
       <div class="status-badge">
         <div class="status-dot"></div>
-        More articles in production
+        Currently in production
       </div>
+
       <div class="panel-grid">
         <div class="panel-col">
           <p class="col-label">What's coming</p>
-          <h2 class="col-title">Hard-won Knowledge<br>From the Build</h2>
+          <h2 class="col-title">Our Blog is Being<br>Built Right Now</h2>
           <p class="col-body">
             We write the way we work — with precision and purpose.
             Expect <strong>no filler</strong>, no SEO-padded fluff.
-            Just real insights from building automations for businesses
+            Just hard-won knowledge from building automations for real businesses
             across the UAE and beyond.
           </p>
           <div class="topic-list">
@@ -690,11 +551,14 @@ nav {
             <span class="topic-pill">n8n Deep Dives</span>
             <span class="topic-pill">Dubai Business Ops</span>
             <span class="topic-pill">No-Code Engineering</span>
+            <span class="topic-pill">Case Studies</span>
           </div>
         </div>
+
         <div class="panel-divider"></div>
+
         <div class="panel-col">
-          <p class="col-label">Next articles</p>
+          <p class="col-label">First articles dropping</p>
           <h2 class="col-title">Why Most AI Agents<br>Fail in Production</h2>
           <p class="col-body">
             Plus: how we reduced a client's manual data entry by
@@ -704,7 +568,7 @@ nav {
           <div class="topic-list">
             <span class="topic-pill">Playbooks</span>
             <span class="topic-pill">Behind the Build</span>
-            <span class="topic-pill accent">Publishing Soon</span>
+            <span class="topic-pill accent">New Monthly</span>
           </div>
         </div>
       </div>
@@ -713,18 +577,20 @@ nav {
       <div class="notify-strip">
         <div class="notify-text">
           <h3>Get Notified First</h3>
-          <p>Drop your email. We'll send you the next article the moment it publishes — nothing else.</p>
+          <p>Drop your email. We'll send you the first article the moment it publishes — nothing else.</p>
         </div>
         <form class="notify-form" id="notifyForm" onsubmit="handleNotify(event)">
           <input type="email" id="notifyEmail" placeholder="your@email.com" autocomplete="email" required>
           <button type="submit">Notify Me</button>
         </form>
       </div>
+
     </div>
   </div>
 
   <!-- GHOST CARDS -->
-  <div class="ghost-cards fade-up d2">
+  <div class="ghost-cards fade-up d1">
+
     <div class="ghost-card">
       <span class="ghost-tag">AI Agents</span>
       <div class="skel h-title w-90"></div>
@@ -741,6 +607,7 @@ nav {
         </div>
       </div>
     </div>
+
     <div class="ghost-card">
       <span class="ghost-tag">Case Study</span>
       <div class="skel h-title w-80"></div>
@@ -757,6 +624,7 @@ nav {
         </div>
       </div>
     </div>
+
     <div class="ghost-card">
       <span class="ghost-tag">Operations</span>
       <div class="skel h-title w-70"></div>
@@ -773,6 +641,7 @@ nav {
         </div>
       </div>
     </div>
+
   </div>
 
 </div>

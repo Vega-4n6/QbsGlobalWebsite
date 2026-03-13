@@ -22,6 +22,30 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="QBS Global — Innovation. Intelligence. Impact.">
 <meta name="twitter:description" content="Intelligent automations that eliminate manual work and deploy AI agents for your business.">
+<link rel="canonical" href="https://qbsglobal.ae/">
+<link rel="alternate" hreflang="en" href="https://qbsglobal.ae/">
+<link rel="alternate" hreflang="ar" href="https://qbsglobal.ae/ar/">
+<link rel="alternate" hreflang="x-default" href="https://qbsglobal.ae/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "QBS Global",
+  "url": "https://qbsglobal.ae",
+  "logo": "https://qbsglobal.ae/logo.png",
+  "description": "Intelligent automations, AI agent deployment, and digital presence management for businesses in the UAE.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Dubai",
+    "addressCountry": "AE"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["English", "Arabic"]
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="widget.css">
@@ -1301,27 +1325,50 @@
   });
 
   init();
-  loop();
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) loop();
 })();
+
+// ── FOCUS TRAP ────────────────────────────────────────────
+const FOCUSABLE_SEL = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+function createFocusTrap(containerEl) {
+  const prevFocus = document.activeElement;
+  const focusable = [...containerEl.querySelectorAll(FOCUSABLE_SEL)];
+  if (focusable.length) focusable[0].focus();
+  function handler(e) {
+    if (e.key !== 'Tab') return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey ? document.activeElement === first : document.activeElement === last) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+    }
+  }
+  containerEl.addEventListener('keydown', handler);
+  return function release() {
+    containerEl.removeEventListener('keydown', handler);
+    if (prevFocus && prevFocus.focus) prevFocus.focus();
+  };
+}
 
 // ── MODAL LOGIC ──────────────────────────────────────────
 let currentStep = 1;
 const TOTAL_STEPS = 3;
+let _releaseBookingTrap, _releaseAuditTrap, _releaseHiwTrap;
 
 function openModal() {
   currentStep = 1;
   renderStep();
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  // Set min date to today
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('meetdate').setAttribute('min', today);
+  _releaseBookingTrap = createFocusTrap(document.getElementById('modalOverlay'));
 }
 
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  // Reset after transition
+  if (_releaseBookingTrap) { _releaseBookingTrap(); _releaseBookingTrap = null; }
   setTimeout(resetModal, 350);
 }
 
@@ -1436,11 +1483,13 @@ function validateStep(step) {
 function openAuditModal() {
   document.getElementById('auditOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  _releaseAuditTrap = createFocusTrap(document.getElementById('auditOverlay'));
 }
 
 function closeAuditModal() {
   document.getElementById('auditOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  if (_releaseAuditTrap) { _releaseAuditTrap(); _releaseAuditTrap = null; }
   setTimeout(() => {
     document.getElementById('auditSuccess').classList.remove('active');
     document.getElementById('auditFooter').style.display = '';
@@ -1670,6 +1719,7 @@ window.addEventListener('load', () => setTimeout(revealOnScroll, 120));
 function openHowItWorks() {
   document.getElementById('hiwOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  _releaseHiwTrap = createFocusTrap(document.getElementById('hiwOverlay'));
   // Trigger step animations in sequence
   const delays = [100, 400, 700, 1000];
   const lineDelays = [300, 600, 900];
@@ -1690,6 +1740,7 @@ function openHowItWorks() {
 function closeHowItWorks() {
   document.getElementById('hiwOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  if (_releaseHiwTrap) { _releaseHiwTrap(); _releaseHiwTrap = null; }
   // Reset animations for next open
   setTimeout(() => {
     ['hiwStep1','hiwStep2','hiwStep3','hiwStep4'].forEach(id => {

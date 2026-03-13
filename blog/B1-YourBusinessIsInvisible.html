@@ -13,6 +13,8 @@
 <meta name="author" content="QBS Global">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://qbsglobal.ae/blog/B1-YourBusinessIsInvisible.html">
+<link rel="alternate" hreflang="en" href="https://qbsglobal.ae/blog/B1-YourBusinessIsInvisible.html">
+<link rel="alternate" hreflang="ar" href="https://qbsglobal.ae/blog/ar/B1-YourBusinessIsInvisible.html">
 
 <!-- ═══════════════════════════════════════════
      OPEN GRAPH  (Facebook, LinkedIn, WhatsApp)
@@ -133,13 +135,23 @@
     text-decoration: none;
   }
   .logo span { color: var(--accent); }
-  .nav-tag {
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .lang-switch {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    transition: color 0.2s, border-color 0.2s;
   }
+  .lang-switch:hover { color: var(--ink); border-color: var(--muted); }
   .nav-back-blog {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -861,10 +873,13 @@
 <!-- NAV -->
 <nav>
   <a class="logo" href="index.html"><span>QBS</span> Global</a>
-  <a class="nav-back-blog" href="index.html">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Blog
-  </a>
+  <div class="nav-right">
+    <a class="lang-switch" href="ar/B1-YourBusinessIsInvisible.html" hreflang="ar">عربي</a>
+    <a class="nav-back-blog" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Blog
+    </a>
+  </div>
 </nav>
 
 <!-- HERO -->

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — QBS Global</title>
-<meta name="description" content="Insights on AI automation, workflow engineering, and intelligent business operations from the QBS Global team.">
-<meta property="og:title" content="Blog — QBS Global">
-<meta property="og:description" content="Insights on AI automation, workflow engineering, and intelligent business operations from the QBS Global team.">
+<title>المدوّنة — QBS Global</title>
+<meta name="description" content="رؤى حول أتمتة الذكاء الاصطناعي وهندسة سير العمل والعمليات التجارية الذكية من فريق QBS Global.">
+<meta property="og:title" content="المدوّنة — QBS Global">
+<meta property="og:description" content="رؤى حول أتمتة الذكاء الاصطناعي وهندسة سير العمل والعمليات التجارية الذكية من فريق QBS Global.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://qbsglobal.ae/blog">
+<meta property="og:url" content="https://qbsglobal.ae/blog/ar/">
 <meta property="og:image" content="https://qbsglobal.ae/og-image.png">
+<meta property="og:locale" content="ar_AE">
+<!-- hreflang -->
 <link rel="alternate" hreflang="en" href="https://qbsglobal.ae/blog/">
 <link rel="alternate" hreflang="ar" href="https://qbsglobal.ae/blog/ar/">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 
 /* ── RESET ── */
@@ -76,7 +78,7 @@ body {
   max-width: 100vw;
   background: var(--bg);
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Noto Kufi Arabic', sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -105,7 +107,6 @@ nav {
 .logo-link { text-decoration: none; }
 .logo-img  { height: clamp(50px, 12vw, 100px); width: auto; }
 
-/* Dual logos — match exactly how main site does it */
 .logo-dark  { display: block; }
 .logo-light { display: none; }
 [data-theme="light"] .logo-dark  { display: none; }
@@ -122,11 +123,10 @@ nav {
   color: var(--accent);
   border: 1px solid rgba(255,229,0,0.3);
   padding: 0.55rem 1.4rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0;
+  font-family: 'Noto Kufi Arabic', sans-serif;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -136,8 +136,26 @@ nav {
 }
 [data-theme="light"] .nav-back { border-color: rgba(184,149,0,0.35); }
 .nav-back:hover { background: var(--accent); color: var(--bg); }
-.nav-back svg { transition: transform 0.25s; flex-shrink: 0; }
-.nav-back:hover svg { transform: translateX(-3px); }
+.nav-back svg { transition: transform 0.25s; flex-shrink: 0; transform: scaleX(-1); }
+.nav-back:hover svg { transform: scaleX(-1) translateX(-3px); }
+
+/* Language switch */
+.lang-switch {
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  transition: color 0.2s, border-color 0.2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  direction: ltr;
+}
+.lang-switch:hover { color: var(--text); border-color: var(--muted); }
 
 /* ── Theme toggle ── */
 .theme-toggle {
@@ -159,29 +177,10 @@ nav {
   border-color: var(--accent);
   color: var(--accent);
 }
-/* Sun shown in dark, moon shown in light — identical to main site logic */
 .icon-sun  { display: block; }
 .icon-moon { display: none; }
 [data-theme="light"] .icon-sun  { display: none; }
 [data-theme="light"] .icon-moon { display: block; }
-
-/* ── Language switch ── */
-.lang-switch {
-  font-size: 0.76rem;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 0.28rem 0.65rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.2s, border-color 0.2s;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-.lang-switch:hover { color: var(--text); border-color: var(--muted); }
-@media (max-width: 390px) { .lang-switch { padding: 0.22rem 0.45rem; font-size: 0.7rem; } }
 
 /* ══════════════════════════════════════════
    HERO
@@ -213,10 +212,9 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--accent);
   margin-bottom: 1.2rem;
 }
@@ -228,10 +226,11 @@ nav {
   flex-shrink: 0;
 }
 .blog-hero h1 {
-  font-family: 'Bebas Neue', cursive;
-  font-size: clamp(3rem, 8vw, 6rem);
-  line-height: 0.95;
-  letter-spacing: 0.03em;
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0;
   margin-bottom: 1.4rem;
   position: relative;
   z-index: 1;
@@ -243,8 +242,8 @@ nav {
   font-size: 1rem;
   color: var(--muted);
   font-weight: 300;
-  line-height: 1.75;
-  max-width: 520px;
+  line-height: 1.85;
+  max-width: 540px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -264,7 +263,6 @@ nav {
   gap: 0;
 }
 
-/* ── Shared panel ── */
 .coming-soon-panel {
   width: 100%;
   max-width: 860px;
@@ -277,20 +275,20 @@ nav {
 .coming-soon-panel::before {
   content: '';
   position: absolute;
-  top: -1px; right: -1px;
+  top: -1px; left: -1px;
   width: 70px; height: 70px;
   border-top: 1px solid var(--accent);
-  border-right: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
   opacity: 0.5;
   pointer-events: none;
 }
 .coming-soon-panel::after {
   content: '';
   position: absolute;
-  bottom: -1px; left: -1px;
+  bottom: -1px; right: -1px;
   width: 70px; height: 70px;
   border-bottom: 1px solid var(--accent2);
-  border-left: 1px solid var(--accent2);
+  border-right: 1px solid var(--accent2);
   opacity: 0.3;
   pointer-events: none;
 }
@@ -304,9 +302,8 @@ nav {
   border: 1px solid rgba(71,200,255,0.25);
   background: rgba(71,200,255,0.05);
   padding: 0.45rem 0.9rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0;
   color: var(--accent2);
   margin-bottom: 2.5rem;
   transition: color 0.3s;
@@ -334,13 +331,12 @@ nav {
 .panel-divider { background: var(--border); transition: background 0.3s; }
 
 .panel-col { padding: 0 2.5rem; }
-.panel-col:first-child { padding-left: 0; }
-.panel-col:last-child  { padding-right: 0; }
+.panel-col:first-child { padding-right: 0; padding-left: 2.5rem; }
+.panel-col:last-child  { padding-left: 0; padding-right: 2.5rem; }
 
 .col-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0;
   color: var(--muted);
   margin-bottom: 0.75rem;
   display: flex;
@@ -356,30 +352,30 @@ nav {
   flex-shrink: 0;
 }
 .col-title {
-  font-family: 'Bebas Neue', cursive;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  letter-spacing: 0.04em;
-  line-height: 1.05;
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.3;
   margin-bottom: 0.9rem;
   color: var(--text);
   transition: color 0.3s;
 }
 .col-body {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--muted);
-  font-weight: 300;
-  line-height: 1.75;
+  font-weight: 400;
+  line-height: 1.85;
   transition: color 0.3s;
 }
-.col-body strong { color: var(--text-soft); font-weight: 500; transition: color 0.3s; }
+.col-body strong { color: var(--text-soft); font-weight: 600; transition: color 0.3s; }
 
 .topic-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
 .topic-pill {
   border: 1px solid var(--border);
   padding: 0.3rem 0.75rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0;
   color: var(--muted);
   transition: border-color 0.25s, color 0.25s;
 }
@@ -398,19 +394,20 @@ nav {
   transition: border-color 0.3s;
 }
 .notify-text h3 {
-  font-family: 'Bebas Neue', cursive;
-  font-size: 1.4rem;
-  letter-spacing: 0.05em;
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0;
   margin-bottom: 0.35rem;
   color: var(--text);
   transition: color 0.3s;
 }
 .notify-text p {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--muted);
-  font-weight: 300;
-  line-height: 1.6;
-  max-width: 300px;
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 320px;
   transition: color 0.3s;
 }
 .notify-form { display: flex; flex: 1; min-width: 240px; }
@@ -418,15 +415,16 @@ nav {
   flex: 1;
   background: var(--input-bg);
   border: 1px solid var(--border);
-  border-right: none;
+  border-left: none;
   color: var(--input-text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Noto Kufi Arabic', sans-serif;
   font-size: 0.88rem;
-  font-weight: 300;
+  font-weight: 400;
   padding: 0.75rem 1rem;
   outline: none;
   transition: border-color 0.2s, background 0.3s, color 0.3s;
   min-width: 0;
+  direction: ltr;
 }
 .notify-form input:focus { border-color: var(--accent); opacity: 0.6; }
 .notify-form input::placeholder { color: var(--muted); opacity: 0.5; }
@@ -436,11 +434,10 @@ nav {
   color: #0a0a0f;
   padding: 0 1.4rem;
   cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
   transition: background 0.2s, box-shadow 0.2s;
   flex-shrink: 0;
   white-space: nowrap;
@@ -487,9 +484,8 @@ nav {
 .ghost-card:hover::before { opacity: 0.4; }
 .ghost-tag {
   display: inline-block;
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0;
   color: var(--accent);
   margin-bottom: 1rem;
   opacity: 0.7;
@@ -539,9 +535,8 @@ nav {
 }
 .ghost-meta { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .ghost-coming {
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0;
   color: var(--muted);
   opacity: 0.5;
 }
@@ -553,9 +548,7 @@ nav {
   display: block;
   width: 100%;
   max-width: 860px;
-  border: 1px solid var(--accent);
-  border-opacity: 0.25;
-  border-color: rgba(255,229,0,0.25);
+  border: 1px solid rgba(255,229,0,0.25);
   position: relative;
   overflow: hidden;
   background: var(--surface);
@@ -565,14 +558,13 @@ nav {
 }
 [data-theme="light"] .live-card { border-color: rgba(184,149,0,0.3); }
 .live-card:hover { border-color: var(--accent); box-shadow: 0 0 40px rgba(255,229,0,0.07); }
-[data-theme="light"] .live-card:hover { box-shadow: 0 0 40px rgba(184,149,0,0.1); }
 .live-card::before {
   content: '';
   position: absolute;
-  top: -1px; right: -1px;
+  top: -1px; left: -1px;
   width: 70px; height: 70px;
   border-top: 1px solid var(--accent);
-  border-right: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
   opacity: 0.6;
   pointer-events: none;
 }
@@ -583,15 +575,11 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  border: 1px solid var(--accent);
-  border-opacity: 0.3;
-  background: var(--accent);
-  border-color: rgba(255,229,0,0.3);
   background: rgba(255,229,0,0.06);
+  border: 1px solid rgba(255,229,0,0.3);
   padding: 0.45rem 0.9rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0;
   color: var(--accent);
   margin-bottom: 2.5rem;
   transition: color 0.3s, border-color 0.3s, background 0.3s;
@@ -611,8 +599,8 @@ nav {
   gap: 0;
 }
 .live-card-col { padding: 0 2.5rem; }
-.live-card-col:first-child { padding-left: 0; }
-.live-card-col:last-child  { padding-right: 0; }
+.live-card-col:first-child { padding-right: 0; padding-left: 2.5rem; }
+.live-card-col:last-child  { padding-left: 0; padding-right: 2.5rem; }
 .live-card-col .col-title em { font-style: italic; color: var(--accent); }
 
 .live-takeaways {
@@ -621,17 +609,18 @@ nav {
   display: flex; flex-direction: column; gap: 0.65rem;
 }
 .live-takeaways li {
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   color: var(--muted);
-  font-weight: 300;
-  line-height: 1.55;
-  padding-left: 1.1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  padding-right: 1.3rem;
+  padding-left: 0;
   position: relative;
   transition: color 0.3s;
 }
 .live-takeaways li::before {
-  content: '→';
-  position: absolute; left: 0;
+  content: '←';
+  position: absolute; right: 0; left: auto;
   color: var(--accent);
   font-size: 0.75rem;
   transition: color 0.3s;
@@ -641,13 +630,12 @@ nav {
   align-items: center;
   gap: 0.5rem;
   color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
   transition: gap 0.25s, color 0.3s;
 }
+.live-read-cta svg { transform: scaleX(-1); }
 .live-card:hover .live-read-cta { gap: 0.8rem; }
 
 /* ══════════════════════════════════════════
@@ -663,13 +651,13 @@ nav {
   flex-wrap: wrap;
   transition: border-color 0.3s;
 }
-.blog-footer p { font-size: 0.76rem; color: var(--muted); font-weight: 300; transition: color 0.3s; }
+.blog-footer p { font-size: 0.8rem; color: var(--muted); font-weight: 400; transition: color 0.3s; }
 .blog-footer p span { color: var(--accent); transition: color 0.3s; }
 .footer-home {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   color: var(--muted);
   text-decoration: none;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   transition: color 0.2s;
   display: inline-flex;
   align-items: center;
@@ -700,7 +688,7 @@ nav {
   .panel-inner { padding: 2rem 1.5rem; }
   .panel-grid { grid-template-columns: 1fr; gap: 2rem; }
   .panel-divider { display: none; }
-  .panel-col { padding: 0; }
+  .panel-col { padding: 0 !important; }
   .ghost-cards { grid-template-columns: 1fr; }
   .notify-strip { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .notify-form { width: 100%; }
@@ -708,14 +696,14 @@ nav {
   .live-card-inner { padding: 2rem 1.5rem; }
   .live-card-grid { grid-template-columns: 1fr; gap: 2rem; }
   .live-card-grid .panel-divider { display: none; }
-  .live-card-col { padding: 0; }
+  .live-card-col { padding: 0 !important; }
 }
 @media (max-width: 480px) {
   .blog-hero { padding: 2.5rem 1rem 2rem; }
   .coming-soon-wrap { padding: 1.5rem 1rem 3rem; }
   .panel-inner { padding: 1.5rem 1rem; }
   .notify-form { flex-direction: column; }
-  .notify-form input { border-right: 1px solid var(--border); border-bottom: none; }
+  .notify-form input { border-left: 1px solid var(--border); border-bottom: none; }
   .notify-form button { width: 100%; }
 }
 </style>
@@ -724,20 +712,19 @@ nav {
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo-link">
+  <a href="/ar/" class="logo-link">
     <img src="/logo.png"       alt="QBS Global" class="logo-img logo-dark">
     <img src="/logo-light.png" alt="QBS Global" class="logo-img logo-light">
   </a>
   <div class="nav-right">
-    <a href="/" class="nav-back">
+    <a href="/blog/" class="nav-back">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 12H5M12 5l-7 7 7 7"/>
       </svg>
-      Back to Site
+      العودة للموقع
     </a>
-    <a href="/blog/ar/" class="lang-switch" hreflang="ar">عربي</a>
-    <!-- Theme toggle — identical markup to main site -->
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+    <a href="/blog/" class="lang-switch" hreflang="en">EN</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="تبديل الوضع الليلي/النهاري">
       <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="5"/>
         <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -752,49 +739,49 @@ nav {
 <!-- HERO -->
 <section class="blog-hero">
   <p class="blog-eyebrow">QBS Global</p>
-  <h1>Insights &amp; <span>Intelligence</span></h1>
-  <p>Deep dives into AI automation, workflow engineering, and what it actually takes to build intelligent systems that work in the real world.</p>
+  <h1>رؤى و<span>معرفة</span></h1>
+  <p>تحليلات معمّقة في أتمتة الذكاء الاصطناعي وهندسة سير العمل، وما يتطلبه بناء أنظمة ذكية فعّالة في عالم الأعمال الحقيقي.</p>
 </section>
 
 <!-- POSTS SECTION -->
 <div class="coming-soon-wrap">
 
   <!-- LIVE POST CARD -->
-  <a href="B1-YourBusinessIsInvisible.html" class="live-card fade-up" aria-label="Read: Why Your SME Is Invisible (And How to Fix It)">
+  <a href="B1-YourBusinessIsInvisible.html" class="live-card fade-up" aria-label="اقرأ: لماذا شركتك الصغيرة غير مرئية — وكيف تُصلح ذلك">
     <div class="live-card-bar"></div>
     <div class="live-card-inner">
       <div class="live-badge">
         <div class="live-dot"></div>
-        New Post
+        مقالة جديدة
       </div>
       <div class="live-card-grid">
         <div class="live-card-col">
-          <p class="col-label">B1 — Visibility</p>
-          <h2 class="col-title">Why Your SME Is<br><em>Invisible</em> — And<br>How to Fix It</h2>
+          <p class="col-label">م١ — الظهور الرقمي</p>
+          <h2 class="col-title">لماذا شركتك <em>غير مرئية</em> على الإنترنت — وكيف تُصلح ذلك</h2>
           <p class="col-body">
-            Most small businesses are invisible online — not because they lack quality,
-            but because they lack infrastructure. In this first post, we break down
-            <strong>why that gap is widening</strong> and the practical steps to close it,
-            backed by real SME case studies from Gymshark, Motel Rocks, and more.
+            معظم الشركات الصغيرة غير مرئية رقمياً — ليس لأنها تفتقر إلى الجودة،
+            بل لأنها تفتقر إلى البنية التحتية. في هذه المقالة الأولى، نكشف
+            <strong>سبب اتساع هذه الفجوة</strong> والخطوات العملية لإغلاقها،
+            مدعومة بدراسات حالة حقيقية من Gymshark وMotel Rocks وغيرها.
           </p>
           <div class="topic-list" style="margin-top:1.4rem;">
-            <span class="topic-pill accent">Digital Presence</span>
-            <span class="topic-pill accent2">AI Automation</span>
-            <span class="topic-pill">SME Strategy</span>
-            <span class="topic-pill">Case Studies</span>
+            <span class="topic-pill accent">الحضور الرقمي</span>
+            <span class="topic-pill accent2">أتمتة الذكاء الاصطناعي</span>
+            <span class="topic-pill">استراتيجية الشركات الصغيرة</span>
+            <span class="topic-pill">دراسات الحالة</span>
           </div>
         </div>
         <div class="panel-divider"></div>
         <div class="live-card-col">
-          <p class="col-label">What you'll take away</p>
+          <p class="col-label">ما ستكتسبه</p>
           <ul class="live-takeaways">
-            <li>Why being "good at your job" is no longer enough to be found</li>
-            <li>How Gymshark went from a bedroom to a £1B brand using digital infrastructure</li>
-            <li>What AI workflow automation actually looks like for a 7-person team</li>
-            <li>The framework QBS Global uses to measure automation ROI</li>
+            <li>لماذا لم يعد الاتقان في عملك كافياً لتُكتشف</li>
+            <li>كيف انتقلت Gymshark من غرفة النوم إلى علامة تجارية بمليار جنيه إسترليني</li>
+            <li>كيف تبدو أتمتة سير العمل بالذكاء الاصطناعي لفريق من 7 أشخاص</li>
+            <li>الإطار الذي تستخدمه QBS Global لقياس عائد الاستثمار في الأتمتة</li>
           </ul>
           <div class="live-read-cta">
-            Read Article
+            اقرأ المقالة
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </div>
         </div>
@@ -808,39 +795,39 @@ nav {
     <div class="panel-inner">
       <div class="status-badge">
         <div class="status-dot"></div>
-        More articles in production
+        مقالات أخرى قيد الإعداد
       </div>
       <div class="panel-grid">
         <div class="panel-col">
-          <p class="col-label">What's coming</p>
-          <h2 class="col-title">Hard-won Knowledge<br>From the Build</h2>
+          <p class="col-label">ما القادم</p>
+          <h2 class="col-title">معرفة مكتسبة بشق الأنفس من الميدان</h2>
           <p class="col-body">
-            We write the way we work — with precision and purpose.
-            Expect <strong>no filler</strong>, no SEO-padded fluff.
-            Just real insights from building automations for businesses
-            across the UAE and beyond.
+            نكتب كما نعمل — بدقة وهدف واضح.
+            توقع <strong>لا حشوًا</strong>، لا محتوى مُتضخّمًا.
+            فقط رؤى حقيقية من بناء أتمتة للشركات
+            عبر الإمارات وما وراءها.
           </p>
           <div class="topic-list">
-            <span class="topic-pill accent">AI Agents</span>
-            <span class="topic-pill accent2">Workflow Automation</span>
-            <span class="topic-pill">n8n Deep Dives</span>
-            <span class="topic-pill">Dubai Business Ops</span>
-            <span class="topic-pill">No-Code Engineering</span>
+            <span class="topic-pill accent">وكلاء الذكاء الاصطناعي</span>
+            <span class="topic-pill accent2">أتمتة سير العمل</span>
+            <span class="topic-pill">تحليلات n8n</span>
+            <span class="topic-pill">عمليات الأعمال في دبي</span>
+            <span class="topic-pill">هندسة بدون كود</span>
           </div>
         </div>
         <div class="panel-divider"></div>
         <div class="panel-col">
-          <p class="col-label">Next articles</p>
-          <h2 class="col-title">Why Most AI Agents<br>Fail in Production</h2>
+          <p class="col-label">المقالات القادمة</p>
+          <h2 class="col-title">لماذا تفشل معظم وكلاء الذكاء الاصطناعي في الإنتاج</h2>
           <p class="col-body">
-            Plus: how we reduced a client's manual data entry by
-            <strong>94%</strong> in under two weeks using a three-node n8n workflow —
-            and what every operations lead in the GCC gets wrong about automation ROI.
+            بالإضافة إلى: كيف خفّضنا إدخال البيانات اليدوية لدى أحد العملاء بنسبة
+            <strong>94%</strong> في أقل من أسبوعين باستخدام سير عمل n8n من ثلاث عقد —
+            وما يُخطئه كل مدير عمليات في دول الخليج في فهم عائد الاستثمار بالأتمتة.
           </p>
           <div class="topic-list">
-            <span class="topic-pill">Playbooks</span>
-            <span class="topic-pill">Behind the Build</span>
-            <span class="topic-pill accent">Publishing Soon</span>
+            <span class="topic-pill">دُفُتر التشغيل</span>
+            <span class="topic-pill">خلف الكواليس</span>
+            <span class="topic-pill accent">قريبًا</span>
           </div>
         </div>
       </div>
@@ -848,12 +835,12 @@ nav {
       <!-- NOTIFY FORM -->
       <div class="notify-strip">
         <div class="notify-text">
-          <h3>Get Notified First</h3>
-          <p>Drop your email. We'll send you the next article the moment it publishes — nothing else.</p>
+          <h3>كن أول من يعلم</h3>
+          <p>أدخل بريدك الإلكتروني. سنرسل لك المقالة التالية فور نشرها — لا شيء آخر.</p>
         </div>
         <form class="notify-form" id="notifyForm" onsubmit="handleNotify(event)">
           <input type="email" id="notifyEmail" placeholder="your@email.com" autocomplete="email" required>
-          <button type="submit">Notify Me</button>
+          <button type="submit">أعلمني</button>
         </form>
       </div>
     </div>
@@ -862,7 +849,7 @@ nav {
   <!-- GHOST CARDS -->
   <div class="ghost-cards fade-up d2">
     <div class="ghost-card">
-      <span class="ghost-tag">AI Agents</span>
+      <span class="ghost-tag">وكلاء الذكاء الاصطناعي</span>
       <div class="skel h-title w-90"></div>
       <div class="skel w-80 h-sm"></div>
       <div class="skel w-60 h-sm"></div>
@@ -873,12 +860,12 @@ nav {
         <div class="ghost-avatar"></div>
         <div class="ghost-meta">
           <div class="skel w-60 h-sm"></div>
-          <span class="ghost-coming">Coming soon</span>
+          <span class="ghost-coming">قريبًا</span>
         </div>
       </div>
     </div>
     <div class="ghost-card">
-      <span class="ghost-tag">Case Study</span>
+      <span class="ghost-tag">دراسة حالة</span>
       <div class="skel h-title w-80"></div>
       <div class="skel w-90 h-sm"></div>
       <div class="skel w-70 h-sm"></div>
@@ -889,12 +876,12 @@ nav {
         <div class="ghost-avatar"></div>
         <div class="ghost-meta">
           <div class="skel w-70 h-sm"></div>
-          <span class="ghost-coming">Coming soon</span>
+          <span class="ghost-coming">قريبًا</span>
         </div>
       </div>
     </div>
     <div class="ghost-card">
-      <span class="ghost-tag">Operations</span>
+      <span class="ghost-tag">العمليات</span>
       <div class="skel h-title w-70"></div>
       <div class="skel w-80 h-sm"></div>
       <div class="skel w-90 h-sm"></div>
@@ -905,7 +892,7 @@ nav {
         <div class="ghost-avatar"></div>
         <div class="ghost-meta">
           <div class="skel w-50 h-sm"></div>
-          <span class="ghost-coming">Coming soon</span>
+          <span class="ghost-coming">قريبًا</span>
         </div>
       </div>
     </div>
@@ -915,8 +902,8 @@ nav {
 
 <!-- FOOTER -->
 <footer class="blog-footer">
-  <p>&copy; 2025 <span>QBS Global</span>. All rights reserved.</p>
-  <a href="/" class="footer-home">
+  <p>&copy; 2025 <span>QBS Global</span>. جميع الحقوق محفوظة.</p>
+  <a href="/ar/" class="footer-home">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
     </svg>
@@ -925,13 +912,11 @@ nav {
 </footer>
 
 <script>
-// ── Apply saved theme immediately to prevent flash ──
 (function () {
   const saved = localStorage.getItem('qbs-theme');
   if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
 })();
 
-// ── Toggle — identical logic to main site ──
 function toggleTheme() {
   const html = document.documentElement;
   const isLight = html.getAttribute('data-theme') === 'light';
@@ -939,7 +924,6 @@ function toggleTheme() {
   localStorage.setItem('qbs-theme', isLight ? 'dark' : 'light');
 }
 
-// ── Fade-up animations ──
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
@@ -947,12 +931,11 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-// ── Notify form ──
 function handleNotify(e) {
   e.preventDefault();
   const form = document.getElementById('notifyForm');
   const btn  = form.querySelector('button');
-  btn.textContent = "You're on the list ✓";
+  btn.textContent = "تم التسجيل ✓";
   form.classList.add('sent');
 }
 </script>

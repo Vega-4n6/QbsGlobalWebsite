@@ -10,17 +10,17 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --acc:#7c3aed;--acc-rgb:124,58,237;--acc2:#06b6d4;
-  --amber:#f59e0b;--amber2:#fbbf24;--violet2:#a855f7;
-  --bg:#04040d;--bg2:#07071a;--bg3:#0c0c28;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.04);
-  --text:#f8f8fc;--muted:#6b6b8f;--muted2:#9898b8;
+  --acc:#38bdf8;--acc-rgb:56,189,248;--acc2:#22d3ee;
+  --amber:#f59e0b;--amber2:#fbbf24;--violet2:#60a5fa;
+  --bg:#0b1120;--bg2:#111827;--bg3:#1a2438;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.04);
+  --text:#f0f6ff;--muted:#4b5a6e;--muted2:#8b9db5;
   --green:#10b981;--danger:#ef4444;
   --fd:'Syne',sans-serif;--fb:'Instrument Sans',sans-serif;--fm:'DM Mono',monospace;
 }
-html{font-size:14px}
+html{font-size:16px}
 body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100vh;display:flex;overflow-x:hidden;cursor:none}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(124,58,237,.3);border-radius:2px}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(56,189,248,.3);border-radius:2px}
 /* ── NOISE ── */
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background-image:radial-gradient(circle,rgba(255,255,255,.018) 1px,transparent 1px),radial-gradient(circle,rgba(255,255,255,.012) 1px,transparent 1px);background-size:4px 4px,7px 7px;background-position:0 0,3px 3px}
 /* ── STARFIELD ── */
@@ -83,7 +83,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;bac
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .9rem;font-size:.73rem;font-weight:500;font-family:var(--fb);cursor:pointer;transition:all .2s;border:none;letter-spacing:.02em}
 .btn-p{background:linear-gradient(135deg,var(--acc),var(--amber2));color:#fff;font-weight:600;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
-.btn-p:hover{filter:brightness(1.1);box-shadow:0 0 24px rgba(124,58,237,.4),0 3px 16px rgba(245,158,11,.2)}
+.btn-p:hover{filter:brightness(1.1);box-shadow:0 0 24px rgba(56,189,248,.4),0 3px 16px rgba(245,158,11,.2)}
 .btn-g{background:transparent;color:var(--muted2);border:1px solid var(--border)}
 .btn-g:hover{color:var(--text);border-color:rgba(255,255,255,.14)}
 .btn-d{background:rgba(239,68,68,.08);color:#ef4444;border:1px solid rgba(239,68,68,.18)}
@@ -206,7 +206,7 @@ td.hi{color:var(--text);font-weight:500}
 .thcard:hover{border-color:rgba(var(--acc-rgb),.3);background:rgba(var(--acc-rgb),.02)}
 .thcard.sel{border-color:var(--acc);background:rgba(var(--acc-rgb),.06)}
 .thpv{height:42px;border-radius:3px;margin-bottom:.45rem;overflow:hidden;display:flex;flex-direction:column;flex-shrink:0}
-.thpv-hdr{height:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);flex-shrink:0}
+.thpv-hdr{height:14px;background:linear-gradient(135deg,#38bdf8,#22d3ee);flex-shrink:0}
 .thcard-lbl{font-size:.62rem;font-weight:700;letter-spacing:.08em;color:var(--muted2)}
 .thcard.sel .thcard-lbl{color:var(--acc)}
 
@@ -249,8 +249,8 @@ td.hi{color:var(--text);font-weight:500}
 
 /* OV BOT LIST */
 .ov-brow{display:flex;align-items:center;gap:.65rem;padding:.75rem;background:var(--bg2);border:1px solid var(--border);cursor:pointer;transition:border-color .15s}
-.ov-brow:hover{border-color:rgba(124,58,237,.25)}
-.ov-bav{width:32px;height:32px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.22);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:var(--fd);color:var(--acc);flex-shrink:0;font-size:.9rem}
+.ov-brow:hover{border-color:rgba(56,189,248,.25)}
+.ov-bav{width:32px;height:32px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:var(--fd);color:var(--acc);flex-shrink:0;font-size:.9rem}
 .ov-bname{font-family:var(--fd);font-size:.9rem;letter-spacing:.06em}
 .ov-burl{font-size:.6rem;color:var(--muted);margin-top:.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bst{display:flex;align-items:center;gap:.3rem;font-size:.6rem;flex-shrink:0}
@@ -258,6 +258,27 @@ td.hi{color:var(--text);font-weight:500}
 .bst.live{color:var(--green)}.bst.live .bst-dot{background:var(--green)}
 .bst.off{color:var(--muted)}.bst.off .bst-dot{background:var(--muted)}
 .bc-url{font-size:.6rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* CONVERSATION DETAIL PANEL */
+#conv-panel{position:fixed;top:0;right:0;width:440px;max-width:100vw;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:50;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.16,1,.3,1)}
+#conv-panel.open{transform:translateX(0)}
+#conv-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49;backdrop-filter:blur(2px)}
+#conv-overlay.open{display:block}
+.cp-hdr{padding:.9rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+.cp-title{font-family:var(--fd);font-size:1rem;letter-spacing:.08em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-sub{font-size:.6rem;color:var(--muted);margin-top:.15rem;font-family:var(--fm)}
+.cp-close{background:none;border:1px solid var(--border);color:var(--muted);width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s}
+.cp-close:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
+.cp-msgs{flex:1;overflow-y:auto;padding:.9rem 1rem;display:flex;flex-direction:column;gap:.55rem}
+.msg-row{display:flex;flex-direction:column}
+.msg-row.user{align-items:flex-end}
+.msg-row.assistant{align-items:flex-start}
+.msg-role{font-size:.56rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;padding:0 .2rem}
+.msg-bubble{max-width:85%;padding:.55rem .8rem;font-size:.76rem;line-height:1.55;word-break:break-word;white-space:pre-wrap}
+.msg-row.user .msg-bubble{background:rgba(var(--acc-rgb),.1);border:1px solid rgba(var(--acc-rgb),.22);color:var(--text);border-radius:10px 10px 2px 10px}
+.msg-row.assistant .msg-bubble{background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--muted2);border-radius:10px 10px 10px 2px}
+.msg-time{font-size:.57rem;color:var(--muted);font-family:var(--fm);margin-top:.18rem;padding:0 .2rem}
+.cp-empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;text-align:center}
 
 @media(max-width:900px){
   #sidebar{width:52px;min-width:52px}
@@ -326,16 +347,7 @@ td.hi{color:var(--text);font-weight:500}
 <div id="main">
   <div id="topbar">
     <div><div class="tb-title" id="tbtitle">OVERVIEW</div><div class="tb-sub" id="tbsub"></div></div>
-    <div class="tb-r">
-      <button class="btn btn-g" onclick="nav('botconfig')" style="font-size:.7rem">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-        Bot Config
-      </button>
-      <button class="btn btn-p" onclick="openModal()">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        New Bot
-      </button>
-    </div>
+    <div class="tb-r"></div>
   </div>
 
   <div id="content">
@@ -384,14 +396,14 @@ td.hi{color:var(--text);font-weight:500}
           <div style="display:flex;align-items:center;justify-content:center;padding:.8rem 0">
             <svg width="100" height="100" viewBox="0 0 36 36">
               <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="4"/>
-              <circle cx="18" cy="18" r="14" fill="none" stroke="#7c3aed" stroke-width="4" stroke-dasharray="55 45" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#38bdf8" stroke-width="4" stroke-dasharray="55 45" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
               <circle cx="18" cy="18" r="14" fill="none" stroke="#47c8ff" stroke-width="4" stroke-dasharray="30 70" stroke-dashoffset="-30" transform="rotate(-90 18 18)"/>
               <circle cx="18" cy="18" r="14" fill="none" stroke="#a78bfa" stroke-width="4" stroke-dasharray="15 85" stroke-dashoffset="-60" transform="rotate(-90 18 18)"/>
               <text x="18" y="20" text-anchor="middle" fill="#f8f8fc" font-size="5" font-family="'Syne'" letter-spacing=".05em">LIVE</text>
             </svg>
           </div>
           <div class="dlleg">
-            <div class="dli"><div class="dld" style="background:#7c3aed"></div>Direct — <span id="src-direct">—</span></div>
+            <div class="dli"><div class="dld" style="background:#38bdf8"></div>Direct — <span id="src-direct">—</span></div>
             <div class="dli"><div class="dld" style="background:#47c8ff"></div>Organic — <span id="src-organic">—</span></div>
             <div class="dli"><div class="dld" style="background:#a78bfa"></div>Referral — <span id="src-referral">—</span></div>
           </div>
@@ -405,7 +417,7 @@ td.hi{color:var(--text);font-weight:500}
         <div><div class="stitle">CONVERSATIONS</div><div class="ssub">Recent sessions</div></div>
         <button class="btn btn-g" style="font-size:.68rem;padding:.3rem .7rem"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> Export CSV</button>
       </div>
-      <div class="tw"><table><thead><tr><th>Session</th><th>Bot</th><th>Messages</th><th>Date</th><th>Time</th></tr></thead><tbody id="ctbody"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--muted)">Loading…</td></tr></tbody></table></div>
+      <div class="tw"><table><thead><tr><th>Session</th><th>Bot</th><th>Messages</th><th>Date</th><th>Time</th><th></th></tr></thead><tbody id="ctbody"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--muted)">Loading…</td></tr></tbody></table></div>
     </div>
 
     <!-- EMBED CODE -->
@@ -472,11 +484,11 @@ td.hi{color:var(--text);font-weight:500}
           <div style="font-size:.68rem;color:var(--muted);margin-bottom:.7rem">Choose the widget skin — updates the embed code in the Embed Code tab</div>
           <div class="thpick" id="cfg-thpick">
             <div class="thcard sel" data-theme="dark" onclick="selTheme(this)">
-              <div class="thpv" style="background:#07071a"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thpv" style="background:#0b1120"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#38bdf8,#22d3ee);border-radius:5px 5px 1px 5px"></div></div></div>
               <div class="thcard-lbl">DARK</div>
             </div>
             <div class="thcard" data-theme="light" onclick="selTheme(this)">
-              <div class="thpv" style="background:#fafafa;border:1px solid #e4e0f5"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thpv" style="background:#fafafa;border:1px solid #e4e0f5"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#38bdf8,#22d3ee);border-radius:5px 5px 1px 5px"></div></div></div>
               <div class="thcard-lbl">LIGHT</div>
             </div>
           </div>
@@ -515,11 +527,11 @@ td.hi{color:var(--text);font-weight:500}
           <label class="fl">Widget Theme</label>
           <div class="thpick" id="nb-thpick">
             <div class="thcard sel" data-theme="dark" onclick="selTheme(this)">
-              <div class="thpv" style="background:#07071a"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thpv" style="background:#0b1120"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#38bdf8,#22d3ee);border-radius:5px 5px 1px 5px"></div></div></div>
               <div class="thcard-lbl">DARK</div>
             </div>
             <div class="thcard" data-theme="light" onclick="selTheme(this)">
-              <div class="thpv" style="background:#fafafa;border:1px solid #e4e0f5"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thpv" style="background:#fafafa;border:1px solid #e4e0f5"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#38bdf8,#22d3ee);border-radius:5px 5px 1px 5px"></div></div></div>
               <div class="thcard-lbl">LIGHT</div>
             </div>
           </div>
@@ -561,6 +573,19 @@ td.hi{color:var(--text);font-weight:500}
 </div>
 
 <div id="toaster"></div>
+
+<!-- CONVERSATION DETAIL PANEL -->
+<div id="conv-overlay" onclick="closeConvPanel()"></div>
+<div id="conv-panel">
+  <div class="cp-hdr">
+    <div style="flex:1;min-width:0">
+      <div class="cp-title" id="cp-title">CONVERSATION</div>
+      <div class="cp-sub" id="cp-sub"></div>
+    </div>
+    <button class="cp-close" onclick="closeConvPanel()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="cp-msgs" id="cp-msgs"><div class="cp-empty">Select a conversation to view messages</div></div>
+</div>
 
 <script>
 const SBURL        = 'https://lyiqesxemmisigccslfn.supabase.co';
@@ -778,6 +803,7 @@ function loadConvs() {
         const tr=document.createElement('tr');
         const d=new Date(s.started_at);
         const botName=(s.bots&&s.bots.name)?esc(s.bots.name):'<span style="color:var(--muted)">—</span>';
+        const rawBotName=(s.bots&&s.bots.name)?s.bots.name:'Bot';
         const msgCount=Array.isArray(s.messages)?s.messages.length:0;
         const msgLabel=msgCount?msgCount+' msg'+(msgCount===1?'':'s'):'<span style="color:var(--muted)">—</span>';
         tr.innerHTML=
@@ -785,7 +811,9 @@ function loadConvs() {
           '<td>'+botName+'</td>'+
           '<td>'+msgLabel+'</td>'+
           '<td style="color:var(--muted2);font-size:.72rem">'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+'</td>'+
-          '<td style="color:var(--muted);font-size:.7rem;font-family:var(--fm)">'+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</td>';
+          '<td style="color:var(--muted);font-size:.7rem;font-family:var(--fm)">'+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</td>'+
+          '<td style="color:var(--acc);font-size:.65rem;font-family:var(--fm)">View →</td>';
+        tr.onclick=(function(sid,bname,sat){ return function(){ openConvPanel(sid,bname,sat); }; })(s.id,rawBotName,s.started_at);
         tb.appendChild(tr);
       });
     }).catch(function(e){ tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--danger);font-size:.72rem">'+esc(e.message)+'</td></tr>'; });
@@ -1159,6 +1187,45 @@ function regenKey() {
   .finally(function(){ btn.disabled = false; });
 }
 
+// ── CONVERSATION DETAIL ───────────────────────────────────────────────────────
+function openConvPanel(sessionId, botName, startedAt) {
+  var panel = document.getElementById('conv-panel');
+  var overlay = document.getElementById('conv-overlay');
+  var msgs = document.getElementById('cp-msgs');
+  var d = new Date(startedAt);
+  set('cp-title', botName.toUpperCase());
+  set('cp-sub', '#'+sessionId.slice(0,8)+' · '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}));
+  msgs.innerHTML = '<div class="cp-empty">Loading…</div>';
+  panel.classList.add('open');
+  overlay.classList.add('open');
+  sbf('/rest/v1/messages?session_id=eq.'+sessionId+'&select=id,role,content,created_at&order=created_at.asc')
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(rows){
+      if (!Array.isArray(rows)||!rows.length) {
+        msgs.innerHTML='<div class="cp-empty">No messages in this session</div>'; return;
+      }
+      msgs.innerHTML='';
+      rows.forEach(function(m){
+        var role = m.role==='user'?'user':'assistant';
+        var d = document.createElement('div');
+        d.className='msg-row '+role;
+        var t = new Date(m.created_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+        d.innerHTML=
+          '<div class="msg-role">'+(role==='user'?'User':'Bot')+'</div>'+
+          '<div class="msg-bubble">'+esc(m.content||'')+'</div>'+
+          '<div class="msg-time">'+t+'</div>';
+        msgs.appendChild(d);
+      });
+      msgs.scrollTop = msgs.scrollHeight;
+    }).catch(function(e){
+      msgs.innerHTML='<div class="cp-empty" style="color:var(--danger)">'+esc(e.message)+'</div>';
+    });
+}
+function closeConvPanel() {
+  document.getElementById('conv-panel').classList.remove('open');
+  document.getElementById('conv-overlay').classList.remove('open');
+}
+
 // ── TOAST ─────────────────────────────────────────────────────────────────────
 function toast(msg, type){
   const t=document.createElement('div');
@@ -1206,7 +1273,7 @@ document.querySelectorAll('a,button,.bc,.ov-brow,.price-card').forEach(function(
     if(!running)return;
     ctx.clearRect(0,0,W,H);
     var now=performance.now()/1000;
-    var p={node:[160,160,230],hub:[6,182,212],line:[124,92,237],cursor:[245,158,11]};
+    var p={node:[148,163,184],hub:[34,211,238],line:[56,189,248],cursor:[245,158,11]};
     for(var i=0;i<nodes.length;i++){var n=nodes[i];var dx=n.x-mouse.x,dy=n.y-mouse.y;var d2=dx*dx+dy*dy;if(d2<REPEL_R*REPEL_R&&d2>0){var d=Math.sqrt(d2);var f=(REPEL_R-d)/REPEL_R*.5;n.vx+=(dx/d)*f;n.vy+=(dy/d)*f;}n.vx*=.975;n.vy*=.975;var spd=Math.sqrt(n.vx*n.vx+n.vy*n.vy);if(spd<.08){n.vx+=(Math.random()-.5)*.06;n.vy+=(Math.random()-.5)*.06;}n.x+=n.vx;n.y+=n.vy;if(n.x<-20)n.x=W+20;if(n.x>W+20)n.x=-20;if(n.y<-20)n.y=H+20;if(n.y>H+20)n.y=-20;}
     ctx.lineWidth=.6;
     for(var i=0;i<nodes.length;i++){for(var j=i+1;j<nodes.length;j++){var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;var d=Math.sqrt(dx*dx+dy*dy);if(d<CONN_DIST){var boost=(nodes[i].hub||nodes[j].hub)?1.6:1;var a=(1-d/CONN_DIST)*.45*boost;ctx.strokeStyle=rgba(p.line,Math.min(a,.7));ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}}

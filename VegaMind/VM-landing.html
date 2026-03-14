@@ -3,7 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VegaMind — AI Assistant for Your Business</title>
+<title>VegaMind — AI Chat Widget for Your Website | QBS Global</title>
+<meta name="description" content="VegaMind is an AI chat widget that turns your website visitors into leads — 24/7, trained on your business, deployed in one line of code.">
+<meta property="og:title" content="VegaMind — AI Chat Widget for Your Website">
+<meta property="og:description" content="VegaMind is an AI chat widget that turns your website visitors into leads — 24/7, trained on your business, deployed in one line of code.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qbsglobal.ae/VegaMind/VM-landing.html">
+<meta property="og:image" content="https://qbsglobal.ae/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VegaMind — AI Chat Widget for Your Website">
+<meta name="twitter:description" content="VegaMind is an AI chat widget that turns your website visitors into leads — 24/7, trained on your business, deployed in one line of code.">
+<link rel="canonical" href="https://qbsglobal.ae/VegaMind/VM-landing.html">
+<link rel="alternate" hreflang="en" href="https://qbsglobal.ae/VegaMind/VM-landing.html">
+<link rel="alternate" hreflang="x-default" href="https://qbsglobal.ae/VegaMind/VM-landing.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -403,10 +415,11 @@ section{position:relative;z-index:2}
 .pricing-hdr{text-align:center;margin-bottom:5rem}
 .pricing-hdr .sec-label{justify-content:center}
 .pricing-hdr .sec-label::before{display:none}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:stretch}
 .price-card{
   background:var(--deep);border:1px solid var(--border);
   padding:2.5rem 2rem;position:relative;transition:transform .3s,box-shadow .3s;
+  display:flex;flex-direction:column;
 }
 .price-card:hover{transform:translateY(-4px)}
 .price-card.popular{
@@ -427,8 +440,9 @@ section{position:relative;z-index:2}
 .price-dollar{font-family:var(--font-display);font-size:3.5rem;letter-spacing:-.02em;line-height:1}
 .price-period{font-size:.78rem;color:var(--muted);font-weight:300}
 .price-billing{font-size:.72rem;color:var(--muted);margin-bottom:2rem}
+.spark-was{font-family:var(--font-mono);font-size:.62rem;color:var(--muted);text-decoration:line-through;letter-spacing:.04em;margin-bottom:.15rem;opacity:.6}
 .price-divider{height:1px;background:var(--border2);margin:1.5rem 0}
-.price-features{display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem}
+.price-features{display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem;flex:1}
 .pf-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.82rem;color:var(--muted2);font-weight:300;line-height:1.4}
 .pf-item.included .pf-icon{color:var(--green)}
 .pf-item.excluded{opacity:.4}
@@ -446,6 +460,65 @@ section{position:relative;z-index:2}
 .price-btn-outline{background:transparent;color:var(--violet2);border:1px solid rgba(124,58,237,.35)}
 .price-btn-outline:hover{background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.6)}
 .price-note{text-align:center;font-size:.75rem;color:var(--muted);margin-top:2rem}
+
+/* ── ORBIT COMING-SOON VEIL ──────────────────────────────────────────────────── *
+ *  Controlled entirely by the JS flag ORBIT_COMING_SOON at the bottom of this    *
+ *  file. Set it to false once your payment gateway is live — nothing else needed. *
+ * ─────────────────────────────────────────────────────────────────────────────── */
+.orbit-veil{
+  position:absolute;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2rem;text-align:center;
+  background:rgba(4,4,13,.84);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity .35s;
+}
+.price-card.coming-soon{overflow:hidden}
+.price-card.coming-soon .orbit-veil{opacity:1;pointer-events:all}
+.price-card.coming-soon .price-btn{pointer-events:none}
+.orbit-rig{width:60px;height:60px;position:relative;margin:0 auto 1.2rem}
+.orbit-planet{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:16px;height:16px;
+  background:linear-gradient(135deg,var(--violet),var(--amber2));
+  clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);
+}
+.orbit-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px dashed rgba(124,58,237,.5);
+  animation:orbitSpin 3.5s linear infinite;
+}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+.orbit-sat{
+  position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+  width:7px;height:7px;border-radius:50%;
+  background:var(--amber2);box-shadow:0 0 8px var(--amber2);
+}
+.orbit-veil-eyebrow{
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:.2em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;
+}
+.orbit-veil-title{
+  font-family:var(--font-display);font-size:1.5rem;letter-spacing:.06em;
+  background:linear-gradient(90deg,var(--violet2),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:.5rem;
+}
+.orbit-veil-sub{
+  font-size:.78rem;color:var(--muted2);line-height:1.65;font-weight:300;max-width:210px;
+}
+.orbit-veil-pill{
+  margin-top:1.1rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+  border:1px solid rgba(124,58,237,.3);padding:.28rem 1rem;
+  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.09em;
+  color:var(--violet2);background:rgba(124,58,237,.07);
+}
+.orbit-veil-pill::before{
+  content:'';display:block;width:5px;height:5px;border-radius:50%;
+  background:var(--violet2);animation:orbitPing 2s ease infinite;
+}
+@keyframes orbitPing{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+[data-theme="light"] .orbit-veil{background:rgba(240,238,255,.9)}
 
 /* ── BILLING TOGGLE ── */
 .billing-toggle-wrap{
@@ -632,24 +705,25 @@ footer{
 /* Personality cards */
 [data-theme="light"] .pers-example{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.07)}
 /* Pricing */
-[data-theme="light"] .price-btn-ghost{color:var(--text);border-color:rgba(0,0,0,.15)}
-[data-theme="light"] .price-btn-ghost:hover{border-color:rgba(0,0,0,.28);background:rgba(0,0,0,.03)}
+[data-theme="light"] .price-btn-ghost{color:var(--text);border-color:rgba(0,0,0,.18)}
+[data-theme="light"] .price-btn-ghost:hover{border-color:rgba(0,0,0,.3);background:rgba(0,0,0,.03)}
 [data-theme="light"] .price-card{
   background:linear-gradient(160deg,#f8f7ff,#f0eeff);
-  border-color:rgba(124,58,237,.14);
-  box-shadow:0 2px 16px rgba(124,58,237,.06),0 1px 3px rgba(0,0,0,.06);
+  border-color:rgba(124,58,237,.22);
+  box-shadow:0 2px 20px rgba(124,58,237,.08),0 1px 4px rgba(0,0,0,.06);
 }
 [data-theme="light"] .price-card:hover{
-  box-shadow:0 8px 32px rgba(124,58,237,.1),0 2px 8px rgba(0,0,0,.08);
+  box-shadow:0 8px 32px rgba(124,58,237,.12),0 2px 8px rgba(0,0,0,.08);
 }
 [data-theme="light"] .price-card.popular{
   background:linear-gradient(160deg,#ede8ff,#fdf3e7);
-  border-color:rgba(124,58,237,.35);
-  box-shadow:0 8px 40px rgba(124,58,237,.14),0 2px 8px rgba(0,0,0,.08);
+  border-color:rgba(124,58,237,.42);
+  box-shadow:0 8px 40px rgba(124,58,237,.18),0 2px 8px rgba(0,0,0,.08);
 }
-[data-theme="light"] .price-divider{background:rgba(124,58,237,.1)}
+[data-theme="light"] .price-divider{background:rgba(124,58,237,.12)}
 [data-theme="light"] .price-tier{color:var(--muted)}
 [data-theme="light"] .price-billing{color:var(--muted)}
+[data-theme="light"] .spark-was{color:var(--muted);opacity:.5}
 /* FAQ */
 [data-theme="light"] .faq-toggle{background:rgba(0,0,0,.04);color:var(--muted2)}
 [data-theme="light"] .faq-item.open .faq-toggle{background:rgba(124,58,237,.1)}
@@ -1044,14 +1118,19 @@ footer{
 
       <!-- Free -->
       <div class="price-card">
-        <div class="price-tier">Free</div>
+        <div class="price-tier">Free for Now</div>
         <div class="price-name">SPARK</div>
         <div class="price-tagline">Try VegaMind at zero cost. No card required, no commitments.</div>
         <div class="price-amount">
-          <div class="price-dollar" id="price-spark">$0</div>
-          <div class="price-period">/month</div>
+          <div>
+            <div class="spark-was">$5 / mo</div>
+            <div style="display:flex;align-items:baseline;gap:.3rem">
+              <div class="price-dollar" id="price-spark">$0</div>
+              <div class="price-period">/month</div>
+            </div>
+          </div>
         </div>
-        <div class="price-billing" id="billing-spark">Forever free · no credit card needed</div>
+        <div class="price-billing" id="billing-spark">Free for now · no credit card needed</div>
         <div class="price-divider"></div>
         <div class="price-features">
           <div class="pf-item included">
@@ -1079,11 +1158,22 @@ footer{
             <span>Bot personalities</span>
           </div>
         </div>
-        <button class="price-btn price-btn-ghost" onclick="window.location.href='vegamind-onboarding.html'">Get Started Free</button>
+        <button class="price-btn price-btn-ghost" onclick="window.location.href='vegamind-onboarding.html'">Get Started</button>
       </div>
 
       <!-- Pro (popular) -->
       <div class="price-card popular">
+        <!-- ORBIT COMING-SOON VEIL — controlled by ORBIT_COMING_SOON flag in JS below -->
+        <div class="orbit-veil">
+          <div class="orbit-rig">
+            <div class="orbit-ring"><div class="orbit-sat"></div></div>
+            <div class="orbit-planet"></div>
+          </div>
+          <div class="orbit-veil-eyebrow">// payment · pending</div>
+          <div class="orbit-veil-title">COMING SOON</div>
+          <div class="orbit-veil-sub">Orbit is almost ready for liftoff — we're wiring up payments right now.</div>
+          <div class="orbit-veil-pill">Launching very soon</div>
+        </div>
         <div class="popular-badge">Most Popular</div>
         <div class="price-tier">Pro</div>
         <div class="price-name">ORBIT</div>
@@ -1655,7 +1745,7 @@ function toggleBilling() {
     el.classList.add('flip');
     el.textContent = '$' + prices[plan][period];
     document.getElementById('billing-' + plan).textContent =
-      plan === 'spark' ? 'Forever free · no credit card needed' : billingText;
+      plan === 'spark' ? 'Free for now · no credit card needed' : billingText;
   });
 }
 
@@ -1780,6 +1870,167 @@ function submitSalesForm(e){
     btn.textContent='Try Again';btn.disabled=false;btn.style.opacity='1';
   });
 }
+
+// ── ORBIT COMING-SOON FLAG ────────────────────────────────────────────────────
+// Payment gateway not ready yet.
+// When it is: set ORBIT_COMING_SOON = false  ← that's the only change needed.
+const ORBIT_COMING_SOON = true;
+(function(){
+  var card = document.querySelector('.price-card.popular');
+  if (card) card.classList.toggle('coming-soon', ORBIT_COMING_SOON);
+})();
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "VegaMind",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://qbsglobal.ae/VegaMind/VM-landing.html",
+  "description": "VegaMind is an AI-powered chat widget that embeds on any website with one line of code. Trained on your business content, it handles customer questions, captures leads, and books appointments 24/7.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Spark",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free plan — 20 chats per month, 2 widget designs, basic dashboard. No credit card required."
+    },
+    {
+      "@type": "Offer",
+      "name": "Orbit",
+      "price": "24",
+      "priceCurrency": "USD",
+      "billingIncrement": "month",
+      "description": "Pro plan — 200 chats per month, 7 widget designs, 4 bot personalities, advanced analytics, CSV export."
+    },
+    {
+      "@type": "Offer",
+      "name": "Nova",
+      "description": "Enterprise — fully custom AI widget built from scratch. Custom pricing, private AI deployment, dedicated account manager."
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "QBS Global",
+    "url": "https://qbsglobal.ae"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is VegaMind?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "VegaMind is an AI-powered chat widget that you embed on your website with one line of code. It's trained on your business content and handles customer questions, lead capture, and bookings 24/7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to set up VegaMind?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Setup takes under 5 minutes. Copy one script tag, paste it before your closing </body> tag, and VegaMind is live on your site."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free plan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Spark plan is free — includes 20 chats per month, 2 widget designs, and a basic dashboard. No credit card required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Spark, Orbit, and Nova?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Spark is free (20 chats/month). Orbit is $24/month and includes 200 chats, 7 widget designs, 4 bot personalities, and advanced analytics. Nova is a fully custom enterprise widget built from scratch for your brand."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does VegaMind work on any website?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. VegaMind is a JavaScript widget that works on any website — WordPress, Shopify, custom HTML, Webflow, or any other platform. Just paste the script tag."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is VegaMind trained on my business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "VegaMind scrapes your website URL live on every conversation to provide accurate, up-to-date answers about your products, services, and pricing. No manual training required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can VegaMind capture leads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. VegaMind captures visitor information during chat sessions. All leads appear in your client dashboard with session history, timestamps, and contact details."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Add VegaMind to Your Website",
+  "description": "Set up the VegaMind AI chat widget on your website in under 5 minutes.",
+  "totalTime": "PT5M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Sign up for VegaMind",
+      "text": "Create a free account at qbsglobal.ae/VegaMind/vegamind-onboarding.html. No credit card required for the Spark free tier."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Configure your bot",
+      "text": "In your dashboard, set your bot name, welcome message, and website URL. VegaMind will use your website content to answer customer questions."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Copy your embed code",
+      "text": "From the Embed Code tab in your dashboard, copy the one-line script tag generated for your widget key."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Paste on your website",
+      "text": "Paste the script tag before the closing </body> tag on any page of your website. The widget will appear immediately."
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://qbsglobal.ae/" },
+    { "@type": "ListItem", "position": 2, "name": "VegaMind", "item": "https://qbsglobal.ae/VegaMind/VM-landing.html" }
+  ]
+}
+</script>
+
 </body>
 </html>

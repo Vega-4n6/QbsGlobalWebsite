@@ -200,6 +200,16 @@ td.hi{color:var(--text);font-weight:500}
 .dli{display:flex;align-items:center;gap:.45rem;font-size:.7rem;color:var(--muted2);margin-bottom:.3rem}
 .dld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
+/* THEME PICKER */
+.thpick{display:flex;gap:.6rem;margin-top:.3rem}
+.thcard{flex:1;border:1.5px solid var(--border);padding:.65rem .5rem;cursor:pointer;transition:border-color .15s,background .15s;text-align:center}
+.thcard:hover{border-color:rgba(var(--acc-rgb),.3);background:rgba(var(--acc-rgb),.02)}
+.thcard.sel{border-color:var(--acc);background:rgba(var(--acc-rgb),.06)}
+.thpv{height:42px;border-radius:3px;margin-bottom:.45rem;overflow:hidden;display:flex;flex-direction:column;flex-shrink:0}
+.thpv-hdr{height:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);flex-shrink:0}
+.thcard-lbl{font-size:.62rem;font-weight:700;letter-spacing:.08em;color:var(--muted2)}
+.thcard.sel .thcard-lbl{color:var(--acc)}
+
 /* MODAL */
 #mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
 #mbg.open{display:flex}
@@ -457,6 +467,20 @@ td.hi{color:var(--text);font-weight:500}
           <div class="trow"><span class="tlbl">Show bot name in widget header</span><div class="tog on" id="cfg-tname" onclick="this.classList.toggle('on')"></div></div>
           <div class="trow"><span class="tlbl">Typing indicator</span><div class="tog on" id="cfg-ttyping" onclick="this.classList.toggle('on')"></div></div>
         </div>
+        <div class="ccard" style="grid-column:1/-1">
+          <div class="chdr">Widget Appearance</div>
+          <div style="font-size:.68rem;color:var(--muted);margin-bottom:.7rem">Choose the widget skin — updates the embed code in the Embed Code tab</div>
+          <div class="thpick" id="cfg-thpick">
+            <div class="thcard sel" data-theme="dark" onclick="selTheme(this)">
+              <div class="thpv" style="background:#07071a"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thcard-lbl">DARK</div>
+            </div>
+            <div class="thcard" data-theme="light" onclick="selTheme(this)">
+              <div class="thpv" style="background:#fafafa;border:1px solid #e4e0f5"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thcard-lbl">LIGHT</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div style="display:flex;align-items:center;gap:.6rem;margin-top:1rem">
         <button class="btn btn-p" id="cfg-savebtn" onclick="cfgSave()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span id="cfg-savelbl">Save Changes</span></button>
@@ -487,6 +511,19 @@ td.hi{color:var(--text);font-weight:500}
         <div style="font-size:.7rem;color:var(--muted);margin-bottom:1rem">Welcome message and website</div>
         <div class="fr"><label class="fl">Welcome Message</label><textarea class="fi" id="nb-welcome" rows="2" placeholder="Hi! I'm here to help…" style="resize:vertical"></textarea></div>
         <div class="fr" style="margin-bottom:0"><label class="fl">Website URL <span class="h">for context</span></label><input class="fi" id="nb-site" type="url" placeholder="https://yoursite.com"></div>
+        <div class="fr" style="margin-top:.9rem;margin-bottom:0">
+          <label class="fl">Widget Theme</label>
+          <div class="thpick" id="nb-thpick">
+            <div class="thcard sel" data-theme="dark" onclick="selTheme(this)">
+              <div class="thpv" style="background:#07071a"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thcard-lbl">DARK</div>
+            </div>
+            <div class="thcard" data-theme="light" onclick="selTheme(this)">
+              <div class="thpv" style="background:#fafafa;border:1px solid #e4e0f5"><div class="thpv-hdr"></div><div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px"><div style="width:55%;height:7px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:5px 5px 1px 5px"></div></div></div>
+              <div class="thcard-lbl">LIGHT</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="ms3" style="display:none">
         <div style="font-family:var(--fd);font-size:.95rem;letter-spacing:.08em;margin-bottom:.4rem">READY</div>
@@ -758,7 +795,7 @@ function loadConvs() {
 let etDone = false;
 function buildEmbedTabs() {
   if (etDone) return; etDone = true;
-  sbf('/rest/v1/widget_keys?tenant_id=eq.'+tid()+'&is_active=eq.true&select=id,key,bot_id,bots(name)')
+  sbf('/rest/v1/widget_keys?tenant_id=eq.'+tid()+'&is_active=eq.true&select=id,key,bot_id,bots(name,settings)')
     .then(function(r){ return r.json(); })
     .then(function(keys){
       const c = document.getElementById('etabs');
@@ -766,27 +803,31 @@ function buildEmbedTabs() {
       if (!keys.length) { c.innerHTML='<span style="font-size:.72rem;color:var(--muted)">No active widget keys found</span>'; return; }
       keys.forEach(function(k,i){
         const nm=(k.bots&&k.bots.name)?k.bots.name:'Bot';
+        const th=(k.bots&&k.bots.settings&&k.bots.settings.widget_theme)||'dark';
         const btn=document.createElement('button');
         btn.className='btn '+(i===0?'btn-p':'btn-g');
         btn.textContent=nm;
-        btn.onclick=(function(key,keyId,botId,el,name){
+        btn.onclick=(function(key,keyId,botId,el,name,theme){
           return function(){
             document.querySelectorAll('#etabs .btn').forEach(function(b){b.className='btn btn-g'});
-            el.className='btn btn-p'; setEmbed(key,keyId,botId,name);
+            el.className='btn btn-p'; setEmbed(key,keyId,botId,name,theme);
           };
-        })(k.key,k.id,k.bot_id,btn,nm);
+        })(k.key,k.id,k.bot_id,btn,nm,th);
         c.appendChild(btn);
       });
-      const f=keys[0]; setEmbed(f.key,f.id,f.bot_id,(f.bots&&f.bots.name)?f.bots.name:'Bot');
+      const f=keys[0]; setEmbed(f.key,f.id,f.bot_id,(f.bots&&f.bots.name)?f.bots.name:'Bot',(f.bots&&f.bots.settings&&f.bots.settings.widget_theme)||'dark');
     }).catch(function(){ document.getElementById('etabs').innerHTML='<span style="font-size:.72rem;color:var(--muted)">Could not load keys</span>'; });
 }
-function setEmbed(key,keyId,botId,name){
+var _embedKey='', _embedName='';
+function setEmbed(key,keyId,botId,name,theme){
   currentRegenKeyId = keyId;
   currentRegenBotId = botId;
+  _embedKey = key; _embedName = name;
+  var t = theme || 'dark';
   var dispEl = document.getElementById('regen-key-display');
   if (dispEl) dispEl.textContent = key;
-  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
-  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js"</span>\n  <span class="attr">data-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-position</span>=<span class="str">"right"</span>&gt;\n&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('emin-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js?v=3.2"</span> <span class="attr">async</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-theme</span>=<span class="str">"'+t+'"</span>&gt;&lt;/<span class="kw">script</span>&gt;';
+  document.getElementById('efull-code').innerHTML='&lt;<span class="kw">script</span>\n  <span class="attr">src</span>=<span class="str">"https://qbsglobal.ae/widget/loader.js?v=3.2"</span> <span class="attr">async</span>\n  <span class="attr">data-vegamind-key</span>=<span class="str">"'+esc(key)+'"</span>\n  <span class="attr">data-name</span>=<span class="str">"'+esc(name)+'"</span>\n  <span class="attr">data-theme</span>=<span class="str">"'+t+'"</span>&gt;&lt;/<span class="kw">script</span>&gt;';
 }
 function cpEmbed(bid){
   var el=document.getElementById(bid);
@@ -846,6 +887,10 @@ function cfgPop(bot){
   }
   const t=document.getElementById('cfg-tactive');
   if(t){ if(bot.is_active) t.classList.add('on'); else t.classList.remove('on'); }
+  const savedTheme=(bot.settings&&bot.settings.widget_theme)||'dark';
+  document.querySelectorAll('#cfg-thpick .thcard').forEach(function(c){
+    c.classList.toggle('sel', c.dataset.theme===savedTheme);
+  });
 }
 function cfgSave(){
   if(!cfgBid){ toast('No bot selected','info'); return; }
@@ -855,10 +900,13 @@ function cfgSave(){
     name:(document.getElementById('cfg-name')||{}).value||'',
     welcome_message:(document.getElementById('cfg-welcome')||{}).value||'',
     is_active:document.getElementById('cfg-tactive').classList.contains('on'),
-    settings:{website_url:(document.getElementById('cfg-website')||{}).value||''}
+    settings:{
+      website_url:(document.getElementById('cfg-website')||{}).value||'',
+      widget_theme:(function(){ var s=document.querySelector('#cfg-thpick .thcard.sel'); return s?s.dataset.theme:'dark'; })()
+    }
   };
   sbf('/rest/v1/bots?id=eq.'+cfgBid,{method:'PATCH',prefer:'return=representation',body:JSON.stringify(payload)})
-    .then(function(r){ if(!r.ok) throw new Error('Save failed'); toast('Config saved','success'); loadData(); })
+    .then(function(r){ if(!r.ok) throw new Error('Save failed'); toast('Config saved','success'); etDone=false; loadData(); })
     .catch(function(e){ toast(e.message||'Save failed','error'); })
     .finally(function(){ btn.disabled=false; lbl.textContent='Save Changes'; });
 }
@@ -916,6 +964,17 @@ function relTime(d){
   return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
 }
 
+// ── THEME PICKER ──────────────────────────────────────────────────────────────
+function selTheme(el){
+  var p=el.closest('.thpick');
+  p.querySelectorAll('.thcard').forEach(function(c){c.classList.remove('sel')});
+  el.classList.add('sel');
+  // Live-update the embed snippet when theme changes in the bot config picker
+  if(p.id==='cfg-thpick' && _embedKey){
+    setEmbed(_embedKey,currentRegenKeyId,currentRegenBotId,_embedName,el.dataset.theme);
+  }
+}
+
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 let mStepN=1;
 function openModal(){ mStepN=1; updModal(); document.getElementById('mbg').classList.add('open'); }
@@ -925,8 +984,10 @@ function mNext(){
   // Step 3 → CREATE BOT
   var name=(document.getElementById('nb-name')||{}).value||'';
   var welcome=(document.getElementById('nb-welcome')||{}).value||'Hi! How can I help you today?';
-  var website=(document.getElementById('nb-website')||{}).value||'';
+  var website=(document.getElementById('nb-site')||{}).value||'';
   var personality=(document.getElementById('nb-personality')||{}).value||'balanced';
+  var thSel=document.querySelector('#nb-thpick .thcard.sel');
+  var widgetTheme=thSel?thSel.dataset.theme:'dark';
   if(!name.trim()){ toast('Bot name is required','error'); mStep(1); return; }
   var btn=document.getElementById('mb-next');
   btn.disabled=true; btn.textContent='Creating…';
@@ -939,7 +1000,7 @@ function mNext(){
     name:name.trim(),
     welcome_message:welcome.trim(),
     is_active:true,
-    settings:{website_url:website.trim(),personality:personality}
+    settings:{website_url:website.trim(),personality:personality,widget_theme:widgetTheme}
   };
   sbf('/rest/v1/bots',{method:'POST',prefer:'return=representation',body:JSON.stringify(botPayload)})
     .then(function(r){ if(!r.ok) return r.json().then(function(e){ throw new Error(e.message||'Bot create failed'); }); return r.json(); })

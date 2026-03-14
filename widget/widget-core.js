@@ -7,14 +7,16 @@ window.__VegaMindCore = function (cfg, PLAN) {
   var vid=gvid();
 
   var TH={
-    minimal:{hBg:'#1B4F72',hTxt:'#fff',acc:'#2ECC71',uBg:'#1B4F72',uTxt:'#fff',bBg:'#fff',bTxt:'#1e1e2e',pBg:'#f2f3f5',iBg:'#fafafa',iBdr:'#e4e4e7',iTxt:'#18181b',pwBg:'#fff',bbBg:'#1B4F72',rad:'18px'},
+    // Starter light skin — clean white, violet accent, VegaMind-branded
+    minimal:{hBg:'linear-gradient(135deg,#7c3aed,#a855f7)',hTxt:'#fff',acc:'#7c3aed',uBg:'linear-gradient(135deg,#7c3aed,#a855f7)',uTxt:'#fff',bBg:'#f0eff8',bTxt:'#1a1a2e',pBg:'#fafafa',iBg:'#fff',iBdr:'#e4e0f5',iTxt:'#18181b',pwBg:'#fff',bbBg:'linear-gradient(135deg,#7c3aed,#a855f7)',rad:'18px'},
     bold:{hBg:'linear-gradient(135deg,#0f0f0f,#1a1a2e)',hTxt:'#fff',acc:'#00D4FF',uBg:'#00D4FF',uTxt:'#0f0f0f',bBg:'#1e1e2e',bTxt:'#e0e0e0',pBg:'#141420',iBg:'#1e1e2e',iBdr:'#333',iTxt:'#fff',pwBg:'#0f0f0f',bbBg:'linear-gradient(135deg,#00D4FF,#0088ff)',rad:'14px'},
-    dark:{hBg:'#1a1a1a',hTxt:'#fff',acc:'#7C3AED',uBg:'#7C3AED',uTxt:'#fff',bBg:'#2a2a2a',bTxt:'#e8e8e8',pBg:'#222',iBg:'#2a2a2a',iBdr:'#3a3a3a',iTxt:'#fff',pwBg:'#1a1a1a',bbBg:'#7C3AED',rad:'16px'},
+    // Starter dark skin — VegaMind void palette, violet glow
+    dark:{hBg:'#04040d',hTxt:'#fff',acc:'#7c3aed',uBg:'linear-gradient(135deg,#7c3aed,#a855f7)',uTxt:'#fff',bBg:'#0c0c28',bTxt:'#c8c8e8',pBg:'#07071a',iBg:'#0c0c28',iBdr:'rgba(124,58,237,.28)',iTxt:'#e2e2f0',pwBg:'#04040d',bbBg:'linear-gradient(135deg,#7c3aed,#a855f7)',rad:'16px'},
     qbs:{hBg:'linear-gradient(135deg,#0a0a0a,#111827)',hTxt:'#fff',acc:'#10B981',uBg:'#10B981',uTxt:'#fff',bBg:'#1f2937',bTxt:'#f3f4f6',pBg:'#111827',iBg:'#1f2937',iBdr:'#374151',iTxt:'#f9fafb',pwBg:'#0a0a0a',bbBg:'linear-gradient(135deg,#10B981,#059669)',rad:'12px'},
     soft:{hBg:'linear-gradient(135deg,#667eea,#764ba2)',hTxt:'#fff',acc:'#F093FB',uBg:'linear-gradient(135deg,#667eea,#764ba2)',uTxt:'#fff',bBg:'#fff',bTxt:'#4a4a68',pBg:'#f5f3fa',iBg:'#fff',iBdr:'#e8e0f0',iTxt:'#4a4a68',pwBg:'#fff',bbBg:'linear-gradient(135deg,#667eea,#764ba2)',rad:'20px'},
   };
 
-  var tn=(PLAN==='starter')?'minimal':(cfg.theme||'minimal');
+  var tn=(PLAN==='starter')?(cfg.starterTheme==='light'?'minimal':'dark'):(cfg.theme||'minimal');
   var base=TH[tn]||TH.minimal;
   var T;
   if(PLAN==='starter'){
@@ -121,7 +123,7 @@ ${cCSS}`;}
     // Build widget HTML inside a wrapper div
     var wrap=document.createElement('div');
     wrap.className='vm-wrap';
-    wrap.innerHTML='<div class="panel" id="panel"><div class="hdr"><div class="hav">'+avContent+'</div><div class="hi"><div class="hn" id="hn">'+bn+'</div><div class="hs"><span class="dot"></span>Online</div></div><button class="xb" id="xb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="msgs" id="msgs"></div><div class="ir"><input class="inp" id="inp" type="text" placeholder="'+ph+'" autocomplete="off" maxlength="2000"/><button class="sb" id="sb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>'+(showPW?'<div class="pw">Powered by <a href="https://vegamind.qbsglobal.ae" target="_blank" rel="noopener">VegaMind</a></div>':'')+'</div><button class="bbl" id="bbl"><div class="bdg" id="bdg">1</div><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 15c0 .53-.21 1.04-.59 1.41-.37.38-.88.59-1.41.59H7l-4 4V5c0-.53.21-1.04.59-1.41C3.96 3.21 4.47 3 5 3h14c.53 0 1.04.21 1.41.59.38.37.59.88.59 1.41v10z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="ix" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></button>';
+    wrap.innerHTML='<div class="panel" id="panel"><div class="hdr"><div class="hav">'+avContent+'</div><div class="hi"><div class="hn" id="hn">'+bn+'</div><div class="hs"><span class="dot"></span>Online</div></div><button class="xb" id="xb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="msgs" id="msgs"></div><div class="ir"><input class="inp" id="inp" type="text" placeholder="'+ph+'" autocomplete="off" maxlength="2000"/><button class="sb" id="sb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>'+(showPW?'<div class="pw">Powered by <a href="https://qbsglobal.ae/VegaMind/VM-landing.html" target="_blank" rel="noopener">VegaMind</a></div>':'')+'</div><button class="bbl" id="bbl"><div class="bdg" id="bdg">1</div><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 15c0 .53-.21 1.04-.59 1.41-.37.38-.88.59-1.41.59H7l-4 4V5c0-.53.21-1.04.59-1.41C3.96 3.21 4.47 3 5 3h14c.53 0 1.04.21 1.41.59.38.37.59.88.59 1.41v10z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="ix" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></button>';
     shadow.appendChild(wrap);
 
     if(cfg.openOnLoad) setTimeout(toggle,600);

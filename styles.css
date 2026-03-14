@@ -1039,7 +1039,7 @@ canvas#particles {
 
 .vm-headline {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
   line-height: 0.92;
   color: var(--text);
   margin: 0.75rem 0 1.25rem;
@@ -1377,7 +1377,7 @@ canvas#particles {
     grid-template-columns: 1fr;
     gap: 3.5rem;
   }
-  .vm-headline { font-size: clamp(3rem, 10vw, 5rem); }
+  .vm-headline { font-size: clamp(2rem, 8vw, 3.2rem); }
   .vm-sub { max-width: 100%; }
   .vm-intro-visual { justify-content: flex-start; }
   .vm-chat-card { max-width: 100%; }

@@ -1,0 +1,36 @@
+# QBS Global — llms.txt
+# https://qbsglobal.ae
+
+> QBS Global is a Dubai-based B2B automation and AI services company. We help UAE SMEs eliminate manual work, deploy AI agents, and build digital presence. Our product VegaMind is an embeddable AI chat widget.
+
+## Key Pages
+
+- Homepage (English): https://qbsglobal.ae/
+- Homepage (Arabic): https://qbsglobal.ae/ar/
+- Blog: https://qbsglobal.ae/blog/
+- VegaMind Product: https://qbsglobal.ae/VegaMind/VM-landing.html
+
+## Blog Articles
+
+- Your Business Is Invisible Online: https://qbsglobal.ae/blog/B1-YourBusinessIsInvisible.html
+
+## Services
+
+- Business automation engineering (n8n, workflow automation, CRM integration)
+- AI agent deployment (VegaMind chat widget, custom AI agents)
+- Digital presence management (branding, social media, web development)
+- HR automation (recruitment, onboarding, MOHRE compliance)
+
+## Product: VegaMind
+
+VegaMind is an AI chat widget that embeds on any website with one line of code.
+Pricing: Spark (free), Orbit ($24/mo), Nova (custom enterprise).
+Embed: <script src="https://qbsglobal.ae/widget/loader.js" async data-vegamind-key="YOUR_KEY"></script>
+
+## Company
+
+- Legal name: QBS Global FZCO
+- Location: Dubai, UAE (IFZA Free Zone)
+- Contact: hello@qbsglobal.ae
+- Languages: English, Arabic
+- Target market: UAE SMEs, Middle East B2B

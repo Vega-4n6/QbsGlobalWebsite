@@ -935,115 +935,302 @@ select.mi{cursor:none}
 <div id="toaster"></div>
 
 <script>
+// ══ CONFIG ══
+var SBURL      = 'https://lyiqesxemmisigccslfn.supabase.co';
+var SBANON     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5aXFlc3hlbW1pc2lnY2NzbGZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTQwNzgsImV4cCI6MjA4ODIzMDA3OH0.QIdGOfuIm4om3nrWBnBb02slLrZLSbN9fuNiKkDgJ9s';
+// ⚠️  SERVICE ROLE KEY — bypasses RLS for admin reads/writes across all tenants.
+// Keep this file server-side or behind auth. Never expose to end-users.
+var SBSERVICE  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5aXFlc3hlbW1pc2lnY2NzbGZuIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjY1NDA3OCwiZXhwIjoyMDg4MjMwMDc4fQ.0JSwaGJ1N9yO6x3wGeR8023IaKSUQVSTJ3A_6Te40PM';
+var LOGIN_URL  = 'vegamind-login.html';
+var sb = supabase.createClient(SBURL, SBANON);  // used for Auth only
+var AUTH_TOKEN = '';  // still stored for reference / non-admin calls
+
+// ══ DATA STORE (replaces hardcoded arrays) ══
+var clients = [];
+var bots = [];
+var conversations = [];
+var leads = [];
+var activities = [];
+var sparkData = [];
+var planCounts = {};
+
 // ══ AUTH GUARD ══
 (function(){
-  var SUPABASE_URL = 'https://lyiqesxemmisigccslfn.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5aXFlc3hlbW1pc2lnY2NzbGZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTQwNzgsImV4cCI6MjA4ODIzMDA3OH0.QIdGOfuIm4om3nrWBnBb02slLrZLSbN9fuNiKkDgJ9s';
-  var LOGIN_URL = 'vegamind-login.html';
-  var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   sb.auth.getSession().then(function(result){
     var session = result.data.session;
     if (!session) { window.location.href = LOGIN_URL; return; }
 
-    // Decode JWT to check role
     var payload = JSON.parse(atob(session.access_token.split('.')[1]));
     var role = payload.user_role || payload.app_metadata?.role || '';
     if (role !== 'super_admin') {
-      // Not a super admin — send to client dashboard or login
       window.location.href = role ? 'VM-clientDashboard.html' : LOGIN_URL;
       return;
     }
 
-    // Authorised — populate admin identity and reveal app
+    AUTH_TOKEN = session.access_token;
     var email = session.user.email || 'Admin';
     var nameEl = document.querySelector('.sb-user-name');
     var roleEl = document.querySelector('.sb-user-role');
     if (nameEl) nameEl.textContent = email.split('@')[0];
     if (roleEl) roleEl.textContent = 'Super Admin';
 
-    // Wire logout
     var foot = document.querySelector('.sb-foot');
     if (foot) {
       var logoutBtn = document.createElement('button');
       logoutBtn.textContent = 'Sign out';
-      logoutBtn.style.cssText = 'margin-top:10px;width:100%;padding:7px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:7px;color:#ef4444;font-size:12px;cursor:pointer;font-family:inherit';
+      logoutBtn.style.cssText = 'margin-top:10px;width:100%;padding:7px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#ef4444;font-size:12px;cursor:pointer;font-family:inherit';
       logoutBtn.onclick = function(){ sb.auth.signOut().then(function(){ window.location.href = LOGIN_URL; }); };
       foot.appendChild(logoutBtn);
     }
 
-    // Show app
     document.getElementById('auth-guard').classList.add('hidden');
     document.getElementById('app-shell').style.display = '';
-
-    // Keep session alive
     sb.auth.onAuthStateChange(function(event, s){ if (!s) window.location.href = LOGIN_URL; });
+
+    loadAdminData();
   });
 })();
 
-// ══ DATA ══
-var clients = [
-  {id:1,fn:'Sara',ln:'Al-Mansoori',email:'sara@emiratesprops.ae',company:'Emirates Properties',plan:'orbit',status:'active',bots:2,convs:847,joined:'2026-01-12',notes:''},
-  {id:2,fn:'Khalid',ln:'Barakat',email:'khalid@zoukcommerce.ae',company:'Zouk Commerce',plan:'orbit',status:'active',bots:1,convs:503,joined:'2026-01-20',notes:''},
-  {id:3,fn:'Rania',ln:'Yousef',email:'rania@meridiandigital.ae',company:'Meridian Digital',plan:'nova',status:'active',bots:6,convs:2341,joined:'2025-12-05',notes:'Agency reseller'},
-  {id:4,fn:'Hassan',ln:'Al-Farsi',email:'hassan@luxuria.ae',company:'Luxuria Interiors',plan:'spark',status:'active',bots:1,convs:211,joined:'2026-02-01',notes:''},
-  {id:5,fn:'Nadia',ln:'Chaudhry',email:'nadia@propdesk.ae',company:'PropDesk',plan:'trial',status:'active',bots:1,convs:88,joined:'2026-02-20',notes:'Trial expires Mar 6'},
-  {id:6,fn:'Omar',ln:'Shaikh',email:'omar@skylinere.ae',company:'Skyline RE',plan:'orbit',status:'pending',bots:1,convs:0,joined:'2026-03-01',notes:''},
-  {id:7,fn:'Layla',ln:'Hassan',email:'layla@novahome.ae',company:'Nova Home',plan:'spark',status:'pending',bots:1,convs:0,joined:'2026-03-02',notes:''},
-  {id:8,fn:'Tariq',ln:'Mahmood',email:'tariq@digitalbay.ae',company:'Digital Bay',plan:'orbit',status:'pending',bots:2,convs:0,joined:'2026-03-03',notes:''},
-  {id:9,fn:'Aya',ln:'Faisal',email:'aya@glowspa.ae',company:'Glow Spa & Wellness',plan:'spark',status:'pending',bots:1,convs:0,joined:'2026-03-04',notes:''},
-  {id:10,fn:'Yusuf',ln:'Al-Rashidi',email:'yusuf@cargolink.ae',company:'CargoLink',plan:'orbit',status:'pending',bots:1,convs:0,joined:'2026-03-05',notes:''},
-];
+// ══ REST HELPERS (service_role — bypasses RLS, reads/writes all tenants) ══
+function _adminHeaders(extra) {
+  return Object.assign({
+    'apikey': SBSERVICE,
+    'Authorization': 'Bearer ' + SBSERVICE,
+    'Content-Type': 'application/json'
+  }, extra || {});
+}
 
-var bots = [
-  {id:1,name:'Aria',client_id:1,type:'Sales Bot',personality:'Balanced',key:'cust_aria_x7k2',webhook:'https://n8n.qbs.ae/webhook/aria-sales',active:true,convs:847},
-  {id:2,name:'Luna',client_id:1,type:'Support Bot',personality:'Funny',key:'cust_luna_p3m9',webhook:'https://n8n.qbs.ae/webhook/luna-support',active:true,convs:312},
-  {id:3,name:'Max',client_id:2,type:'Sales Bot',personality:'Tech Savvy',key:'cust_max_q1b5',webhook:'https://n8n.qbs.ae/webhook/max-sales',active:true,convs:503},
-  {id:4,name:'Zara',client_id:3,type:'E-commerce Bot',personality:'Playful',key:'cust_zara_w8n2',webhook:'https://n8n.qbs.ae/webhook/zara-ecom',active:true,convs:891},
-  {id:5,name:'Nova',client_id:3,type:'Sales Bot',personality:'Balanced',key:'cust_nova_k4r7',webhook:'https://n8n.qbs.ae/webhook/nova-sales',active:true,convs:1450},
-  {id:6,name:'Atlas',client_id:4,type:'Booking Bot',personality:'Balanced',key:'cust_atlas_j2c6',webhook:'https://n8n.qbs.ae/webhook/atlas-book',active:true,convs:211},
-  {id:7,name:'Mira',client_id:5,type:'Sales Bot',personality:'Playful',key:'cust_mira_d5f1',webhook:'',active:false,convs:88},
-  {id:8,name:'Bolt',client_id:6,type:'Sales Bot',personality:'Balanced',key:'cust_bolt_r9t3',webhook:'',active:false,convs:0},
-  {id:9,name:'Sage',client_id:7,type:'Support Bot',personality:'Tech Savvy',key:'cust_sage_v6h8',webhook:'',active:false,convs:0},
-  {id:10,name:'Kleo',client_id:8,type:'Sales Bot',personality:'Funny',key:'cust_kleo_m2s4',webhook:'',active:false,convs:0},
-  {id:11,name:'Rio',client_id:8,type:'Booking Bot',personality:'Playful',key:'cust_rio_b7w9',webhook:'',active:false,convs:0},
-  {id:12,name:'Ivy',client_id:9,type:'Sales Bot',personality:'Balanced',key:'cust_ivy_n1p5',webhook:'',active:false,convs:0},
-  {id:13,name:'Rex',client_id:10,type:'Support Bot',personality:'Balanced',key:'cust_rex_a3q7',webhook:'',active:false,convs:0},
-];
+// GET / SELECT
+function sbr(table, query) {
+  var url = SBURL + '/rest/v1/' + table + (query ? '?' + query : '');
+  return fetch(url, { headers: _adminHeaders() })
+    .then(function(r) {
+      if (!r.ok) return r.text().then(function(t){ throw new Error(t || 'HTTP ' + r.status); });
+      return r.json();
+    });
+}
 
-var conversations = [
-  {id:'sess_7f2a',bot:'Aria',client:'Emirates Properties',msgs:12,dur:'4m 32s',lead:true,started:'2026-03-05 14:22'},
-  {id:'sess_3c9b',bot:'Max',client:'Zouk Commerce',msgs:7,dur:'2m 10s',lead:false,started:'2026-03-05 14:18'},
-  {id:'sess_1e4d',bot:'Nova',client:'Meridian Digital',msgs:18,dur:'8m 05s',lead:true,started:'2026-03-05 14:15'},
-  {id:'sess_8a2f',bot:'Zara',client:'Meridian Digital',msgs:5,dur:'1m 45s',lead:false,started:'2026-03-05 14:10'},
-  {id:'sess_6b7c',bot:'Luna',client:'Emirates Properties',msgs:9,dur:'3m 20s',lead:true,started:'2026-03-05 13:55'},
-  {id:'sess_2d5e',bot:'Atlas',client:'Luxuria Interiors',msgs:14,dur:'6m 12s',lead:true,started:'2026-03-05 13:40'},
-  {id:'sess_4f8a',bot:'Mira',client:'PropDesk',msgs:3,dur:'0m 58s',lead:false,started:'2026-03-05 13:22'},
-  {id:'sess_9g3h',bot:'Aria',client:'Emirates Properties',msgs:22,dur:'11m 30s',lead:true,started:'2026-03-05 12:50'},
-];
+// PATCH / UPDATE
+function sbrPatch(table, query, body) {
+  var url = SBURL + '/rest/v1/' + table + (query ? '?' + query : '');
+  return fetch(url, {
+    method: 'PATCH',
+    headers: _adminHeaders({ 'Prefer': 'return=representation' }),
+    body: JSON.stringify(body)
+  }).then(function(r) {
+    if (!r.ok) return r.text().then(function(t){ throw new Error(t || 'HTTP ' + r.status); });
+    return r.json();
+  });
+}
 
-var leads = [
-  {name:'Mohammed Al-Aziz',email:'m.alaziz@gmail.com',phone:'+971 50 234 5678',bot:'Aria',client:'Emirates Properties',date:'2026-03-05 14:22'},
-  {name:'Fatima Khalid',email:'fatima.k@hotmail.com',phone:'+971 55 876 4321',bot:'Nova',client:'Meridian Digital',date:'2026-03-05 14:15'},
-  {name:'James Whitmore',email:'j.whitmore@company.com',phone:'+44 7700 900123',bot:'Luna',client:'Emirates Properties',date:'2026-03-05 13:55'},
-  {name:'Aisha Al-Hamdan',email:'aisha@mail.ae',phone:'+971 52 112 3344',bot:'Atlas',client:'Luxuria Interiors',date:'2026-03-05 13:40'},
-  {name:'Raj Patel',email:'raj.patel@biz.in',phone:'+91 98765 43210',bot:'Aria',client:'Emirates Properties',date:'2026-03-05 12:50'},
-  {name:'Chen Wei',email:'c.wei@corp.cn',phone:'+86 138 0013 8000',bot:'Max',client:'Zouk Commerce',date:'2026-03-05 11:30'},
-];
+// POST / INSERT
+function sbrPost(table, body) {
+  var url = SBURL + '/rest/v1/' + table;
+  return fetch(url, {
+    method: 'POST',
+    headers: _adminHeaders({ 'Prefer': 'return=representation' }),
+    body: JSON.stringify(body)
+  }).then(function(r) {
+    if (!r.ok) return r.text().then(function(t){ throw new Error(t || 'HTTP ' + r.status); });
+    return r.json();
+  });
+}
 
-var activities = [
-  {text:'<strong>Aria</strong> captured a lead from Emirates Properties',time:'2m ago',color:'var(--green)'},
-  {text:'<strong>Bolt</strong> (Skyline RE) is awaiting webhook assignment',time:'14m ago',color:'var(--red)'},
-  {text:'New client <strong>Yusuf Al-Rashidi</strong> signed up — CargoLink',time:'38m ago',color:'var(--amber)'},
-  {text:'<strong>Nova</strong> hit 80% usage limit for Meridian Digital',time:'1h ago',color:'var(--amber)'},
-  {text:'<strong>Max</strong> successfully processed 500 conversations',time:'2h ago',color:'var(--green)'},
-  {text:'Client <strong>Nadia Chaudhry</strong> trial expires in 1 day',time:'3h ago',color:'var(--red)'},
-  {text:'<strong>Atlas</strong> booked 3 appointments in the last hour',time:'4h ago',color:'var(--green)'},
-  {text:'Webhook health check — all 7 active bots responding',time:'5h ago',color:'var(--blue)'},
-];
+// DELETE
+function sbrDelete(table, query) {
+  var url = SBURL + '/rest/v1/' + table + (query ? '?' + query : '');
+  return fetch(url, {
+    method: 'DELETE',
+    headers: _adminHeaders({ 'Prefer': 'return=representation' })
+  }).then(function(r) {
+    if (!r.ok) return r.text().then(function(t){ throw new Error(t || 'HTTP ' + r.status); });
+    // DELETE may return 204 No Content
+    return r.status === 204 ? [] : r.json();
+  });
+}
 
-var sparkData = [120,145,98,167,201,183,220,195,245,210,278,301,289,334];
-var planCounts = {nova:3,orbit:11,spark:7,trial:3};
+// ══ LOAD ADMIN DATA ══
+function loadAdminData() {
+  showLoadingState();
+  Promise.all([
+    sbr('profiles', 'select=id,email,first_name,last_name,tenant_id,user_role,created_at,tenants(id,name,plan_id,plans(name))&user_role=neq.super_admin&order=created_at.desc').catch(function(e){ console.warn('profiles:', e.message); return []; }),
+    sbr('bots', 'select=id,name,is_active,settings,tenant_id,created_at,tenants(name)&order=created_at.desc').catch(function(e){ console.warn('bots:', e.message); return []; }),
+    sbr('sessions', 'select=id,tenant_id,bot_id,started_at,bots(name),tenants(name)&order=started_at.desc&limit=200').catch(function(e){ console.warn('sessions:', e.message); return []; }),
+    sbr('leads', 'select=id,name,email,phone,bot_id,tenant_id,created_at,bots(name),tenants(name)&order=created_at.desc&limit=100').catch(function(){ return []; })
+  ]).then(function(results) {
+    processProfiles(results[0]);
+    processBots(results[1]);
+    processConversations(results[2]);
+    processLeads(results[3]);
+    buildActivityFeed();
+    buildSparkData();
+    buildPlanCounts();
+    renderOverview();
+    updatePendingBadge();
+    updateOverviewStats();
+  }).catch(function(e) {
+    console.error('loadAdminData failed:', e);
+    toast('Failed to load data: ' + e.message, 'error');
+  });
+}
+
+function showLoadingState() {
+  var tbody = document.getElementById('clients-tbody');
+  if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--white40)">Loading…</td></tr>';
+  var btbody = document.getElementById('bots-tbody');
+  if (btbody) btbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--white40)">Loading…</td></tr>';
+}
+
+function processProfiles(profiles) {
+  if (!Array.isArray(profiles)) { clients = []; return; }
+  clients = profiles.map(function(p) {
+    var tenant = p.tenants || {};
+    var plan = (tenant.plans && tenant.plans.name) ? tenant.plans.name.toLowerCase() : 'spark';
+    return {
+      id: p.id,
+      fn: p.first_name || (p.email ? p.email.split('@')[0] : 'Unknown'),
+      ln: p.last_name || '',
+      email: p.email || '—',
+      company: tenant.name || '—',
+      plan: plan,
+      status: 'active',
+      bots: 0,
+      convs: 0,
+      joined: p.created_at ? p.created_at.slice(0, 10) : '—',
+      tenant_id: p.tenant_id || (tenant.id || null),
+      notes: ''
+    };
+  });
+}
+
+function processBots(rawBots) {
+  if (!Array.isArray(rawBots)) { bots = []; return; }
+  var tenantBotCount = {};
+  rawBots.forEach(function(b) {
+    if (b.tenant_id) tenantBotCount[b.tenant_id] = (tenantBotCount[b.tenant_id] || 0) + 1;
+  });
+  clients.forEach(function(c) {
+    if (c.tenant_id) c.bots = tenantBotCount[c.tenant_id] || 0;
+  });
+  bots = rawBots.map(function(b) {
+    var s = b.settings || {};
+    var clientMatch = clients.find(function(c){ return c.tenant_id === b.tenant_id; });
+    return {
+      id: b.id,
+      name: b.name || 'Unnamed Bot',
+      client_id: clientMatch ? clientMatch.id : null,
+      tenant_id: b.tenant_id,
+      type: s.bot_type || 'Chat Bot',
+      personality: s.personality || 'Balanced',
+      key: s.widget_key || '—',
+      webhook: s.webhook_url || '',
+      active: !!b.is_active,
+      convs: 0,
+      website: s.website_url || '',
+      created: b.created_at ? b.created_at.slice(0, 10) : '—',
+      _settings: s
+    };
+  });
+}
+
+function processConversations(sessions) {
+  if (!Array.isArray(sessions)) { conversations = []; return; }
+  var botConvMap = {};
+  var tenantConvMap = {};
+  sessions.forEach(function(s) {
+    if (s.bot_id) botConvMap[s.bot_id] = (botConvMap[s.bot_id] || 0) + 1;
+    if (s.tenant_id) tenantConvMap[s.tenant_id] = (tenantConvMap[s.tenant_id] || 0) + 1;
+  });
+  bots.forEach(function(b) { b.convs = botConvMap[b.id] || 0; });
+  clients.forEach(function(c) { c.convs = tenantConvMap[c.tenant_id] || 0; });
+  conversations = sessions.map(function(s) {
+    return {
+      id: 'sess_' + String(s.id || '').slice(0, 6),
+      bot: (s.bots && s.bots.name) ? s.bots.name : '—',
+      client: (s.tenants && s.tenants.name) ? s.tenants.name : '—',
+      msgs: 0,
+      dur: '—',
+      lead: false,
+      started: s.started_at ? s.started_at.slice(0, 16).replace('T', ' ') : '—'
+    };
+  });
+}
+
+function processLeads(rawLeads) {
+  if (!Array.isArray(rawLeads)) { leads = []; return; }
+  leads = rawLeads.map(function(l) {
+    return {
+      name: l.name || '—',
+      email: l.email || '—',
+      phone: l.phone || '—',
+      bot: (l.bots && l.bots.name) ? l.bots.name : '—',
+      client: (l.tenants && l.tenants.name) ? l.tenants.name : '—',
+      date: l.created_at ? l.created_at.slice(0, 16).replace('T', ' ') : '—'
+    };
+  });
+}
+
+function buildActivityFeed() {
+  activities = [];
+  var pendingBots = bots.filter(function(b){ return !b.webhook; });
+  pendingBots.slice(0, 3).forEach(function(b) {
+    var c = clients.find(function(x){ return x.tenant_id === b.tenant_id; }) || {};
+    activities.push({ text: '<strong>' + esc(b.name) + '</strong> (' + esc(c.company || '—') + ') awaiting webhook', time: 'pending', color: 'var(--red)' });
+  });
+  var recentClients = clients.slice(0, 5);
+  recentClients.forEach(function(c) {
+    activities.push({ text: 'Client <strong>' + esc(c.fn + ' ' + c.ln) + '</strong> signed up — ' + esc(c.company), time: c.joined, color: 'var(--amber)' });
+  });
+  var topBots = bots.filter(function(b){ return b.active && b.convs > 0; }).sort(function(a,b){ return b.convs - a.convs; }).slice(0, 3);
+  topBots.forEach(function(b) {
+    activities.push({ text: '<strong>' + esc(b.name) + '</strong> — ' + b.convs.toLocaleString() + ' total conversations', time: 'active', color: 'var(--green)' });
+  });
+  if (!activities.length) {
+    activities.push({ text: 'No recent activity', time: '—', color: 'var(--white40)' });
+  }
+}
+
+function buildSparkData() {
+  var dailyMap = {};
+  conversations.forEach(function(c) {
+    var day = c.started ? c.started.slice(0, 10) : null;
+    if (day) dailyMap[day] = (dailyMap[day] || 0) + 1;
+  });
+  var now = new Date();
+  sparkData = [];
+  for (var i = 13; i >= 0; i--) {
+    var d = new Date(now);
+    d.setDate(d.getDate() - i);
+    var key = d.toISOString().slice(0, 10);
+    sparkData.push(dailyMap[key] || 0);
+  }
+  if (sparkData.every(function(v){ return v === 0; })) {
+    sparkData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  }
+}
+
+function buildPlanCounts() {
+  planCounts = {};
+  clients.forEach(function(c) {
+    planCounts[c.plan] = (planCounts[c.plan] || 0) + 1;
+  });
+}
+
+function updateOverviewStats() {
+  var totalClients = clients.length;
+  var activeBots = bots.filter(function(b){ return b.active; }).length;
+  var totalConvs = conversations.length;
+  var pending = bots.filter(function(b){ return !b.webhook; }).length;
+
+  var cards = document.querySelectorAll('#page-overview .stat-card .sc-val');
+  if (cards[0]) cards[0].textContent = totalClients;
+  if (cards[1]) cards[1].textContent = activeBots;
+  if (cards[2]) cards[2].textContent = totalConvs.toLocaleString();
+  if (cards[3]) cards[3].textContent = pending;
+
+  document.getElementById('client-count').textContent = '(' + totalClients + ')';
+}
 
 var currentBotFilter = 'all';
 var selectedBotId = null;
@@ -1169,12 +1356,13 @@ function renderBots(){
     : currentBotFilter==='active'
     ? bots.filter(function(b){return b.active})
     : bots;
+  if(!data.length){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--white40)">No bots found</td></tr>';return;}
   tbody.innerHTML = data.map(function(b){
-    var client = clients.find(function(c){return c.id===b.client_id})||{};
+    var client = clients.find(function(c){return c.tenant_id===b.tenant_id})||{};
     var haswh = !!b.webhook;
     return '<tr>'+
-      '<td><div class="td-name"><div class="td-avatar" style="background:'+clientColor(b.id*3)+'">'+b.name[0]+'</div>'+b.name+'</div></td>'+
-      '<td>'+client.company+'</td>'+
+      '<td><div class="td-name"><div class="td-avatar" style="background:'+clientColor(b.id)+'">'+b.name[0]+'</div>'+b.name+'</div></td>'+
+      '<td>'+(client.company||b._settings&&b._settings.website_url||'—')+'</td>'+
       '<td><span class="badge badge-blue"><span class="badge-dot"></span>'+b.type+'</span></td>'+
       '<td class="td-mono" style="font-size:.7rem">'+b.personality+'</td>'+
       '<td><div style="display:flex;align-items:center;gap:.4rem">'+
@@ -1224,7 +1412,9 @@ function toggleBot(id, val){
   if(!bot) return;
   if(val && !bot.webhook){toast('Assign a webhook first before activating','error');setTimeout(function(){renderBots()},100);return}
   bot.active = val;
-  toast(bot.name+' '+(val?'activated ✓':'deactivated'), val?'success':'info');
+  sbrPatch('bots', 'id=eq.'+id, {is_active: val})
+    .then(function(){ toast(bot.name+' '+(val?'activated ✓':'deactivated'), val?'success':'info'); })
+    .catch(function(e){ bot.active = !val; toast('Save failed: '+e.message,'error'); renderBots(); });
   updatePendingBadge();
 }
 
@@ -1303,19 +1493,22 @@ function pingAll(){
 function renderBilling(){
   var bb = document.getElementById('billing-breakdown');
   if(!bb) return;
-  var items = [
-    {plan:'Nova',count:3,price:399,color:'var(--violet)'},
-    {plan:'Orbit',count:11,price:149,color:'var(--amber)'},
-    {plan:'Spark',count:7,price:49,color:'var(--blue)'},
-    {plan:'Trial',count:3,price:0,color:'var(--white40)'},
-  ];
+  var PRICES = {nova:399,orbit:149,spark:49,trial:0};
+  var COLORS = {nova:'var(--violet)',orbit:'var(--amber)',spark:'var(--blue)',trial:'var(--white40)'};
+  var items = Object.keys(PRICES).map(function(plan){
+    return {plan:plan,count:planCounts[plan]||0,price:PRICES[plan],color:COLORS[plan]};
+  }).filter(function(i){return i.count>0;});
+  if(!items.length){bb.innerHTML='<div style="padding:2rem;text-align:center;color:var(--white40);font-size:.82rem">No billing data yet</div>';return;}
   bb.innerHTML = items.map(function(i){
     var mrr = i.count*i.price;
     return '<div class="metric-row">'+
-      '<div class="metric-label"><span class="plan-pill plan-'+i.plan.toLowerCase()+'">'+i.plan+'</span>'+i.count+' clients</div>'+
+      '<div class="metric-label"><span class="plan-pill plan-'+i.plan+'">'+i.plan+'</span>'+i.count+' client'+(i.count!==1?'s':'')+'</div>'+
       '<div style="font-family:var(--font-m);font-size:.82rem;color:var(--white)">'+(mrr>0?'$'+mrr.toLocaleString()+'/mo':'—')+'</div>'+
     '</div>';
   }).join('');
+  var mrr = items.reduce(function(sum,i){return sum+i.count*i.price;},0);
+  var mrrEl = document.querySelector('#page-billing .sc-val');
+  if(mrrEl) mrrEl.textContent = '$'+mrr.toLocaleString();
 }
 
 // ══ WEBHOOK MODAL ══
@@ -1324,7 +1517,7 @@ function openWebhookModalBot(botId){
   _webhookBotId = botId;
   var bot = bots.find(function(b){return b.id===botId});
   if(!bot) return;
-  var client = clients.find(function(c){return c.id===bot.client_id})||{};
+  var client = clients.find(function(c){return c.tenant_id===bot.tenant_id})||{};
   document.getElementById('aw-bot-info').innerHTML =
     '<div style="display:flex;gap:1rem;background:var(--bg3);border:1px solid var(--border);padding:.75rem 1rem;margin-bottom:.2rem">'+
       '<div style="flex:1">'+
@@ -1349,7 +1542,7 @@ function openWebhookModalBot(botId){
 function openWebhookModal(clientId){
   var client = clients.find(function(c){return c.id===clientId});
   if(!client) return;
-  var pendingBots = bots.filter(function(b){return b.client_id===clientId && !b.webhook});
+  var pendingBots = bots.filter(function(b){return (b.tenant_id===client.tenant_id || b.client_id===clientId) && !b.webhook});
   if(pendingBots.length>0) openWebhookModalBot(pendingBots[0].id);
   else toast('No pending bots for this client','info');
 }
@@ -1360,21 +1553,33 @@ function saveWebhook(){
   if(!url){toast('Please enter a webhook URL','error');return}
   if(!url.startsWith('http')){toast('URL must start with http','error');return}
   var bot = bots.find(function(b){return b.id===_webhookBotId});
-  if(bot){
-    bot.webhook = url;
-    bot.active = activate;
-    toast(bot.name+' webhook assigned'+(activate?' & activated':'')+' ✓','success');
-  }
-  closeModal('assign-webhook');
-  updatePendingBadge();
-  renderBots();
+  if(!bot) return;
+  var newSettings = Object.assign({}, bot._settings || {}, {webhook_url: url});
+  var saveBtn = document.querySelector('#modal-assign-webhook .btn-amber');
+  if(saveBtn){ saveBtn.textContent = 'SAVING…'; saveBtn.disabled = true; }
+  sbrPatch('bots', 'id=eq.'+bot.id, {settings: newSettings, is_active: activate})
+    .then(function(){
+      bot.webhook = url;
+      bot._settings = newSettings;
+      bot.active = activate;
+      toast(bot.name+' webhook assigned'+(activate?' & activated':'')+' ✓','success');
+      closeModal('assign-webhook');
+      updatePendingBadge();
+      renderBots();
+    })
+    .catch(function(e){
+      toast('Save failed: '+e.message,'error');
+    })
+    .finally(function(){
+      if(saveBtn){ saveBtn.textContent = 'SAVE & ACTIVATE'; saveBtn.disabled = false; }
+    });
 }
 
 // ══ CLIENT DETAIL ══
 function viewClient(id){
   var c = clients.find(function(x){return x.id===id});
   if(!c) return;
-  var cBots = bots.filter(function(b){return b.client_id===id});
+  var cBots = bots.filter(function(b){return b.tenant_id===c.tenant_id || b.client_id===id});
   document.getElementById('cd-title').innerHTML =
     '<div class="td-avatar" style="background:'+clientColor(id)+';width:32px;height:32px">'+c.fn[0]+'</div>'+
     c.fn+' '+c.ln;
@@ -1419,22 +1624,10 @@ function viewBotDetail(id){
 
 // ══ ADD CLIENT ══
 function addClient(){
-  var fn=document.getElementById('nc-fn').value.trim();
-  var email=document.getElementById('nc-email').value.trim();
-  if(!fn||!email){toast('Name and email are required','error');return}
-  var newClient = {
-    id:clients.length+1,
-    fn:fn,ln:document.getElementById('nc-ln').value.trim(),
-    email:email,
-    company:document.getElementById('nc-company').value.trim()||'—',
-    plan:document.getElementById('nc-plan').value,
-    status:'pending',bots:0,convs:0,
-    joined:new Date().toISOString().slice(0,10),
-    notes:document.getElementById('nc-notes').value.trim()
-  };
-  clients.unshift(newClient);
+  // Creating auth users requires the Supabase Admin API (service role key).
+  // Direct clients to the onboarding page to self-register.
   closeModal('add-client');
-  toast('Client '+fn+' created successfully','success');
+  toast('Use the onboarding link — client self-signup via Supabase Auth','info');
   updatePendingBadge();
   renderClients();
 }
@@ -1494,8 +1687,11 @@ function toast(msg,type){
   setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove()},300)},2800);
 }
 
+// ══ HELPERS ══
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
 // ══ INIT ══
-renderOverview();
+// Data is loaded by loadAdminData() after auth — no renderOverview() on startup
 </script>
 </body>
 </html>

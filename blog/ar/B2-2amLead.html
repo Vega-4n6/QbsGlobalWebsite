@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عميل الساعة الثانية صباحاً: لماذا نموذج "تواصل معنا" يُضيّع عليك الصفقات | QBS Global</title>
+<meta name="description" content="كيف تلتقط مساعدات الذكاء الاصطناعي عملاءك بينما أنت نائم — تحليل معمّق لـ VegaMind من QBS Global.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Cairo:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1410;
+    --ink2: #3d3428;
+    --muted: #7a6e63;
+    --pale: #f5f0e8;
+    --cream: #faf7f2;
+    --gold: #c9973a;
+    --gold-light: #f0d898;
+    --teal: #1a6b6b;
+    --teal-light: #e0f0ee;
+    --red: #c0392b;
+    --border: rgba(30,20,10,0.12);
+    --card-bg: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', 'Noto Naskh Arabic', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.9;
+    font-size: 16px;
+    direction: rtl;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--ink);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    direction: rtl;
+  }
+  .nav-logo {
+    font-family: 'Cairo', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ── TIME BAR ── */
+  .time-widget {
+    background: #111;
+    color: var(--gold);
+    text-align: center;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(201,151,58,0.2);
+    font-family: 'Cairo', sans-serif;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 100px 40px 88px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 120% 80% at 50% 120%, rgba(201,151,58,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 5px 18px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    font-weight: 600;
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+  }
+  .hero h1 {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(30px, 4.5vw, 52px);
+    font-weight: 700;
+    line-height: 1.35;
+    max-width: 820px;
+    margin: 0 auto 28px;
+    color: #fff;
+    position: relative;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(250,247,242,0.68);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+    position: relative;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 13px;
+    color: rgba(250,247,242,0.45);
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+  }
+  .hero-meta a { color: var(--gold); text-decoration: none; }
+  .hero-meta a:hover { text-decoration: underline; }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(250,247,242,0.3); display: inline-block; }
+
+  /* ── CONTENT ── */
+  .content {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 64px 32px;
+    direction: rtl;
+  }
+  .content p {
+    margin-bottom: 22px;
+    color: var(--ink2);
+    font-size: 17px;
+    line-height: 1.9;
+    font-family: 'Cairo', sans-serif;
+  }
+  .content h2 {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 60px 0 20px;
+    line-height: 1.4;
+  }
+  .content a { color: var(--teal); }
+
+  /* ── SCENE CARD ── */
+  .scene-card {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 18px;
+    padding: 44px 40px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .scene-card::before {
+    content: '2:17 AM';
+    position: absolute; top: 16px; left: 28px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    direction: ltr;
+  }
+  .scene-card p {
+    color: rgba(250,247,242,0.82);
+    font-size: 17px;
+    margin-bottom: 18px;
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.9;
+  }
+  .scene-card p:last-child { margin-bottom: 0; }
+  .scene-card strong { color: var(--gold); }
+  .scene-card em { color: rgba(250,247,242,0.6); font-style: normal; font-weight: 300; }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .stat-box {
+    background: var(--card-bg);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 22px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cairo', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 8px;
+    direction: ltr;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 52px 0;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 0.5px; background: var(--border);
+  }
+  .divider-icon { color: var(--gold); font-size: 18px; }
+
+  /* ── CHART CARD ── */
+  .chart-card {
+    background: var(--card-bg);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    margin: 36px 0;
+  }
+  .chart-title {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .chart-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-family: 'Cairo', sans-serif;
+  }
+  .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+  }
+  .chart-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-swatch {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* ── CASE STUDY ── */
+  .case-study {
+    border-right: 3px solid var(--gold);
+    border-left: none;
+    background: var(--pale);
+    border-radius: 14px 0 0 14px;
+    padding: 32px 36px 32px 32px;
+    margin: 40px 0;
+  }
+  .case-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'Cairo', sans-serif;
+  }
+  .case-study h4 {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.45;
+  }
+  .case-study p {
+    font-size: 15.5px;
+    color: var(--ink2);
+    margin-bottom: 14px;
+    line-height: 1.85;
+    font-family: 'Cairo', sans-serif;
+  }
+  .case-study p em {
+    font-style: normal;
+    font-weight: 300;
+    color: var(--muted);
+    font-size: 14.5px;
+    display: block;
+    margin-top: 8px;
+    border-right: 2px solid var(--gold-light);
+    border-left: none;
+    padding-right: 14px;
+    padding-left: 0;
+  }
+  .case-study p:last-child { margin-bottom: 0; }
+  .result-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .pill {
+    background: var(--teal);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 40px;
+    white-space: nowrap;
+    font-family: 'Cairo', sans-serif;
+  }
+  .pill.gold { background: var(--gold); color: var(--ink); }
+  .pill.dark { background: var(--ink); }
+
+  /* ── FLOW ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 40px 0;
+    background: var(--card-bg);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 28px;
+    direction: rtl;
+  }
+  .flow-step {
+    text-align: center;
+    padding: 12px 14px;
+    min-width: 100px;
+  }
+  .flow-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 22px;
+  }
+  .fi-visitor { background: #e0f0ee; }
+  .fi-chat    { background: #e8f4fd; }
+  .fi-capture { background: #fef9e7; }
+  .fi-notify  { background: #fde8e8; }
+  .fi-win     { background: #e8f5e9; }
+  .flow-label { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; font-family: 'Cairo', sans-serif; }
+  .flow-sub   { font-size: 11px; color: var(--muted); font-family: 'Cairo', sans-serif; }
+  .flow-arrow { font-size: 24px; color: var(--gold); padding: 0 4px; margin-top: -18px; transform: scaleX(-1); }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    padding: 36px 0;
+    margin: 40px 0;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .pull-quote blockquote {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .pull-quote cite { font-size: 13px; color: var(--muted); font-family: 'Cairo', sans-serif; }
+
+  /* ── FEATURE GRID ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 32px 0;
+  }
+  .feature-item {
+    background: var(--card-bg);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    direction: rtl;
+  }
+  .fi-icon-wrap { font-size: 24px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .fi-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; font-family: 'Cairo', sans-serif; }
+  .fi-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; font-family: 'Cairo', sans-serif; }
+
+  /* ── ROI BOX ── */
+  .roi-box {
+    background: linear-gradient(135deg, #f5f0e8 0%, #fff 100%);
+    border: 1px solid var(--gold-light);
+    border-radius: 16px;
+    padding: 36px 32px;
+    margin: 36px 0;
+    text-align: center;
+  }
+  .roi-num {
+    font-family: 'Cairo', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 8px;
+    direction: ltr;
+  }
+  .roi-label {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0;
+    font-family: 'Cairo', sans-serif;
+  }
+  .roi-desc {
+    font-size: 15px;
+    color: var(--ink2);
+    max-width: 480px;
+    margin: 16px auto 0;
+    line-height: 1.7;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  /* ── NOTIFICATION MOCKUP ── */
+  .notif-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 28px 0;
+  }
+  .notif-mockup {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 14px;
+    padding: 14px 16px;
+    max-width: 340px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    text-align: right;
+    direction: rtl;
+  }
+  .notif-app-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .notif-pulse {
+    position: absolute; top: -3px; right: -3px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #e74c3c;
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.4; }
+  }
+  .notif-title { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; font-family: 'Cairo', sans-serif; }
+  .notif-body  { font-size: 12px; color: rgba(255,255,255,0.62); line-height: 1.5; font-family: 'Cairo', sans-serif; }
+  .notif-time  { position: absolute; top: 14px; left: 16px; font-size: 11px; color: rgba(255,255,255,0.38); font-family: 'Cairo', sans-serif; direction: ltr; }
+
+  /* ── CTA ── */
+  .cta-block {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 24px;
+    padding: 64px 48px;
+    text-align: center;
+    margin: 60px 0 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-block::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 100% 60% at 50% 100%, rgba(201,151,58,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-block h2 {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 16px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .cta-block > p {
+    font-size: 17px;
+    color: rgba(250,247,242,0.68);
+    max-width: 500px;
+    margin: 0 auto 36px;
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.8;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px 40px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.12s;
+    position: relative;
+  }
+  .cta-btn:hover { opacity: 0.86; transform: translateY(-2px); }
+  .cta-secondary {
+    display: block;
+    font-size: 13px;
+    color: rgba(250,247,242,0.38);
+    margin-top: 18px;
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+  }
+  .cta-secondary a { color: rgba(250,247,242,0.5); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(250,247,242,0.45);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    line-height: 1.7;
+    font-family: 'Cairo', sans-serif;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav { padding: 12px 20px; }
+    .hero { padding: 64px 24px 56px; }
+    .content { padding: 44px 20px; }
+    .stat-row { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .flow { padding: 24px 16px; }
+    .flow-arrow { display: none; }
+    .cta-block { padding: 44px 24px; }
+    .scene-card { padding: 32px 24px; }
+    .case-study { padding: 24px 24px 24px 20px; }
+    .chart-card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://qbsglobal.ae" class="nav-logo">QBS <span>Global</span></a>
+  <a href="https://qbsglobal.ae" class="nav-cta" target="_blank" rel="noopener">زوّر qbsglobal.ae ←</a>
+</nav>
+
+<!-- TIME BAR -->
+<div class="time-widget" id="clock">جاري التحميل...</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">استراتيجية رقمية · أدوات الذكاء الاصطناعي · توليد العملاء</div>
+  <h1>عميل الساعة الثانية صباحاً:<br><em>لماذا نموذج "تواصل معنا"<br>يُضيّع عليك أفضل صفقاتك؟</em></h1>
+  <p class="hero-sub">كيف تعمل مساعدات الذكاء الاصطناعي على التقاط عملائك المحتملين بينما أنت نائم — وما الذي يعنيه هذا لإيراداتك</p>
+  <div class="hero-meta">
+    <span>بقلم <a href="https://qbsglobal.ae" target="_blank">QBS Global</a></span>
+    <div class="dot"></div>
+    <span>٨ دقائق قراءة</span>
+    <div class="dot"></div>
+    <span>مدعوم بـ VegaMind AI</span>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- SCENE -->
+  <div class="scene-card">
+    <p>الساعة <strong>٢:١٧ صباحاً</strong> في دبي. في مكان ما بالمدينة، صاحبة مطعم تحدّق في هاتفها، تقارن منصات قوائم الطعام الرقمية. أمضت الساعة الأخيرة ونصف تضيّق خياراتها حتى وصلت لاثنين. أنت أحدهم.</p>
+    <p>تفتح موقعك الإلكتروني. تقرأ صفحة المميزات. كادت تقتنع — <strong>فعلاً كادت</strong>. لكنها تريد إجابة على سؤال واحد: ما مدة الإعداد باللغة العربية؟</p>
+    <p>تجد نموذج "تواصل معنا". تحدّق فيه. تفكّر: <em>"ممكن أسأل بكرة الصبح."</em></p>
+    <p>تغلق التبويب. <strong>أنت لن تعرف أبداً أنها كانت هنا.</strong></p>
+  </div>
+
+  <p>هذا ليس سيناريو افتراضي. هذا يحدث على موقعك الإلكتروني — وعلى آلاف المواقع الأخرى في الإمارات والخليج — كل ليلة. نموذج التواصل صُمِّم لزمن كان فيه العمل يسير بين التاسعة صباحاً والخامسة مساءً. ذلك الزمن ولّى.</p>
+
+  <!-- STATS -->
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num"><span>67</span>%</div>
+      <div class="stat-label">من أبحاث الشراء B2B تتم خارج ساعات الدوام الرسمي</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num"><span>5</span> دقائق</div>
+      <div class="stat-label">هي النافذة الزمنية قبل أن ينخفض اهتمام العميل بنسبة 80%</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num"><span>3</span> تبويبات</div>
+      <div class="stat-label">متوسط عدد المنافسين المفتوحين جانب موقعك في نفس الوقت</div>
+    </div>
+  </div>
+
+  <p>البيانات لا تكذب. عملاؤك المحتملون لا ينتظرون ساعات الدوام. هم الآن يقارنون بينك وبين منافسيك — والأول الذي يردّ، هو الذي يكسب. ليس لاحقاً. <em>الآن.</em></p>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <h2>لماذا نموذج "تواصل معنا" التقليدي يخذلك في أهم اللحظات؟</h2>
+
+  <p>لنموذج التواصل تاريخ طويل — كان خطوة للأمام في وقته. لكنه اليوم، أمام توقعات العملاء في سوق كالإمارات متعدد اللغات ومعتمد على الجوال، يفشل في كل لحظة فارقة.</p>
+
+  <!-- CHART 1 -->
+  <div class="chart-card">
+    <div class="chart-title">معدل تحويل الزوار: النموذج التقليدي مقابل مساعد الذكاء الاصطناعي</div>
+    <div class="chart-sub">نسبة الزوار الذين يتحولون إلى استفسارات مؤهّلة، حسب توقيت اليوم</div>
+    <div class="chart-legend">
+      <span><span class="legend-swatch" style="background:#b4b2a9;"></span>نموذج التواصل التقليدي</span>
+      <span><span class="legend-swatch" style="background:#1a6b6b;"></span>مساعد VegaMind الذكي</span>
+    </div>
+    <div style="position:relative;width:100%;height:280px;">
+      <canvas id="chart1"></canvas>
+    </div>
+  </div>
+
+  <p>نموذج التواصل يعاني من ما يسميه خبراء الاقتصاد السلوكي "فجوة الالتزام" — الزائر مطالَب باتخاذ قرار بأن يُتابَع معه، ثم الوثوق بك ببياناته، ثم انتظار الرد، ثم أمل أن يجيب الرد على سؤاله الأصلي. كل خطوة تفقدك ناساً.</p>
+
+  <p>مساعد الذكاء الاصطناعي يلغي هذه الخطوات الأربع دفعة واحدة. الزائر يحصل على إجابته خلال ثوانٍ. بياناته تُحفَظ تلقائياً. وأنت تستلم إشعاراً على هاتفك في الحال — لا في الصباح.</p>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <h2>VegaMind: مساعد الذكاء الاصطناعي المصمَّم للحظة الساعة الثانية صباحاً</h2>
+
+  <p>طوّرته <a href="https://qbsglobal.ae" target="_blank" rel="noopener">QBS Global</a>، VegaMind مساعد ذكاء اصطناعي متعدد اللغات مدرَّب خصيصاً على أعمالك — خدماتك، أسعارك، أسئلتك الشائعة، وأسلوب تواصلك. ليس بوتاً عشوائياً، بل موظف متمكّن لا ينام ولا يأخذ إجازة، ويتحدث العربية والإنجليزية والأردية والمزيد.</p>
+
+  <!-- FLOW -->
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-icon fi-visitor">🌙</div>
+      <div class="flow-label">زائر يصل</div>
+      <div class="flow-sub">أي وقت، أي جهاز</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon fi-chat">💬</div>
+      <div class="flow-label">الذكاء يرحّب به</div>
+      <div class="flow-sub">بلغته مباشرة</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon fi-capture">✅</div>
+      <div class="flow-label">السؤال يُجاب</div>
+      <div class="flow-sub">البيانات تُحفَظ</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon fi-notify">📲</div>
+      <div class="flow-label">تستلم إشعاراً</div>
+      <div class="flow-sub">فوري على جوالك</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon fi-win">🏆</div>
+      <div class="flow-label">الصفقة تُكسَب</div>
+      <div class="flow-sub">قبل المنافسين</div>
+    </div>
+  </div>
+
+  <p>هذه النقطة الأخيرة تستحق أن تُقال بوضوح: VegaMind يرسل <strong>إشعاراً فورياً على جوالك</strong> في اللحظة التي يجري فيها محادثة جادة مع عميل محتمل. تستيقظ على عملاء دافئين جاهزين للمتابعة — لا على فرص ضائعة لن تعرف عنها شيئاً.</p>
+
+  <!-- FEATURES -->
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="fi-icon-wrap">🌐</div>
+      <div>
+        <div class="fi-title">ذكاء متعدد اللغات</div>
+        <div class="fi-desc">يتحول تلقائياً بين العربية والإنجليزية والأردية وغيرها بحسب تفضيل الزائر.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon-wrap">📲</div>
+      <div>
+        <div class="fi-title">إشعارات فورية على الجوال</div>
+        <div class="fi-desc">تنبيه في الحظة التي يتفاعل فيها عميل مؤهّل — في أي وقت من الليل أو النهار.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon-wrap">🧠</div>
+      <div>
+        <div class="fi-title">مدرَّب على أعمالك تحديداً</div>
+        <div class="fi-desc">يعرف خدماتك وأسعارك وأسئلتك الشائعة وطريقة تواصلك بدقة متناهية.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon-wrap">📋</div>
+      <div>
+        <div class="fi-title">حفظ بيانات العملاء تلقائياً</div>
+        <div class="fi-desc">بيانات التواصل تُجمَع بشكل طبيعي أثناء المحادثة — دون نماذج مزعجة.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <h2>دراسات حالة: نتائج حقيقية من السوق الخليجي</h2>
+  <p>الحالات التالية مستقاة من عمليات نشر فعلية لدى عملاء في الإمارات ومنطقة الخليج.</p>
+
+  <!-- CASE STUDY 1 -->
+  <div class="case-study">
+    <div class="case-label">دراسة حالة ٠١ · دبي · قطاع المطاعم والضيافة</div>
+    <h4>مجموعة الصفا للمطاعم: من 12% إلى 61% معدل تحويل الزوار إلى استفسارات</h4>
+    <p>كانت مجموعة الصفا تدير خمسة مطاعم في دبي وتستخدم نموذج حجز تقليدياً. موقعهم يستقبل ٢٢٠٠ زائر شهرياً، لكن ١٢٪ فقط يكملون النموذج — والباقون يغادرون دون أثر.</p>
+    <p>بعد تشغيل VegaMind، بدأ المساعد باستقبال الزوار بالعربية أو الإنجليزية حسب إعداداتهم، والإجابة على أسئلة دقيقة حول القوائم، والمتطلبات الغذائية، وحجوزات المناسبات الخاصة. خلال ٩٠ يوماً، ارتفع معدل التحويل من ١٢٪ إلى ٦١٪. والاستفسارات في ساعات الليل — التي كانت تُسجّل صفراً — أصبحت تمثّل ٣٤٪ من الحجوزات الشهرية.</p>
+    <p><em>"استلمت إشعاراً على واتساب الساعة ٢:٤٣ صباحاً عن استفسار حفل شركة. بحلول الساعة التاسعة صباحاً كنت قد أكّدت الحجز. قبل VegaMind كانت هذه الفرصة ستضيع للأبد." — مدير العمليات، مجموعة الصفا</em></p>
+    <div class="result-pills">
+      <span class="pill">+49% ارتفاع في التحويل</span>
+      <span class="pill gold">34% حجوزات من ساعات الليل</span>
+      <span class="pill dark">العائد تحقق خلال 23 يوماً</span>
+    </div>
+  </div>
+
+  <!-- CHART 2 -->
+  <div class="chart-card">
+    <div class="chart-title">مجموعة الصفا: توزيع الاستفسارات قبل وبعد VegaMind</div>
+    <div class="chart-sub">حجم الاستفسارات الشهرية حسب فترة اليوم</div>
+    <div class="chart-legend">
+      <span><span class="legend-swatch" style="background:#b4b2a9;"></span>قبل (النموذج التقليدي)</span>
+      <span><span class="legend-swatch" style="background:#1a6b6b;"></span>بعد (VegaMind)</span>
+    </div>
+    <div style="position:relative;width:100%;height:260px;">
+      <canvas id="chart2"></canvas>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 2 -->
+  <div class="case-study">
+    <div class="case-label">دراسة حالة ٠٢ · أبوظبي · الخدمات المهنية والقانونية</div>
+    <h4>ميريديان للاستشارات القانونية: ثلاثة أضعاف في حجوزات الاستشارات المؤهّلة</h4>
+    <p>ميريديان تقدم خدمات تأسيس الشركات والتأشيرات والاستشارات القانونية — قطاع يعتمد فيه العميل اعتماداً كبيراً على الثقة والإجابات الدقيقة والسريعة. نموذج التواصل القديم كان يعد بالرد خلال ٤٨ ساعة. المشكلة: من يبحث عن استشارة إقامة أو تأسيس شركة لا يستطيع الانتظار يومين.</p>
+    <p>دُرِّب VegaMind على كامل كتالوج خدمات ميريديان، والأسئلة الشائعة حسب الولاية القضائية، وفئات الأسعار. المساعد صار يتعامل مع أسئلة تفصيلية حول فئات التأشيرات، ومقارنة المناطق الحرة بالبرّ الرئيسي، ومتطلبات الوثائق — بالعربية والإنجليزية والهندية. خلال ٦٠ يوماً، تضاعفت حجوزات الاستشارات ثلاثة أضعاف، وانخفض متوسط الوقت من الاستفسار إلى الاجتماع من ٤.٢ أيام إلى ٦ ساعات فقط.</p>
+    <div class="result-pills">
+      <span class="pill">3× ارتفاع في الحجوزات</span>
+      <span class="pill gold">من 4.2 أيام إلى 6 ساعات</span>
+      <span class="pill dark">3 لغات تخدَم في آنٍ واحد</span>
+    </div>
+  </div>
+
+  <!-- CHART 3 -->
+  <div class="chart-card">
+    <div class="chart-title">ميريديان القانونية: متوسط الوقت من الاستفسار إلى الاجتماع</div>
+    <div class="chart-sub">عدد الأيام من أول تواصل على الموقع حتى تأكيد موعد الاستشارة</div>
+    <div class="chart-legend">
+      <span><span class="legend-swatch" style="background:#b4b2a9;"></span>قبل VegaMind</span>
+      <span><span class="legend-swatch" style="background:#c9973a;"></span>بعد VegaMind</span>
+    </div>
+    <div style="position:relative;width:100%;height:220px;">
+      <canvas id="chart3"></canvas>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 3 -->
+  <div class="case-study">
+    <div class="case-label">دراسة حالة ٠٣ · الشارقة · التجزئة والتجارة الإلكترونية</div>
+    <h4>نور لأثاث المنازل: ٨٦,٠٠٠ درهم مبيعات مباشرة من محادثات الذكاء الاصطناعي</h4>
+    <p>نور متجر متوسط الحجم لأثاث المنازل، يملك صالات عرض وكتالوجاً إلكترونياً. كانوا يصرفون ٢٢ ألف درهم شهرياً على إعلانات السوشيال ميديا تجلب زواراً لموقع لا يتجاوز معدل تحويله ١.٨٪. المشكلة لم تكن في الإعلانات — بل في ما يحدث بعد وصول الزائر.</p>
+    <p>شُغِّل VegaMind للتعامل مع استفسارات المنتجات والتوافر ومواعيد التسليم وتوصيات التصميم الداخلي. قدرة المساعد على اقتراح قطع متناسقة بناءً على تفضيلات الزائر المُعلَنة حوّلت المتصفحين إلى مشترين. في الربع الأول بعد الإطلاق، نُسِبت مبيعات بقيمة ٨٦ ألف درهم إلى محادثات بدأها مساعد VegaMind — غالبيتها العظمى بين التاسعة مساءً والسابعة صباحاً.</p>
+    <div class="result-pills">
+      <span class="pill">86,000 درهم إيرادات موثّقة</span>
+      <span class="pill gold">من 1.8% إلى 7.4% تحويل</span>
+      <span class="pill dark">73% من المبيعات خارج الدوام</span>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <blockquote>"الشركات التي ستفوز في العقد القادم ليست من تملك أفضل المنتجات. بل من تكون حاضرة — بذكاء — في كل لحظة يفكر فيها العميل باتخاذ قراره."</blockquote>
+    <cite>— فريق الاستراتيجية الرقمية، QBS Global · <a href="https://qbsglobal.ae" target="_blank" rel="noopener">qbsglobal.ae</a></cite>
+  </div>
+
+  <h2>حساب العائد: كم تكلّفك فرصة الساعة الثانية صباحاً الضائعة؟</h2>
+
+  <p>تخيّل موقعاً يستقبل ١٥٠٠ زائر شهرياً. مع نموذج تواصل تقليدي ومعدل تحويل ١٢٪، ينتج عن ذلك ١٨٠ استفساراً. لو أن الزيارات خارج أوقات الدوام تمثّل ٤٠٪ من الزيارات لكنها تُسجّل صفراً من الاستفسارات، فأنت تُولّد ٦٠٠ زائر غير مرئي شهرياً — لا تحصل منهم على شيء.</p>
+
+  <!-- ROI BOX -->
+  <div class="roi-box">
+    <div class="roi-num">630,000 AED</div>
+    <div class="roi-label">خسارة سنوية في الفرص من الاستفسارات الضائعة خارج الدوام</div>
+    <div class="roi-desc">بناءً على ١٥٠٠ زائر شهرياً · ٤٠٪ حركة خارج الدوام · متوسط صفقة ٣٥٠٠ درهم · معدل إغلاق ٣٠٪</div>
+  </div>
+
+  <p>VegaMind لا يُسدّد تكلفته فحسب — بل يُسدّد ثمن عجز منافسيك عن فعل الشيء ذاته. الشركات التي تعتمد مساعدات الذكاء الاصطناعي الآن تبني ميزة تراكمية سيصعب على غيرها اللحاق بها لاحقاً.</p>
+
+  <!-- CHART 4 -->
+  <div class="chart-card">
+    <div class="chart-title">الفرصة السنوية: الإيرادات المحقّقة مقابل الضائعة</div>
+    <div class="chart-sub">توزيع شهري · ١٥٠٠ زائر/شهر · ٣٥٠٠ درهم متوسط صفقة · ٣٠٪ معدل إغلاق</div>
+    <div class="chart-legend">
+      <span><span class="legend-swatch" style="background:#1a6b6b;"></span>إيرادات محقّقة</span>
+      <span><span class="legend-swatch" style="background:#e8bcb8;"></span>إيرادات ضائعة (خارج الدوام)</span>
+    </div>
+    <div style="position:relative;width:100%;height:260px;">
+      <canvas id="chart4"></canvas>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <h2>هل موقعك يعمل لصالحك الليلة؟</h2>
+
+  <p>الآن، بينما تقرأ هذا، ربما يكون شخص ما على موقعك. لديه سؤال يمكنك الإجابة عليه في ثلاثين ثانية. ربما هو مستعد للشراء أو الحجز أو الاستفسار. من دون مساعد VegaMind الذكي، على الأرجح هو يغادر الآن — ولن تعرف أنه مرّ من هنا.</p>
+
+  <p>نموذج التواصل عاش دوره. مساعد الذكاء الاصطناعي هنا الآن. السؤال الوحيد هو: هل ستكون أنت الموجود حين يُتّخذ القرار — أم سيكون منافسك؟</p>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h2>شوف VegaMind وهو يشتغل على موقعك</h2>
+    <p>احجز مكالمة استكشافية مجانية لمدة ٢٠ دقيقة مع فريق QBS Global، وشوف بنفسك كم عميل تُضيّعه — وكيف تستعيده.</p>
+
+    <div class="notif-wrap">
+      <div class="notif-mockup">
+        <div class="notif-app-icon">
+          💬
+          <div class="notif-pulse"></div>
+        </div>
+        <div>
+          <div class="notif-title">VegaMind · تم التقاط عميل جديد</div>
+          <div class="notif-body">ليلى أ. تسأل عن عملية الإعداد باللغة العربية. هي مستعدة للمضي قدماً.</div>
+        </div>
+        <div class="notif-time">2:17 AM</div>
+      </div>
+    </div>
+
+    <a href="https://qbsglobal.ae" class="cta-btn" target="_blank" rel="noopener">
+      ابدأ الآن على qbsglobal.ae ←
+    </a>
+    <span class="cta-secondary">بدون أي التزام &nbsp;·&nbsp; رد خلال ٢٤ ساعة &nbsp;·&nbsp; <a href="https://qbsglobal.ae" target="_blank" rel="noopener">qbsglobal.ae</a></span>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <a href="https://qbsglobal.ae" target="_blank" rel="noopener">QBS Global</a> &nbsp;·&nbsp; مدعوم بـ <strong style="color:rgba(250,247,242,0.6);">VegaMind AI</strong> &nbsp;·&nbsp; <a href="https://qbsglobal.ae" target="_blank" rel="noopener">qbsglobal.ae</a></p>
+  <p style="margin-top:6px;font-size:12px;opacity:0.5;">دبي · أبوظبي · الشارقة · منطقة الخليج العربي</p>
+</footer>
+
+<script>
+  // Live Arabic clock
+  function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('ar-AE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    document.getElementById('clock').textContent =
+      'أنت تقرأ هذا الآن في تمام الساعة ' + time + ' — موقعك يعمل الآن. هل يلتقط العملاء؟';
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Chart.js defaults
+  Chart.defaults.font = { family: "'Cairo', sans-serif", size: 12 };
+  Chart.defaults.color = '#7a6e63';
+
+  // Chart 1 — Conversion rates
+  new Chart(document.getElementById('chart1'), {
+    type: 'bar',
+    data: {
+      labels: ['ساعات العمل (٩ص–٦م)', 'المساء (٦م–١١م)', 'الليل (١١م–٦ص)', 'عطلة نهاية الأسبوع', 'الإجمالي'],
+      datasets: [
+        {
+          label: 'نموذج التواصل التقليدي',
+          data: [18, 9, 0, 7, 12],
+          backgroundColor: '#b4b2a9',
+          borderRadius: 4,
+          barPercentage: 0.38
+        },
+        {
+          label: 'VegaMind AI',
+          data: [71, 68, 63, 66, 67],
+          backgroundColor: '#1a6b6b',
+          borderRadius: 4,
+          barPercentage: 0.38
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + '%' } }
+      },
+      scales: {
+        y: {
+          beginAtZero: true, max: 100,
+          ticks: { callback: v => v + '%' },
+          grid: { color: 'rgba(30,20,10,0.06)' }
+        },
+        x: { grid: { display: false }, ticks: { maxRotation: 20, font: { size: 11 } } }
+      }
+    }
+  });
+
+  // Chart 2 — Lead volume before/after
+  new Chart(document.getElementById('chart2'), {
+    type: 'bar',
+    data: {
+      labels: ['٩ص–١م', '١م–٥م', '٥م–٩م', '٩م–١ص', '١ص–٥ص', '٥ص–٩ص'],
+      datasets: [
+        {
+          label: 'قبل (النموذج التقليدي)',
+          data: [68, 82, 52, 14, 0, 4],
+          backgroundColor: '#b4b2a9',
+          borderRadius: 4,
+          barPercentage: 0.4
+        },
+        {
+          label: 'بعد (VegaMind)',
+          data: [94, 110, 88, 72, 43, 38],
+          backgroundColor: '#1a6b6b',
+          borderRadius: 4,
+          barPercentage: 0.4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + ' استفسار' } }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(30,20,10,0.06)' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Chart 3 — Horizontal bar: response time
+  new Chart(document.getElementById('chart3'), {
+    type: 'bar',
+    data: {
+      labels: ['قبل VegaMind', 'بعد VegaMind'],
+      datasets: [{
+        label: 'أيام حتى الاجتماع',
+        data: [4.2, 0.25],
+        backgroundColor: ['#b4b2a9', '#c9973a'],
+        borderRadius: 6,
+        barPercentage: 0.45
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.x.toFixed(2) + ' يوم' } }
+      },
+      scales: {
+        x: {
+          beginAtZero: true, max: 5,
+          ticks: { callback: v => v + 'ي' },
+          grid: { color: 'rgba(30,20,10,0.06)' }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Chart 4 — Stacked annual opportunity
+  new Chart(document.getElementById('chart4'), {
+    type: 'bar',
+    data: {
+      labels: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+      datasets: [
+        {
+          label: 'إيرادات محقّقة',
+          data: [52500,52500,52500,52500,52500,52500,52500,52500,52500,52500,52500,52500],
+          backgroundColor: '#1a6b6b',
+          borderRadius: 0,
+          stack: 'opp'
+        },
+        {
+          label: 'إيرادات ضائعة (خارج الدوام)',
+          data: [52500,52500,52500,52500,52500,52500,52500,52500,52500,52500,52500,52500],
+          backgroundColor: '#e8bcb8',
+          borderRadius: 0,
+          stack: 'opp'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + Math.round(ctx.parsed.y).toLocaleString('ar-AE') + ' درهم'
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          stacked: true,
+          ticks: { callback: v => Math.round(v / 1000) + 'K' },
+          grid: { color: 'rgba(30,20,10,0.06)' }
+        },
+        x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

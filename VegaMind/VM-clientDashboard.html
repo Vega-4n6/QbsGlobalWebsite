@@ -282,7 +282,7 @@ td.hi{color:var(--text);font-weight:500}
 
 @media(max-width:900px){
   #sidebar{width:52px;min-width:52px}
-  .sl-name,.sl-sub,.si span,.sbadge,.sf{display:none}
+  .sl img{height:22px}.si span,.sbadge,.sf{display:none}
   .si{justify-content:center;padding:.6rem}.sl{justify-content:center;padding:.7rem}
   .sgrid{grid-template-columns:1fr 1fr}.angrid,.cgrid{grid-template-columns:1fr}
 }
@@ -304,8 +304,7 @@ td.hi{color:var(--text);font-weight:500}
 
 <nav id="sidebar">
   <div class="sl">
-    <div class="sl-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-    <div><div class="sl-name">VegaMind</div><div class="sl-sub">Client Portal</div></div>
+    <img src="vegamind.png" alt="VegaMind" style="height:32px;width:auto;object-fit:contain;flex-shrink:0">
   </div>
   <div class="snav">
     <div class="ss">Main</div>
@@ -452,7 +451,7 @@ td.hi{color:var(--text);font-weight:500}
         <div class="ssdiv"></div>
         <div class="ssitem">Bot ID <code id="cfg-id" style="font-family:var(--fm);font-size:.66rem;color:var(--muted)">—</code></div>
         <div class="ssdiv"></div>
-        <div class="ssitem">Model <code style="font-family:var(--fm);font-size:.66rem;color:var(--muted)">gpt-4o</code></div>
+        <div class="ssitem">Model <code id="cfg-model" style="font-family:var(--fm);font-size:.66rem;color:var(--muted)">—</code></div>
       </div>
       <div class="cgrid">
         <div class="ccard" style="grid-column:1/-1">
@@ -1090,6 +1089,10 @@ function renderPlanBar(planName, used, limit) {
   var pct = limit > 0 ? Math.min(Math.round((used/limit)*100),100) : 0;
   var planEl = document.querySelector('.splan-name');
   if (planEl) planEl.textContent = planName + ' Plan';
+  var pn = planName.toLowerCase();
+  var modelLabel = (pn.includes('basic') || pn.includes('orbit') || pn.includes('pro'))
+    ? 'VegaMind Max' : 'VegaMind Standard';
+  set('cfg-model', modelLabel);
   var detEl = document.getElementById('plan-det');
   if (detEl) detEl.textContent = used.toLocaleString() + ' / ' + (limit?limit.toLocaleString():'∞') + ' messages';
   var fillEl = document.getElementById('plan-fill');

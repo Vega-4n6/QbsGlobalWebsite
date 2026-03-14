@@ -9,11 +9,11 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#060608;
-  --bg2:#0a0a0d;
-  --bg3:#0f0f14;
-  --bg4:#141419;
-  --bg5:#1a1a22;
+  --bg:#0b1120;
+  --bg2:#111827;
+  --bg3:#131c2e;
+  --bg4:#1a2236;
+  --bg5:#1e2a3b;
   --amber:#f59e0b;
   --amber2:#fbbf24;
   --amber3:#fde68a;
@@ -28,7 +28,7 @@
   --blue:#3b82f6;
   --bdim:rgba(59,130,246,0.08);
   --bborder:rgba(59,130,246,0.2);
-  --violet:#7c3aed;
+  --violet:#60a5fa;
   --white:#f0f0f8;
   --white70:rgba(240,240,248,0.7);
   --white40:rgba(240,240,248,0.4);
@@ -41,7 +41,7 @@
   --font-b:'DM Sans',sans-serif;
   --font-m:'DM Mono',monospace;
 }
-html{font-size:14px}
+html{font-size:16px}
 body{background:var(--bg);color:var(--white);font-family:var(--font-b);overflow-x:hidden;cursor:none}
 
 /* cursor */
@@ -299,6 +299,7 @@ tr:hover td{background:var(--white04)}
 }
 .plan-spark{background:var(--bdim);border:1px solid var(--bborder);color:var(--blue)}
 .plan-orbit{background:var(--adim);border:1px solid var(--aborder);color:var(--amber)}
+.plan-galaxy{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);color:#a78bfa}
 .plan-nova{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);color:#a78bfa}
 .plan-trial{background:var(--white04);border:1px solid var(--border);color:var(--white40)}
 
@@ -412,6 +413,28 @@ select.mi{cursor:none}
 @keyframes tOut{to{opacity:0;transform:translateX(8px)}}
 .td{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 
+/* ══ CONVERSATION REPLAY PANEL ══ */
+#conv-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;backdrop-filter:blur(3px)}
+#conv-overlay.open{display:block}
+#conv-panel{position:fixed;top:0;right:0;width:460px;max-width:100vw;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:201;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.16,1,.3,1)}
+#conv-panel.open{transform:translateX(0)}
+.crp-hdr{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:.8rem;flex-shrink:0}
+.crp-titles{flex:1;min-width:0}
+.crp-title{font-family:var(--font-d);font-size:1rem;letter-spacing:.06em;color:var(--white)}
+.crp-sub{font-size:.62rem;color:var(--white40);font-family:var(--font-m);margin-top:.2rem}
+.crp-close{background:none;border:1px solid var(--border);color:var(--white40);width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px))}
+.crp-close:hover{color:var(--white);border-color:var(--white15)}
+.crp-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.6rem}
+.crp-msg{display:flex;flex-direction:column}
+.crp-msg.user{align-items:flex-end}
+.crp-msg.assistant{align-items:flex-start}
+.crp-role{font-size:.58rem;color:var(--white40);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem;padding:0 .2rem}
+.crp-bubble{max-width:84%;padding:.55rem .85rem;font-size:.78rem;line-height:1.55;word-break:break-word;white-space:pre-wrap}
+.crp-msg.user .crp-bubble{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.18);color:var(--white);border-radius:10px 10px 2px 10px}
+.crp-msg.assistant .crp-bubble{background:var(--white04);border:1px solid var(--border);color:var(--white70);border-radius:10px 10px 10px 2px}
+.crp-time{font-size:.57rem;color:var(--white40);font-family:var(--font-m);margin-top:.15rem;padding:0 .2rem}
+.crp-empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--white40);font-size:.75rem}
+
 /* ══ RESPONSIVE ══ */
 @media(max-width:1100px){.stats-row{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
@@ -424,7 +447,7 @@ select.mi{cursor:none}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <!-- Auth Guard Styles -->
 <style>
-#auth-guard{position:fixed;inset:0;background:#060608;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:99999;transition:opacity .3s}
+#auth-guard{position:fixed;inset:0;background:#0b1120;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:99999;transition:opacity .3s}
 #auth-guard.hidden{opacity:0;pointer-events:none}
 .ag-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#f0f0f8;letter-spacing:-.5px}
 .ag-logo span{color:#f59e0b}
@@ -444,12 +467,7 @@ select.mi{cursor:none}
 <aside class="sidebar">
   <div class="sb-top">
     <div class="sb-brand">
-      <div class="sb-gem">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      </div>
-      <div>
-        <div class="sb-title">VegaMind</div>
-      </div>
+      <img src="vegamind.png" alt="VegaMind" style="height:30px;width:auto;object-fit:contain">
     </div>
     <div class="sb-admin-badge">Admin Panel</div>
   </div>
@@ -620,7 +638,7 @@ select.mi{cursor:none}
       <div class="panel-head">
         <div class="panel-title"><div class="panel-title-dot" style="background:var(--amber)"></div>All Clients <span style="font-family:var(--font-m);font-size:.72rem;color:var(--white40);margin-left:.4rem" id="client-count">(24)</span></div>
         <div class="panel-actions">
-          <button class="pa-btn">Export CSV</button>
+          <button class="pa-btn" onclick="exportClients()">Export CSV</button>
           <button class="pa-btn amber" onclick="openModal('add-client')">+ Add Client</button>
         </div>
       </div>
@@ -679,7 +697,7 @@ select.mi{cursor:none}
         <div class="panel-actions">
           <button class="pa-btn">Last 7 days</button>
           <button class="pa-btn">Last 30 days</button>
-          <button class="pa-btn amber">Export</button>
+          <button class="pa-btn amber" onclick="exportConversations()">Export</button>
         </div>
       </div>
       <div class="tbl-wrap">
@@ -716,7 +734,7 @@ select.mi{cursor:none}
     <div class="panel">
       <div class="panel-head">
         <div class="panel-title"><div class="panel-title-dot" style="background:var(--green)"></div>All Leads</div>
-        <div class="panel-actions"><button class="pa-btn amber">Export CSV</button></div>
+        <div class="panel-actions"><button class="pa-btn amber" onclick="exportLeads()">Export CSV</button></div>
       </div>
       <div class="tbl-wrap">
         <table>
@@ -837,12 +855,14 @@ select.mi{cursor:none}
       <label class="ml">Company / Website</label>
       <input class="mi" id="nc-company" placeholder="mycompany.ae">
       <label class="ml">Plan</label>
-      <select class="mi" id="nc-plan">
-        <option value="trial">Free Trial (14 days)</option>
-        <option value="spark">Spark — $49/mo</option>
-        <option value="orbit" selected>Orbit — $149/mo</option>
-        <option value="nova">Nova — $399/mo</option>
+      <select class="mi" id="nc-plan" onchange="onPlanChange(this.value)">
+        <option value="orbit" selected>Orbit — Free Tier</option>
+        <option value="spark">Spark — $25/mo</option>
+        <option value="galaxy">⚗ Galaxy — Internal / Experimental</option>
       </select>
+      <div id="galaxy-warning" style="display:none;margin-top:.5rem;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2);padding:.6rem .85rem;font-size:.7rem;color:#a78bfa;line-height:1.55">
+        <strong style="letter-spacing:.04em">⚗ Galaxy is not a purchasable plan.</strong> Only assign this to internal accounts for testing experimental features. Do not assign to paying clients.
+      </div>
       <label class="ml">Notes (internal only)</label>
       <input class="mi" id="nc-notes" placeholder="Optional internal notes…">
     </div>
@@ -933,6 +953,19 @@ select.mi{cursor:none}
 </div>
 
 <div id="toaster"></div>
+
+<!-- CONVERSATION REPLAY PANEL -->
+<div id="conv-overlay" onclick="closeConvReplay()"></div>
+<div id="conv-panel">
+  <div class="crp-hdr">
+    <div class="crp-titles">
+      <div class="crp-title" id="crp-title">CONVERSATION</div>
+      <div class="crp-sub" id="crp-sub"></div>
+    </div>
+    <button class="crp-close" onclick="closeConvReplay()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="crp-msgs" id="crp-msgs"><div class="crp-empty">Select a conversation to view</div></div>
+</div>
 
 <script>
 // ══ CONFIG ══
@@ -1054,9 +1087,9 @@ function sbrDelete(table, query) {
 function loadAdminData() {
   showLoadingState();
   Promise.all([
-    sbr('profiles', 'select=id,email,first_name,last_name,tenant_id,user_role,created_at,tenants(id,name,plan_id,plans(name))&user_role=neq.super_admin&order=created_at.desc').catch(function(e){ console.warn('profiles:', e.message); return []; }),
+    sbr('profiles', 'select=id,full_name,tenant_id,role,created_at,tenants(id,name,plan_id,plans(name))&role=neq.super_admin&order=created_at.desc').catch(function(e){ console.warn('profiles:', e.message); return []; }),
     sbr('bots', 'select=id,name,is_active,settings,tenant_id,created_at,tenants(name)&order=created_at.desc').catch(function(e){ console.warn('bots:', e.message); return []; }),
-    sbr('sessions', 'select=id,tenant_id,bot_id,started_at,bots(name),tenants(name)&order=started_at.desc&limit=200').catch(function(e){ console.warn('sessions:', e.message); return []; }),
+    sbr('sessions', 'select=id,tenant_id,bot_id,started_at,bots(name),tenants(name),messages(id)&order=started_at.desc&limit=200').catch(function(e){ console.warn('sessions:', e.message); return []; }),
     sbr('leads', 'select=id,name,email,phone,bot_id,tenant_id,created_at,bots(name),tenants(name)&order=created_at.desc&limit=100').catch(function(){ return []; })
   ]).then(function(results) {
     processProfiles(results[0]);
@@ -1066,9 +1099,12 @@ function loadAdminData() {
     buildActivityFeed();
     buildSparkData();
     buildPlanCounts();
-    renderOverview();
     updatePendingBadge();
     updateOverviewStats();
+    // Re-render whichever page is currently active (fixes timing race where user
+    // navigates before data arrives and the table never re-populates)
+    var activePage = document.querySelector('.page-body.active');
+    if(activePage) renderPage(activePage.id.replace('page-',''));
   }).catch(function(e) {
     console.error('loadAdminData failed:', e);
     toast('Failed to load data: ' + e.message, 'error');
@@ -1089,8 +1125,8 @@ function processProfiles(profiles) {
     var plan = (tenant.plans && tenant.plans.name) ? tenant.plans.name.toLowerCase() : 'spark';
     return {
       id: p.id,
-      fn: p.first_name || (p.email ? p.email.split('@')[0] : 'Unknown'),
-      ln: p.last_name || '',
+      fn: (p.full_name ? p.full_name.split(' ')[0] : null) || 'Unknown',
+      ln: (p.full_name ? p.full_name.split(' ').slice(1).join(' ') : '') || '',
       email: p.email || '—',
       company: tenant.name || '—',
       plan: plan,
@@ -1147,9 +1183,10 @@ function processConversations(sessions) {
   conversations = sessions.map(function(s) {
     return {
       id: 'sess_' + String(s.id || '').slice(0, 6),
+      raw_id: s.id || null,
       bot: (s.bots && s.bots.name) ? s.bots.name : '—',
       client: (s.tenants && s.tenants.name) ? s.tenants.name : '—',
-      msgs: 0,
+      msgs: Array.isArray(s.messages) ? s.messages.length : 0,
       dur: '—',
       lead: false,
       started: s.started_at ? s.started_at.slice(0, 16).replace('T', ' ') : '—'
@@ -1306,10 +1343,9 @@ function renderOverview(){
   if(pm){
     var total = clients.length;
     var plans = [
-      {label:'Nova',count:planCounts.nova,color:'var(--violet)'},
       {label:'Orbit',count:planCounts.orbit,color:'var(--amber)'},
       {label:'Spark',count:planCounts.spark,color:'var(--blue)'},
-      {label:'Trial',count:planCounts.trial,color:'var(--white40)'},
+      {label:'Galaxy',count:planCounts.galaxy,color:'#a78bfa'},
     ];
     pm.innerHTML = plans.map(function(p){
       var pct = Math.round((p.count/total)*100);
@@ -1340,8 +1376,8 @@ function renderClients(filter){
       '<td class="td-mono">'+c.convs.toLocaleString()+'</td>'+
       '<td>'+statusBadge(c.status)+'</td>'+
       '<td><div class="act-btns">'+
-        '<button class="act-btn primary" onclick="viewClient('+c.id+')">View</button>'+
-        (c.status==='pending'?'<button class="act-btn danger" onclick="openWebhookModal('+c.id+')">Activate</button>':'<button class="act-btn" onclick="toast(\'Suspend coming soon\',\'info\')">Manage</button>')+
+        '<button class="act-btn primary" onclick="viewClient(\''+c.id+'\')">View</button>'+
+        (c.status==='pending'?'<button class="act-btn danger" onclick="openWebhookModal(\''+c.id+'\')">Activate</button>':'<button class="act-btn" onclick="toast(\'Suspend coming soon\',\'info\')">Manage</button>')+
       '</div></td>'+
     '</tr>';
   }).join('');
@@ -1431,7 +1467,7 @@ function renderConversations(){
       '<td class="td-mono">'+c.dur+'</td>'+
       '<td>'+(c.lead?'<span class="badge badge-green"><span class="badge-dot"></span>Lead</span>':'<span class="badge badge-muted">—</span>')+'</td>'+
       '<td class="td-mono" style="font-size:.7rem">'+c.started+'</td>'+
-      '<td><button class="act-btn" onclick="toast(\'Conversation replay coming soon\',\'info\')">View</button></td>'+
+      '<td><button class="act-btn" onclick="openConvReplay(\''+c.raw_id+'\',\''+c.bot.replace(/'/g,'')+'\',\''+c.client.replace(/'/g,'')+'\',\''+c.started+'\')">View</button></td>'+
     '</tr>';
   }).join('');
 }
@@ -1475,26 +1511,56 @@ function renderAutomation(){
     '</div>';
   }).join('');
   wh.innerHTML = activeBots.map(function(b){
-    var latency = Math.floor(Math.random()*80)+40;
-    var ok = latency < 200;
-    return '<div class="metric-row">'+
-      '<div class="metric-label"><span class="badge '+(ok?'badge-green':'badge-amber')+'" style="font-size:.62rem">'+b.name+'</span></div>'+
-      '<div style="font-family:var(--font-m);font-size:.68rem;color:'+(ok?'var(--green)':'var(--amber)')+'">'+latency+'ms</div>'+
+    return '<div class="metric-row" id="wh-row-'+b.id+'">'+
+      '<div class="metric-label"><span class="badge badge-muted" style="font-size:.62rem">'+esc(b.name)+'</span></div>'+
+      '<div id="wh-stat-'+b.id+'" style="font-family:var(--font-m);font-size:.68rem;color:var(--white40)">—</div>'+
     '</div>';
   }).join('');
+  activeBots.forEach(function(b){ pingWebhook(b); });
+}
+
+function pingWebhook(bot) {
+  var el = document.getElementById('wh-stat-'+bot.id);
+  if (!el) return;
+  el.textContent = 'pinging…';
+  el.style.color = 'var(--white40)';
+  var t0 = performance.now();
+  fetch(bot.webhook, { method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ping:true, source:'vegamind-admin'})
+  }).then(function() {
+    var ms = Math.round(performance.now() - t0);
+    el.textContent = ms + 'ms ✓';
+    el.style.color = ms < 800 ? 'var(--green)' : 'var(--amber)';
+    var row = document.getElementById('wh-row-'+bot.id);
+    if (row) {
+      var dot = row.querySelector('.metric-label div');
+      if (dot) dot.style.background = ms < 800 ? 'var(--green)' : 'var(--amber)';
+    }
+  }).catch(function() {
+    el.textContent = 'unreachable ✗';
+    el.style.color = 'var(--red)';
+    var row = document.getElementById('wh-row-'+bot.id);
+    if (row) {
+      var dot = row.querySelector('.metric-label div');
+      if (dot) dot.style.background = 'var(--red)';
+    }
+  });
 }
 
 function pingAll(){
-  toast('Pinging all webhooks…','info');
-  setTimeout(function(){toast('All 7 webhooks responding ✓','success')},1200);
+  var activeBots = bots.filter(function(b){ return b.webhook; });
+  if (!activeBots.length) { toast('No webhooks configured', 'info'); return; }
+  toast('Pinging ' + activeBots.length + ' webhook' + (activeBots.length===1?'':'s') + '…', 'info');
+  activeBots.forEach(function(b){ pingWebhook(b); });
 }
 
 // ══ BILLING ══
 function renderBilling(){
   var bb = document.getElementById('billing-breakdown');
   if(!bb) return;
-  var PRICES = {nova:399,orbit:149,spark:49,trial:0};
-  var COLORS = {nova:'var(--violet)',orbit:'var(--amber)',spark:'var(--blue)',trial:'var(--white40)'};
+  var PRICES = {orbit:0,spark:25,galaxy:0};
+  var COLORS = {orbit:'var(--amber)',spark:'var(--blue)',galaxy:'#a78bfa'};
   var items = Object.keys(PRICES).map(function(plan){
     return {plan:plan,count:planCounts[plan]||0,price:PRICES[plan],color:COLORS[plan]};
   }).filter(function(i){return i.count>0;});
@@ -1623,13 +1689,92 @@ function viewBotDetail(id){
 }
 
 // ══ ADD CLIENT ══
+function onPlanChange(val) {
+  var w = document.getElementById('galaxy-warning');
+  if (w) w.style.display = val === 'galaxy' ? 'block' : 'none';
+}
+
 function addClient(){
-  // Creating auth users requires the Supabase Admin API (service role key).
-  // Direct clients to the onboarding page to self-register.
-  closeModal('add-client');
-  toast('Use the onboarding link — client self-signup via Supabase Auth','info');
-  updatePendingBadge();
-  renderClients();
+  var fn      = (document.getElementById('nc-fn')||{}).value.trim();
+  var ln      = (document.getElementById('nc-ln')||{}).value.trim();
+  var email   = (document.getElementById('nc-email')||{}).value.trim();
+  var company = (document.getElementById('nc-company')||{}).value.trim();
+  var planVal = (document.getElementById('nc-plan')||{}).value || 'trial';
+  var notes   = (document.getElementById('nc-notes')||{}).value.trim();
+  if (!email)   { toast('Email is required','error'); return; }
+  if (!company) { toast('Company name is required','error'); return; }
+  var fullName = (fn + ' ' + ln).trim() || email.split('@')[0];
+  var btn = document.querySelector('#modal-add-client .btn-amber');
+  btn.disabled = true; btn.textContent = 'Creating…';
+  var planId = null, tenantId = null, inviteLink = null;
+  // Step 1 — look up plan_id
+  sbr('plans', 'name=ilike.' + encodeURIComponent(planVal) + '&select=id&limit=1')
+    .then(function(plans) {
+      planId = (Array.isArray(plans) && plans[0]) ? plans[0].id : null;
+      // Step 2 — generate invite link (creates auth user, returns user id + action_link)
+      return fetch(SBURL + '/auth/v1/admin/generate_link', {
+        method: 'POST',
+        headers: { 'apikey': SBSERVICE, 'Authorization': 'Bearer ' + SBSERVICE, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'invite', email: email, data: { full_name: fullName } })
+      }).then(function(r) {
+        return r.json().then(function(body) {
+          if (!r.ok) throw new Error(body.msg || body.message || body.error_description || 'Invite failed ('+r.status+')');
+          return body;
+        });
+      });
+    })
+    .then(function(linkData) {
+      inviteLink = linkData.action_link || '';
+      // Supabase embeds the user object directly in the response
+      var userId = linkData.id || (linkData.user && linkData.user.id);
+      if (!userId) throw new Error('Could not read user ID from invite response — check Supabase logs');
+      // Step 3 — create tenant
+      return sbrPost('tenants', { name: company, plan_id: planId })
+        .then(function(t) {
+          tenantId = Array.isArray(t) ? t[0].id : t.id;
+          // Step 4 — create profile
+          return sbrPost('profiles', { id: userId, tenant_id: tenantId, role: 'owner', full_name: fullName });
+        });
+    })
+    .then(function() {
+      // Show success + invite link inside the modal
+      var body = document.querySelector('#modal-add-client .modal-body');
+      body.innerHTML =
+        '<div style="text-align:center;padding:.4rem 0 1.1rem">'+
+          '<div style="width:46px;height:46px;background:var(--gdim);border:1px solid var(--gborder);'+
+               'clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);'+
+               'display:flex;align-items:center;justify-content:center;margin:0 auto .9rem">'+
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'+
+          '</div>'+
+          '<div style="font-family:var(--font-d);font-size:1.1rem;color:var(--white);letter-spacing:.04em">Client Created</div>'+
+          '<div style="font-size:.75rem;color:var(--white40);margin-top:.3rem">'+esc(fullName)+' &middot; '+esc(email)+'</div>'+
+        '</div>'+
+        '<div style="background:var(--adim);border:1px solid var(--aborder);padding:.75rem 1rem;margin-bottom:1rem">'+
+          '<div style="font-size:.65rem;color:var(--amber);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem">Invite Link — expires in 24 hours</div>'+
+          '<div style="display:flex;gap:.45rem;align-items:stretch">'+
+            '<input id="invite-link-val" class="mi" readonly value="'+esc(inviteLink)+'" '+
+              'style="flex:1;font-size:.63rem;color:var(--amber);background:rgba(245,158,11,.04);border-color:var(--aborder);cursor:text">'+
+            '<button class="act-btn primary" onclick="copyInviteLink()" style="padding:.45rem .75rem;white-space:nowrap;flex-shrink:0">Copy</button>'+
+          '</div>'+
+          '<div style="font-size:.65rem;color:var(--white40);margin-top:.55rem">Send this link to the client — they will set their password on first login</div>'+
+        '</div>';
+      var foot = document.querySelector('#modal-add-client .modal-foot');
+      foot.innerHTML = '<button class="btn-amber" onclick="closeModal(\'add-client\');loadAdminData()">Done</button>';
+      toast('Client created successfully', 'success');
+    })
+    .catch(function(e) {
+      btn.disabled = false; btn.textContent = 'CREATE CLIENT';
+      toast(e.message || 'Failed to create client', 'error');
+      console.error('addClient:', e);
+    });
+}
+
+function copyInviteLink() {
+  var el = document.getElementById('invite-link-val');
+  if (!el) return;
+  navigator.clipboard.writeText(el.value)
+    .then(function(){ toast('Invite link copied to clipboard','success'); })
+    .catch(function(){ el.select(); document.execCommand('copy'); toast('Invite link copied','success'); });
 }
 
 // ══ SEARCH ══
@@ -1648,8 +1793,10 @@ function statusBadge(s){
   return '<span class="badge '+(map[s]||'badge-muted')+'"><span class="badge-dot '+(dots[s]||'')+'"></span>'+s+'</span>';
 }
 function clientColor(id){
-  var colors=['#7c3aed','#f59e0b','#06b6d4','#10b981','#f43f5e','#6366f1','#ec4899','#84cc16','#f97316','#8b5cf6'];
-  return colors[id%colors.length];
+  var colors=['#38bdf8','#f59e0b','#22d3ee','#10b981','#f43f5e','#60a5fa','#ec4899','#84cc16','#f97316','#a78bfa'];
+  var hash=0; var s=String(id||'');
+  for(var i=0;i<s.length;i++){hash=((hash<<5)-hash)+s.charCodeAt(i);hash|=0;}
+  return colors[Math.abs(hash)%colors.length];
 }
 function updatePendingBadge(){
   var n = bots.filter(function(b){return !b.webhook}).length;
@@ -1666,7 +1813,22 @@ function copyTxt(txt){
 }
 
 // ══ MODALS ══
+var _addClientBodyHTML = null;
+var _addClientFootHTML = null;
 function openModal(name){
+  // Reset add-client modal to blank form if it was previously in success state
+  if (name === 'add-client') {
+    var body = document.querySelector('#modal-add-client .modal-body');
+    var foot = document.querySelector('#modal-add-client .modal-foot');
+    if (!_addClientBodyHTML) { _addClientBodyHTML = body.innerHTML; _addClientFootHTML = foot.innerHTML; }
+    body.innerHTML = _addClientBodyHTML;
+    foot.innerHTML = _addClientFootHTML;
+    ['nc-fn','nc-ln','nc-email','nc-company','nc-notes'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.value = '';
+    });
+    var btn = foot.querySelector('.btn-amber');
+    if (btn) { btn.disabled = false; btn.textContent = 'CREATE CLIENT'; }
+  }
   document.getElementById('modal-'+name).classList.add('open');
   document.querySelectorAll('.modal button,input,select').forEach(function(el){
     el.addEventListener('mouseenter',function(){bigC()});
@@ -1685,6 +1847,74 @@ function toast(msg,type){
   t.innerHTML='<div class="td" style="background:'+(cols[type]||cols.info)+'"></div><span>'+msg+'</span>';
   document.getElementById('toaster').appendChild(t);
   setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove()},300)},2800);
+}
+
+// ══ EXPORT CSV ══
+function exportCSV(filename, headers, rows) {
+  var lines = [headers.map(function(h){ return '"'+String(h).replace(/"/g,'""')+'"'; }).join(',')];
+  rows.forEach(function(row){
+    lines.push(row.map(function(cell){ return '"'+String(cell==null?'':cell).replace(/"/g,'""')+'"'; }).join(','));
+  });
+  var blob = new Blob([lines.join('\r\n')], {type:'text/csv;charset=utf-8;'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href=url; a.download=filename; a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  toast('CSV downloaded: '+filename, 'success');
+}
+function exportClients() {
+  exportCSV('vegamind-clients.csv',
+    ['Name','Email','Company','Plan','Bots','Conversations','Status','Joined'],
+    clients.map(function(c){ return [c.fn+' '+c.ln, c.email, c.company, c.plan, c.bots, c.convs, c.status, c.joined]; })
+  );
+}
+function exportConversations() {
+  exportCSV('vegamind-conversations.csv',
+    ['Session ID','Bot','Client','Messages','Started'],
+    conversations.map(function(c){ return [c.id, c.bot, c.client, c.msgs, c.started]; })
+  );
+}
+function exportLeads() {
+  exportCSV('vegamind-leads.csv',
+    ['Name','Email','Phone','Bot','Client','Captured'],
+    leads.map(function(l){ return [l.name, l.email, l.phone, l.bot, l.client, l.date]; })
+  );
+}
+
+// ══ CONVERSATION REPLAY ══
+function openConvReplay(rawId, bot, client, started) {
+  if (!rawId || rawId === 'null') { toast('No session ID for this conversation', 'error'); return; }
+  var panel = document.getElementById('conv-panel');
+  var overlay = document.getElementById('conv-overlay');
+  var msgs = document.getElementById('crp-msgs');
+  document.getElementById('crp-title').textContent = (bot || 'Bot').toUpperCase() + ' — ' + (client || '');
+  document.getElementById('crp-sub').textContent = 'Session · ' + (started || '');
+  msgs.innerHTML = '<div class="crp-empty">Loading messages…</div>';
+  panel.classList.add('open');
+  overlay.classList.add('open');
+  sbr('messages', 'session_id=eq.'+rawId+'&select=id,role,content,created_at&order=created_at.asc')
+    .then(function(rows) {
+      if (!rows.length) { msgs.innerHTML = '<div class="crp-empty">No messages in this session</div>'; return; }
+      msgs.innerHTML = '';
+      rows.forEach(function(m) {
+        var role = m.role === 'user' ? 'user' : 'assistant';
+        var d = document.createElement('div');
+        d.className = 'crp-msg ' + role;
+        var t = m.created_at ? new Date(m.created_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '';
+        d.innerHTML =
+          '<div class="crp-role">' + (role === 'user' ? 'User' : 'Bot') + '</div>' +
+          '<div class="crp-bubble">' + esc(m.content || '') + '</div>' +
+          '<div class="crp-time">' + t + '</div>';
+        msgs.appendChild(d);
+      });
+      msgs.scrollTop = msgs.scrollHeight;
+    })
+    .catch(function(e) {
+      msgs.innerHTML = '<div class="crp-empty" style="color:var(--red)">'+esc(e.message)+'</div>';
+    });
+}
+function closeConvReplay() {
+  document.getElementById('conv-panel').classList.remove('open');
+  document.getElementById('conv-overlay').classList.remove('open');
 }
 
 // ══ HELPERS ══

@@ -613,7 +613,7 @@ function boot(sess) {
   try {
     const p = JSON.parse(atob(sess.access_token.split('.')[1]));
     VM.tenantId = p.tenant_id || '';
-    VM.userRole = p.user_role  || 'admin';
+    VM.userRole = p.user_role || (p.app_metadata && p.app_metadata.role) || 'admin';
     VM.email    = sess.user.email || '';
     VM.token    = sess.access_token;
   } catch(e) { location.href = LOGIN; return; }
